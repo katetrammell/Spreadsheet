@@ -205,13 +205,13 @@ public class BasicSpreadsheetTest {
   // test that set cell throws invalid row
   @Test (expected = IllegalArgumentException.class)
   public void testSetInvalidRow() {
-    spread1.setCell(new BasicCell<Double>(2.1),3, 0);
+    spread1.setCell(new AbstractBasicCell<Double>(2.1),3, 0);
   }
 
   // test that set cell throws invalid col
   @Test (expected = IllegalArgumentException.class)
   public void testSetInvalidCol() {
-    spread1.setCell(new BasicCell<Double>(2.1),2, -1);
+    spread1.setCell(new AbstractBasicCell<Double>(2.1),2, -1);
   }
 
 }

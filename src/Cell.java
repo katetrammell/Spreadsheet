@@ -2,6 +2,8 @@ import java.util.List;
 
 public interface Cell<T> {
 
+  boolean isNumericValue();
+
   /**
    * Gets a list of cells that reference this cell.
    * @return a list of cells that reference this cell
@@ -20,18 +22,6 @@ public interface Cell<T> {
    */
   T getValue();
 
-  /**
-   * sets the value of this field to the given value
-   * @param value the value to be set
-   */
-  void setValue(T value);
-
-  /**
-   * Sets the formula of the sell to the given formula
-   * @param form the formula to be set
-   * @throws IllegalArgumentException if the given formula contains a circular reference
-   */
-  void setFormula(Formula<T> form);
 
   /**
    * gets the formula of this cell. Returns null if this cell is a value cell.
@@ -39,5 +29,10 @@ public interface Cell<T> {
    */
   Formula getFormula();
 
+  /**
+   * Calculates the numeric value of the cell.
+   * @return the numeric value of the cell (defaults to given value)
+   */
+  Double getNumericValue(double base);
 
 }
