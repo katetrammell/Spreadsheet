@@ -5,6 +5,10 @@ public class BasicCell<T> implements Cell<T> {
   protected Formula<T> formula;
   protected List<Cell> dependencies;
 
+  BasicCell(T val) {
+    this.value = val;
+  }
+
   @Override
   public T getValue() {
     return this.value;

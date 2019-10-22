@@ -41,12 +41,12 @@ public class BasicSpreadsheet implements Spreadsheet {
   }
 
   @Override
-  public Cell getCellAt(int column, int row) {
+  public Cell getCellAt(int row, int col) {
     return null;
   }
 
   @Override
-  public void setCell(Cell c, int column, int row) {
+  public void setCell(Cell c, int row, int col) {
 
   }
 
