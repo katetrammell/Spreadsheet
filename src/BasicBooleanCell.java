@@ -2,6 +2,7 @@ import java.util.List;
 
 public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
 
+  //test
   public BasicBooleanCell(Boolean val) {
     super(val);
   }
