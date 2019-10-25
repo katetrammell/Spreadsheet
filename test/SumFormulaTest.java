@@ -1,12 +1,9 @@
-import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ProductFormulaTest {
-
-  BasicSpreadsheet spread1;
-
+public class SumFormulaTest {
+  Spreadsheet spread1;
 
   @Before
   public void setUp() {
@@ -19,12 +16,14 @@ public class ProductFormulaTest {
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
   }
 
+  /**
+   * Tests Evaluate with 1 num
+   */
   @Test
-  public void testProduct() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    cells.add(spread1.getCellAt(0,0));
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-
-    Assert.assertEquals(prodForm1.evaluate(), 5.0, .001);
+  public void test1Num() {
+    SumFormula sum1 = new SumFormula();
+    sum1.cells.add(spread1.getCellAt(0,0));
+    Assert.assertEquals(sum1.evaluate(), 5.0, .00001);
   }
+
 }
