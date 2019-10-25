@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductFormula implements Formula<Double> {
@@ -5,6 +6,10 @@ public class ProductFormula implements Formula<Double> {
   List<Cell> cells;
   List<Formula<Double>> forms;
 
+  public ProductFormula(ArrayList<Cell> cells, ArrayList<Formula<Double>> forms) {
+    this.cells = cells;
+    this.forms = forms;
+  }
 
   @Override
   public Double evaluate() {

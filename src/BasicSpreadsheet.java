@@ -11,6 +11,7 @@ public class BasicSpreadsheet implements Spreadsheet {
    * Sets all cells in the grid to null
    */
   BasicSpreadsheet(int width, int height) {
+    this.grid = new ArrayList<List<Cell>>();
     for (int row  = 0; row < height; row++) {
       ArrayList<Cell> currRow= new ArrayList<Cell>();
       for (int col = 0; col < width; col++) {
