@@ -56,4 +56,6 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   public  void setDependent(Cell c) {
     this.dependencies.add(c);
   }
+
+
 }

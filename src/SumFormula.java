@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class SumFormula implements Formula<Double> {
@@ -5,6 +6,15 @@ public class SumFormula implements Formula<Double> {
   List<Formula<Double>> forms;
 
 
+  public SumFormula(ArrayList<Cell> cells, ArrayList<Formula<Double>> forms) {
+    this.cells = cells;
+    this.forms = forms;
+  }
+
+  public SumFormula(){
+    this.cells = new ArrayList<Cell>();
+    this.forms = new ArrayList<Formula<Double>>();
+  }
 
   @Override
   public Double evaluate() {

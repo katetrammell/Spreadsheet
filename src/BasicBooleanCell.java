@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Objects;
 
 public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
 
@@ -27,5 +28,17 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
   @Override
   public Double getNumericValue(double base) {
     return base;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if(!(other instanceof BasicBooleanCell)) {
+      return false;
+    } else {
+      BasicBooleanCell otherBC = (BasicBooleanCell) other;
+      return (this.getValue() == otherBC.getValue()
+          && this.getDependencies() == otherBC.getDependencies()
+      && this.getFormula() == otherBC.getFormula());
+    }
   }
 }

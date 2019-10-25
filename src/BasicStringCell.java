@@ -28,4 +28,16 @@ public class BasicStringCell extends AbstractBasicCell<String>{
   public Double getNumericValue(double base) {
     return base;
   }
+
+  @Override
+  public boolean equals(Object other) {
+    if(!(other instanceof BasicStringCell)) {
+      return false;
+    } else {
+      BasicStringCell otherBC = (BasicStringCell) other;
+      return (this.getValue() == otherBC.getValue()
+          && this.getDependencies() == otherBC.getDependencies()
+          && this.getFormula() == otherBC.getFormula());
+    }
+  }
 }
