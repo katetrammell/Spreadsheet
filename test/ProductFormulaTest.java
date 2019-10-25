@@ -24,7 +24,22 @@ public class ProductFormulaTest {
     ArrayList<Cell> cells = new ArrayList<Cell>();
     cells.add(spread1.getCellAt(0,0));
     ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-
     Assert.assertEquals(prodForm1.evaluate(), 5.0, .001);
+  }
+
+  @Test
+  public void testProductStringArg() {
+    ArrayList<Cell> cells = new ArrayList<Cell>();
+    cells.add(spread1.getCellAt(0, 1));
+    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
+    Assert.assertEquals(0.0, prodForm1.evaluate(), .001);
+  }
+
+  @Test
+  public void testProductBooleanArg() {
+    ArrayList<Cell> cells = new ArrayList<Cell>();
+    cells.add(spread1.getCellAt(1, 1));
+    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
+    Assert.assertEquals(0.0, prodForm1.evaluate(), .001);
   }
 }

@@ -21,43 +21,64 @@ public class BasicSpreadsheet implements Spreadsheet {
     }
   }
 
-  @Override
-  public double sum(Cell... range) {
-    return 0;
-  }
 
   @Override
-  public double product(Cell... range) {
-    return 0;
-  }
-
-  @Override
-  public boolean greaterThan(Cell cell1, Cell cell2) {
-    return false;
-  }
-
-  @Override
-  public String concat(Cell... range) {
-    return "";
-  }
-
-  @Override
-  public Cell getCellAt(int row, int col) {
-    return null;
+  public Cell getCellAt(int row, int col) throws IllegalArgumentException {
+    if (row > this.getHeight() | row < 0) {
+      throw new IllegalArgumentException();
+    }
+    if (col > this.getWidth() | col < 0) {
+      throw new IllegalArgumentException();
+    }
+    return grid.get(row).get(col);
   }
 
   @Override
   public void setCell(Cell c, int row, int col) {
+    if (row < 0 | col < 0) {
+      throw new IllegalArgumentException();
+    }
+    this.extendBoard(row - this.getHeight(),
+        col - this.getWidth());
+    this.grid.get(row).set(col, c);
+  }
+
+  /**
+   * Will extend the board by additional rows and columns,
+   *  filling empty spaces with nulls.
+   * @param rowExpansion amount of rows to expand.
+   * @param colExpansion amount of columns to expand.
+   */
+  protected void extendBoard(int rowExpansion, int colExpansion) {
+    while (rowExpansion > 0) {
+      ArrayList<Cell> newRow = new ArrayList<Cell>();
+      for (int i = 0; i < this.getWidth(); i++) {
+        newRow.add(null);
+      }
+      this.grid.add(newRow);
+      rowExpansion--;
+    }
+
+    while (colExpansion > 0) {
+      for (int i = 0; i < this.getHeight(); i++) {
+        this.grid.get(i).add(null);
+      }
+      colExpansion--;
+    }
 
   }
 
   @Override
   public int getWidth() {
-    return 0;
+    if (this.grid.size() == 0) {
+      return 0;
+    } else {
+      return this.grid.get(0).size();
+    }
   }
 
   @Override
   public int getHeight() {
-    return 0;
+    return this.grid.size();
   }
 }
