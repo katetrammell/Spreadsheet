@@ -1,3 +1,5 @@
+package edu.cs3500.spreadsheets.model;
+
 import java.util.List;
 
 public class BasicStringCell extends AbstractBasicCell<String>{

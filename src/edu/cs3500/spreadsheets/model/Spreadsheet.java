@@ -1,3 +1,5 @@
+package edu.cs3500.spreadsheets.model;
+
 /**
  * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X
  */
