@@ -1,3 +1,5 @@
+package edu.cs3500.spreadsheets.model;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

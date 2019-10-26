@@ -37,7 +37,6 @@ import java.util.List;
      } else {
        BasicDoubleCell otherBC = (BasicDoubleCell) other;
        return (this.getValue() == otherBC.getValue()
-           && this.getDependencies() == otherBC.getDependencies()
            && this.getFormula() == otherBC.getFormula());
      }
    }

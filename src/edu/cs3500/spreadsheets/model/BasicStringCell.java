@@ -37,9 +37,13 @@ public class BasicStringCell extends AbstractBasicCell<String>{
       return false;
     } else {
       BasicStringCell otherBC = (BasicStringCell) other;
-      return (this.getValue() == otherBC.getValue()
-          && this.getDependencies() == otherBC.getDependencies()
+      return (this.getValue().equals(otherBC.getValue())
           && this.getFormula() == otherBC.getFormula());
     }
+  }
+
+  @Override
+  public String toString() {
+    return this.getValue();
   }
 }

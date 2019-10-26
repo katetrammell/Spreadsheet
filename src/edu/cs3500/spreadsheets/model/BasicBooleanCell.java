@@ -39,7 +39,6 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
     } else {
       BasicBooleanCell otherBC = (BasicBooleanCell) other;
       return (this.getValue() == otherBC.getValue()
-          && this.getDependencies() == otherBC.getDependencies()
       && this.getFormula() == otherBC.getFormula());
     }
   }

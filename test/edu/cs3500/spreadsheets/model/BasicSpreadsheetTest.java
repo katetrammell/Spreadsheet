@@ -1,3 +1,5 @@
+package edu.cs3500.spreadsheets.model;
+import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -5,7 +7,7 @@ import org.junit.Test;
 /**
  * Tests for the BasicSpreadsheet class.
  */
-/*
+
 public class BasicSpreadsheetTest {
 
   BasicSpreadsheet spread1;
@@ -13,12 +15,12 @@ public class BasicSpreadsheetTest {
   @Before
   public void setUp() {
     spread1 = new BasicSpreadsheet(3, 3);
-    spread1.setCell(new BasicCell<Double>(5.0), 0, 0);
-    spread1.setCell(new BasicCell<String>("hi"), 0, 1);
-    spread1.setCell(new BasicCell<String>(" there"), 0, 2);
+    spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
+    spread1.setCell(new BasicStringCell("hi"), 0, 1);
+    spread1.setCell(new BasicStringCell(" there"), 0, 2);
 
-    spread1.setCell(new BasicCell<Double>(3.2), 1, 0);
-    spread1.setCell(new BasicCell<Boolean>(true), 1, 1);
+    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
+    spread1.setCell(new BasicBooleanCell(true), 1, 1);
   }
 
   // Tests constructor fills with nulls
@@ -30,7 +32,7 @@ public class BasicSpreadsheetTest {
     Assert.assertEquals(spread.getCellAt(0, 3), null);
   }
 
-  //tests that sum of non numbers = 0
+/*  //tests that sum of non numbers = 0
   @Test
   public void testSumNonNum() {
     Assert.assertEquals(0.0,
@@ -180,21 +182,16 @@ public class BasicSpreadsheetTest {
     Assert.assertEquals("hi there",
         spread1.concat(spread1.getCellAt(0, 1), spread1.getCellAt(0, 0),
             spread1.getCellAt(1, 0), spread1.getCellAt(0, 2)));
-  }
+  }*/
 
   //tests get cell at and set cell
   @Test
   public void testGetAndSetCell() {
-    Assert.assertEquals(spread1.getCellAt(0, 1), new BasicCell<String>("hi"));
-    spread1.setCell(new BasicCell<Boolean>(false), 2, 2);
-    Assert.assertEquals(spread1.getCellAt(2, 2), new BasicCell<Boolean>(false));
+    Assert.assertEquals(spread1.getCellAt(0, 1), new BasicStringCell("hi"));
+    spread1.setCell(new BasicBooleanCell(false), 2, 2);
+    Assert.assertEquals(spread1.getCellAt(2, 2), new BasicBooleanCell(false));
   }
 
-  // test that get cell throws invalid row
-  @Test (expected = IllegalArgumentException.class)
-  public void testGetInvalidRow() {
-    spread1.getCellAt(3, 0);
-  }
 
   // test that get cell throws invalid col
   @Test (expected = IllegalArgumentException.class)
@@ -202,20 +199,13 @@ public class BasicSpreadsheetTest {
     spread1.getCellAt(2, -1);
   }
 
-
-  // test that set cell throws invalid row
-  @Test (expected = IllegalArgumentException.class)
-  public void testSetInvalidRow() {
-    spread1.setCell(new AbstractBasicCell<Double>(2.1),3, 0);
-  }
-
   // test that set cell throws invalid col
   @Test (expected = IllegalArgumentException.class)
   public void testSetInvalidCol() {
-    spread1.setCell(new AbstractBasicCell<Double>(2.1),2, -1);
+    spread1.setCell(new BasicDoubleCell(2.1),2, -1);
   }
 
 }
 
 
-*/
+
