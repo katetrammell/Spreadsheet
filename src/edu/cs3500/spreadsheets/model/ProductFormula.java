@@ -33,5 +33,4 @@ public class ProductFormula implements Formula<Double> {
     return totalProduct;
   }
 
-
 }

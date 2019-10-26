@@ -2,8 +2,16 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
 
+/**
+ * Interface for cells on spreadsheet.
+ * @param <T> The data type of the cell.
+ */
 public interface Cell<T> {
 
+  /**
+   * Tells whether the value of the cell is numerical or not.
+   * @return true if it is numerical, false if not.
+   */
   boolean isNumericValue();
 
   /**

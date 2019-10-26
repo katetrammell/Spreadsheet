@@ -1,5 +1,3 @@
-package edu.cs3500.spreadsheets.model;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class BasicSpreadsheet implements Spreadsheet {
    * Sets the size of the gird to the given width and height.
    * Sets all cells in the grid to null
    */
-  public BasicSpreadsheet(int width, int height) {
+  BasicSpreadsheet(int width, int height) {
     this.grid = new ArrayList<List<Cell>>();
     for (int row  = 0; row < height; row++) {
       ArrayList<Cell> currRow= new ArrayList<Cell>();
@@ -40,8 +38,8 @@ public class BasicSpreadsheet implements Spreadsheet {
     if (row < 0 | col < 0) {
       throw new IllegalArgumentException();
     }
-    this.extendBoard(row - (this.getHeight() - 1),
-        col - (this.getWidth()) - 1);
+    this.extendBoard(row - this.getHeight(),
+        col - this.getWidth());
     this.grid.get(row).set(col, c);
   }
 
