@@ -34,6 +34,42 @@ public final class WorksheetReader {
     T createWorksheet();
   }
 
+  public static class OurBuilder implements WorksheetBuilder<BasicSpreadsheet> {
+    private BasicSpreadsheet basicSpread;
+
+    public OurBuilder(BasicSpreadsheet basicSpread) {
+      this.basicSpread = basicSpread;
+    }
+    public OurBuilder() {
+      this.basicSpread = new BasicSpreadsheet();
+    }
+
+    @Override
+    public WorksheetBuilder<BasicSpreadsheet> createCell(int col, int row, String contents) {
+      try {
+       Double i =  Double.valueOf(contents);
+       basicSpread.setCell(new BasicDoubleCell(i), row, col);
+      } catch (NumberFormatException e) {
+        if (contents.equalsIgnoreCase("true")) {
+          basicSpread.setCell(new BasicBooleanCell(true), row, col);
+        } else if (contents.equalsIgnoreCase("false")) {
+          basicSpread.setCell(new BasicBooleanCell(false), row, col);
+        } else if (contents.equals(null)) {
+          basicSpread.setCell(null, row, col);
+        } else {
+          basicSpread.setCell(new BasicStringCell(contents), row, col);
+        }
+
+      }
+      return this;
+    }
+
+    @Override
+    public BasicSpreadsheet createWorksheet() {
+      return this.basicSpread;
+    }
+  }
+
   /**
    * <p>A factory for producing Worksheets.  The file format is</p>
    * <pre>
