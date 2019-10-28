@@ -19,7 +19,8 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   public AbstractBasicCell(Formula<T> form) {
     this.value = null;
     this.formula = form;
-    this.dependencies = new ArrayList<Cell>();
+    this.dependencies = new ArrayList<>();
+
   }
 
   public AbstractBasicCell(T val, List<Cell> deps) {
@@ -59,5 +60,9 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
     this.dependencies.add(c);
   }
 
+  @Override
+  public String toString() {
+    return this.getValue().toString();
+  }
 
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ProductFormula implements Formula<Double> {
 
-  List<Cell> cells;
-  List<Formula<Double>> forms;
+  private List<Cell> cells;
+  private List<Formula<Double>> forms;
 
   public ProductFormula(ArrayList<Cell> cells, ArrayList<Formula<Double>> forms) {
     this.cells = cells;

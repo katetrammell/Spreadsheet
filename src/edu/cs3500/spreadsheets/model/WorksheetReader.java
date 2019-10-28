@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.CellMaker;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 
@@ -50,7 +51,8 @@ public final class WorksheetReader {
     @Override
     public WorksheetBuilder<BasicSpreadsheet> createCell(int col, int row, String contents) {
 
-      Sexp sexp = new Parser().parse(contents);
+      new Parser();
+      Sexp sexp = Parser.parse(contents);
       Cell c = sexpToCell(sexp);
       this.basicSpread.setCell(c, row, col);
 
@@ -82,6 +84,7 @@ public final class WorksheetReader {
      * @return Cell that has been converted from sexp.
      */
     private Cell sexpToCell(Sexp sexp) {
+      return sexp.accept(new CellMaker());
 
     }
 

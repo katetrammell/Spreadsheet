@@ -8,6 +8,7 @@ public class SumFormulaTest {
   BasicSpreadsheet spread1;
 
 
+/*
   @Before
   public void setUp() {
     spread1 = new BasicSpreadsheet(3, 3);
@@ -19,9 +20,11 @@ public class SumFormulaTest {
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
   }
 
-  /**
+  */
+/**
    * Tests Evaluate with 1 num
-   */
+   *//*
+
   @Test
   public void test1Num() {
     SumFormula sum1 = new SumFormula();
@@ -29,9 +32,11 @@ public class SumFormulaTest {
     Assert.assertEquals(sum1.evaluate(), 5.0, .00001);
   }
 
-  /**
+  */
+/**
    * Tests Evaluate with multiple num
-   */
+   *//*
+
   @Test
   public void test2Num() {
     SumFormula sum1 = new SumFormula();
@@ -41,9 +46,11 @@ public class SumFormulaTest {
     Assert.assertEquals(sum1.evaluate(), 7.5, .00001);
   }
 
-  /**
+  */
+/**
    * Tests Evaluate with negative num
-   */
+   *//*
+
   @Test
   public void testNegNum() {
     SumFormula sum1 = new SumFormula();
@@ -53,9 +60,11 @@ public class SumFormulaTest {
     Assert.assertEquals(sum1.evaluate(), -5.0, .00001);
   }
 
-  /**
+  */
+/**
    * Tests Evaluate with no num
-   */
+   *//*
+
   @Test
   public void testNoNum() {
     SumFormula sum1 = new SumFormula();
@@ -64,9 +73,11 @@ public class SumFormulaTest {
     Assert.assertEquals(sum1.evaluate(), 0, .00001);
   }
 
-  /**
+  */
+/**
    * Tests Evaluate with mix of num and non num
-   */
+   *//*
+
   @Test
   public void testMixNum() {
     SumFormula sum1 = new SumFormula();
@@ -77,9 +88,11 @@ public class SumFormulaTest {
     Assert.assertEquals(sum1.evaluate(), 9.6, .00001);
   }
 
-  /**
+  */
+/**
    * Tests Evaluate with a formula
-   */
+   *//*
+
   @Test
   public void testFormula() {
     SumFormula sum1 = new SumFormula();
@@ -98,6 +111,7 @@ public class SumFormulaTest {
   }
 
 
+*/
 
 
 

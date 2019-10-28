@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SumFormula implements Formula<Double> {
-  List<Cell> cells;
-  List<Formula<Double>> forms;
+  private List<Cell> cells;
+  private List<Formula<Double>> forms;
 
 
   public SumFormula(ArrayList<Cell> cells, ArrayList<Formula<Double>> forms) {
@@ -28,5 +28,17 @@ public class SumFormula implements Formula<Double> {
       totalSum += f.evaluate();
     }
     return totalSum;
+  }
+
+  @Override
+  public void addFormula(Formula form) {
+    this.forms.add(form);
+
+  }
+
+  @Override
+  public void addCell(Cell cell) {
+
+    this.cells.add(cell);
   }
 }

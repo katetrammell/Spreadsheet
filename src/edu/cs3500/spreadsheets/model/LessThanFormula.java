@@ -5,8 +5,8 @@ package edu.cs3500.spreadsheets.model;
  */
 public class LessThanFormula implements Formula<Boolean> {
 
-  Cell cell1;
-  Cell cell2;
+  private Cell cell1;
+  private Cell cell2;
 
   public LessThanFormula(Cell cell1, Cell cell2) {
     if (!cell1.isNumericValue() | !cell2.isNumericValue()) {

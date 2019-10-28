@@ -12,12 +12,13 @@ public class CellMaker implements SexpVisitor<Cell>{
 
   @Override
   public Cell visitNumber(double d) {
+
     return new BasicDoubleCell(d);
   }
 
   @Override
   public Cell visitSList(List<Sexp> l) {
-    if (l.size() < 3) {
+    if (l.size() < 5) {
       throw new IllegalArgumentException(
           "need at least one symbol and two arguments");
     }
@@ -25,7 +26,7 @@ public class CellMaker implements SexpVisitor<Cell>{
       throw new IllegalArgumentException(
           "first item is not a symbol");
     }
-    SSymbol first = (SSymbol) l.get(0);
+    SSymbol first = (SSymbol) l.get(2);
     switch (first.name) {
       case "SUM":
         SumFormula formula = new SumFormula();
@@ -36,23 +37,20 @@ public class CellMaker implements SexpVisitor<Cell>{
        this.addArguments(form, l);
        return new BasicDoubleCell(form);
       case "CONCAT":
-        //TODO: Implmenet concat formula
-        /*
-        formula = new ConcatFormula();
-         */
-        break;
+        ConcatFormula cForm = new ConcatFormula();
+        this.addArguments(cForm, l);
+        return new BasicStringCell(cForm);
       case "<":
-        if (l.size() != 3) {
+        if (l.size() != 5) {
           throw new IllegalArgumentException();
         }
-        Cell c1 = l.get(1).accept(new CellMaker());
-        Cell c2 = l.get(2).accept(new CellMaker());
+        Cell c1 = l.get(3).accept(new CellMaker());
+        Cell c2 = l.get(4).accept(new CellMaker());
         LessThanFormula lformula = new LessThanFormula(c1, c2);
         return new BasicBooleanCell(lformula);
       default:
         throw new IllegalArgumentException("invalid symbol");
     }
-    throw new IllegalArgumentException("invalid symbol");
   }
 
   /**
@@ -61,7 +59,10 @@ public class CellMaker implements SexpVisitor<Cell>{
    * @param l list of sexpressions to iterate through
    */
   private void addArguments(Formula formula, List<Sexp> l) {
-    for (int i = 1; i < l.size(); i++) {
+    for (int i = 3; i < l.size(); i++) {
+      if (l.get(i).accept(new IsSymbol())) {
+        return;
+      }
       if (l.get(i).accept(new IsList())) {
         formula.addFormula(l.get(i).accept(new CellMaker()).getFormula());
       } else {

@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets;
 
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
+import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
@@ -22,14 +23,14 @@ public class BeyondGood {
     FileReader fileR;
 
     try {
-      fileR = new FileReader(args[0]);
+      fileR = new FileReader(args[1]);
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("Please give the name of a file");
     }
    BasicSpreadsheet spread = WorksheetReader.read(builder, fileR);
     try {
       System.out.print("Cell is: " +
-          spread.getCellAt(Integer.parseInt(args[1]), Integer.parseInt(args[2])).toString()
+          spread.getCellAt(Integer.parseInt(args[3].substring(1)), Coord.colNameToIndex(args[3].substring(0, 1)))
           + "\n");
 
     } catch (NumberFormatException e) {
