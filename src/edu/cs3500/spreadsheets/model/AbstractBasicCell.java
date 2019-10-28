@@ -3,19 +3,34 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO should we make it immutable?
-// make fields final, get rid of set values, and when we want to update, make a new cell?
+
+/**
+ * Abstract class for cells. Enables reuse of code for different cell types.
+ * Fields are final, so modifying cell values will have to be done be done by
+ * creating a new cell altogether.
+ * @param <T> The data type of cthe cell that extends the class.
+ */
 abstract public class AbstractBasicCell<T> implements Cell<T> {
   private final T value;
   private final Formula<T> formula;
   private final List<Cell> dependencies;
 
+  /**
+   * Constructor for BasicCell that only takes in a value.
+   * Sets other fields to default.
+   * @param val value to be set.
+   */
   public AbstractBasicCell(T val) {
     this.value = val;
     this.formula = null;
     this.dependencies = new ArrayList<Cell>();
   }
 
+  /**
+   * Constructor that takes only a formula.
+   * Sets other fields to default values.
+   * @param form - formula to be set.
+   */
   public AbstractBasicCell(Formula<T> form) {
     this.value = null;
     this.formula = form;
@@ -23,12 +38,24 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
 
   }
 
+  /**
+   * Constructor that takes in a value and a list of dependencies.
+   * Formula set to null.
+   * @param val
+   * @param deps
+   */
   public AbstractBasicCell(T val, List<Cell> deps) {
     this.value = val;
     this.formula = null;
     this.dependencies = deps;
   }
 
+  /**
+   * Constructor that takes in formula and a list of dependcies,
+   * value set to null.
+   * @param form
+   * @param deps
+   */
  public AbstractBasicCell(Formula<T> form, List<Cell> deps) {
     this.value = null;
     this.formula = form;

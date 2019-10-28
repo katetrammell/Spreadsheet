@@ -8,6 +8,11 @@ public class LessThanFormula implements Formula<Boolean> {
   private Cell cell1;
   private Cell cell2;
 
+  /**
+   * Constructor for LessThanFormula. Takes in the cells to be compared.
+   * @param cell1 first cell.
+   * @param cell2 second cell.
+   */
   public LessThanFormula(Cell cell1, Cell cell2) {
     if (!cell1.isNumericValue() | !cell2.isNumericValue()) {
       throw new IllegalArgumentException();

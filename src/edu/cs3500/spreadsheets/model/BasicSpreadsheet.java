@@ -1,7 +1,12 @@
 package edu.cs3500.spreadsheets.model;
+
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class to represent a spreadsheet. Enables creating and access of
+ * cells on a spreadsheet.
+ */
 public class BasicSpreadsheet implements Spreadsheet {
 
   private final Map<Coord, Cell> grid;
@@ -19,6 +24,10 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.height = height;
   }
 
+  /**
+   * Default constructor for BasicSpreadsheet.
+   * Sets fields to defaults.
+   */
   public BasicSpreadsheet() {
     this.grid = new HashMap<>();
     this.width = 0;

@@ -3,8 +3,9 @@ package edu.cs3500.spreadsheets.model;
 /**
  * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X
  */
-public interface Spreadsheet{
+public interface Spreadsheet {
 
+  //TODO: Uncomment this... possibly why we were getting errors
   /*
   *//**
    * Sums the values of the given cells. Ignores non-numeric values and defaults to zero.
@@ -38,7 +39,7 @@ public interface Spreadsheet{
   public String concat(Cell... range);
 */
   /**
-   * Gets the cell at the specified location/
+   * Gets the cell at the specified location.
    * @param column the column of the cell
    * @param row the row number of the cell
    * @return the cell at the specified location
@@ -58,7 +59,6 @@ public interface Spreadsheet{
   void setCell(Cell c, int column, int row) throws IllegalArgumentException;
 
   /**
-   *
    * Gets the current width of the spreadsheet.
    * @return the width of the spreadsheet
    */

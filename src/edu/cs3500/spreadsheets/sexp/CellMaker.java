@@ -1,10 +1,16 @@
 package edu.cs3500.spreadsheets.sexp;
 
+//TODO: Figure out how to fix this without java style thing yelling at me
+
 import edu.cs3500.spreadsheets.model.*;
 
 import java.util.List;
 
-public class CellMaker implements SexpVisitor<Cell>{
+/**
+ * Utlizes visitor to create cells.
+ */
+public class CellMaker implements SexpVisitor<Cell> {
+
   @Override
   public Cell visitBoolean(boolean b) {
     return new BasicBooleanCell(b);
@@ -33,9 +39,9 @@ public class CellMaker implements SexpVisitor<Cell>{
         this.addArguments(formula, l);
         return new BasicDoubleCell(formula);
       case "PRODUCT":
-       ProductFormula form = new ProductFormula();
-       this.addArguments(form, l);
-       return new BasicDoubleCell(form);
+        ProductFormula form = new ProductFormula();
+        this.addArguments(form, l);
+        return new BasicDoubleCell(form);
       case "CONCAT":
         ConcatFormula cForm = new ConcatFormula();
         this.addArguments(cForm, l);
@@ -55,8 +61,9 @@ public class CellMaker implements SexpVisitor<Cell>{
 
   /**
    * Iterates through list of sexpressions and adds them to the given formula.
+   *
    * @param formula formula to be modified
-   * @param l list of sexpressions to iterate through
+   * @param l       list of sexpressions to iterate through
    */
   private void addArguments(Formula formula, List<Sexp> l) {
     for (int i = 3; i < l.size(); i++) {

@@ -3,6 +3,9 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Formula class that enables the product function.
+ */
 public class ProductFormula implements Formula<Double> {
 
   private List<Cell> cells;

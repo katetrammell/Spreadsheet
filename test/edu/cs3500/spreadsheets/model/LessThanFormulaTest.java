@@ -7,7 +7,7 @@ import org.junit.Test;
 
 
 /**
- * Class for testing LessThanFormula
+ * Class for testing LessThanFormula.
  */
 public class LessThanFormulaTest {
 

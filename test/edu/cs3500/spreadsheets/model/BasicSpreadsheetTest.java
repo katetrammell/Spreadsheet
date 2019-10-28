@@ -1,4 +1,5 @@
 package edu.cs3500.spreadsheets.model;
+
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,7 +33,8 @@ public class BasicSpreadsheetTest {
     Assert.assertEquals(spread.getCellAt(0, 3), null);
   }
 
-/*  //tests that sum of non numbers = 0
+/*
+//tests that sum of non numbers = 0
   @Test
   public void testSumNonNum() {
     Assert.assertEquals(0.0,

@@ -3,7 +3,12 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConcatFormula implements Formula<String>{
+/**
+ * Formula class for the CONCAT function. Enables any amount of cells
+ * to be concatenated. Booleans and doubles will be converted to
+ * string and concatenated alongside other strings.
+ */
+public class ConcatFormula implements Formula<String> {
   private List<Cell> cells;
   private List<Formula> forms;
 
@@ -12,7 +17,7 @@ public class ConcatFormula implements Formula<String>{
     this.forms = new ArrayList<Formula>();
   }
 
-  public ConcatFormula(List<Cell> c, List<Formula> f){
+  public ConcatFormula(List<Cell> c, List<Formula> f) {
     this.cells = c;
     this.forms = f;
   }

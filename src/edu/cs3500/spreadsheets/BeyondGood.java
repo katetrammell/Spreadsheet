@@ -7,7 +7,6 @@ import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Scanner;
 
 /**
  * The main class for our program.
@@ -19,7 +18,6 @@ public class BeyondGood {
    */
   public static void main(String[] args) {
     WorksheetBuilder<BasicSpreadsheet> builder = new OurBuilder();
-
     FileReader fileR;
 
     try {

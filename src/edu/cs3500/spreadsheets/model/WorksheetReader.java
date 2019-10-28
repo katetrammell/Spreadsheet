@@ -38,12 +38,16 @@ public final class WorksheetReader {
     T createWorksheet();
   }
 
+  /**
+   * Static class to help build worksheets.
+   */
   public static class OurBuilder implements WorksheetBuilder<BasicSpreadsheet> {
     private BasicSpreadsheet basicSpread;
 
     public OurBuilder(BasicSpreadsheet basicSpread) {
       this.basicSpread = basicSpread;
     }
+
     public OurBuilder() {
       this.basicSpread = new BasicSpreadsheet();
     }

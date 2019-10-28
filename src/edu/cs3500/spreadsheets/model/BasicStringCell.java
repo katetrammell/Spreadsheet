@@ -2,7 +2,10 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
 
-public class BasicStringCell extends AbstractBasicCell<String>{
+/**
+ * Class to represent cells in a spreadsheet that contain string values.
+ */
+public class BasicStringCell extends AbstractBasicCell<String> {
 
 
   public BasicStringCell(String val) {
@@ -40,6 +43,11 @@ public class BasicStringCell extends AbstractBasicCell<String>{
       return (this.getValue().equals(otherBC.getValue())
           && this.getFormula() == otherBC.getFormula());
     }
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 
   @Override

@@ -1,11 +1,12 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * Cell class in a spreadsheet that contian booleans.
+ */
 public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
 
-  //test
   public BasicBooleanCell(Boolean val) {
     super(val);
   }
@@ -34,12 +35,19 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
 
   @Override
   public boolean equals(Object other) {
-    if(!(other instanceof BasicBooleanCell)) {
+    if (!(other instanceof BasicBooleanCell)) {
       return false;
-    } else {
+    }
+    else {
       BasicBooleanCell otherBC = (BasicBooleanCell) other;
       return (this.getValue() == otherBC.getValue()
       && this.getFormula() == otherBC.getFormula());
     }
+  }
+
+  //TODO: Double check this is ok
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 }

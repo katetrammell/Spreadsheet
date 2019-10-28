@@ -1,9 +1,13 @@
 package edu.cs3500.spreadsheets.model;
+
 import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Class for testing ProductFormula.
+ */
 public class ProductFormulaTest {
 
   BasicSpreadsheet spread1;

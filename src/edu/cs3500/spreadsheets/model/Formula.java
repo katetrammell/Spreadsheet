@@ -1,9 +1,14 @@
 package edu.cs3500.spreadsheets.model;
 
+/**
+ * Interface for formulas in cells. Allows formulas
+ * to be evaluated.
+ * @param <T> the data type of the formula.
+ */
 public interface Formula<T> {
 
   /**
-   * evaluates the formula
+   * evaluates the formula based on what cells it is given.
    * @return the result of the formula
    */
   T evaluate();

@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.sexp;
 
 import java.util.List;
 
+/**
+ * Helper class that tells if an item is a list.
+ */
 public class IsList implements SexpVisitor<Boolean> {
   @Override
   public Boolean visitBoolean(boolean b) {

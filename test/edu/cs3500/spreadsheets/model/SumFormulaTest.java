@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Clasas for testing sumFormulaTest
+ */
 public class SumFormulaTest {
   BasicSpreadsheet spread1;
 

@@ -3,12 +3,17 @@ package edu.cs3500.spreadsheets.model;
 import java.util.Objects;
 
 /**
- * A value type representing coordinates in a .
+ * A value type representing coordinates on a 2d plane.
  */
 public class Coord {
   public final int row;
   public final int col;
 
+  /**
+   * Constructor for Coord. Sets x and y.
+   * @param col the 'x' value.
+   * @param row the 'y' value.
+   */
   public Coord(int col, int row) {
     if (row < 1 || col < 1) {
       throw new IllegalArgumentException("Coordinates should be strictly positive");
