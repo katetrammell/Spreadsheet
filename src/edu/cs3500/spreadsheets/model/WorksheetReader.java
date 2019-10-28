@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.sexp.Parser;
+import edu.cs3500.spreadsheets.sexp.Sexp;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,6 +49,12 @@ public final class WorksheetReader {
 
     @Override
     public WorksheetBuilder<BasicSpreadsheet> createCell(int col, int row, String contents) {
+
+      Sexp sexp = new Parser().parse(contents);
+      Cell c = sexpToCell(sexp);
+      this.basicSpread.setCell(c, row, col);
+
+      /*
       try {
        Double i =  Double.valueOf(contents);
        basicSpread.setCell(new BasicDoubleCell(i), row, col);
@@ -61,7 +70,19 @@ public final class WorksheetReader {
         }
 
       }
+
+       */
       return this;
+    }
+
+    /**
+     * Helper methot to convert S expressions to
+     * cells.
+     * @param sexp s expression from parser.
+     * @return Cell that has been converted from sexp.
+     */
+    private Cell sexpToCell(Sexp sexp) {
+
     }
 
     @Override

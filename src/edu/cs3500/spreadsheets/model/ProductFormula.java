@@ -13,6 +13,11 @@ public class ProductFormula implements Formula<Double> {
     this.forms = forms;
   }
 
+  public ProductFormula() {
+    this.cells = new ArrayList<Cell>();
+    this.forms = new ArrayList<Formula<Double>>();
+  }
+
   @Override
   public Double evaluate() {
     boolean hitNumericYet = false;
@@ -32,5 +37,16 @@ public class ProductFormula implements Formula<Double> {
 
     return totalProduct;
   }
+
+  @Override
+  public void addFormula(Formula form) {
+    this.forms.add(form);
+  }
+
+  @Override
+  public void addCell(Cell cell) {
+    this.cells.add(cell);
+  }
+
 
 }

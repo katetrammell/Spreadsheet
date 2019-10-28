@@ -8,5 +8,17 @@ public interface Formula<T> {
    */
   T evaluate();
 
+  /**
+   * Adds a formula to the list of formulas.
+   * @param form formula to be added.
+   */
+  void addFormula(Formula form);
+
+  /**
+   * Adds a cell to the list of cells.
+   * @param cell to be added.
+   */
+  void addCell(Cell cell);
+
 
 }

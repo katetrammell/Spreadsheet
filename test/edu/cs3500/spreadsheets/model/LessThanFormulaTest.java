@@ -1,13 +1,10 @@
 package edu.cs3500.spreadsheets.model;
 
-import edu.cs3500.spreadsheets.model.BasicBooleanCell;
-import edu.cs3500.spreadsheets.model.BasicDoubleCell;
-import edu.cs3500.spreadsheets.model.BasicStringCell;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-package edu.cs3500.spreadsheets.model;
+
 
 /**
  * Class for testing LessThanFormula
