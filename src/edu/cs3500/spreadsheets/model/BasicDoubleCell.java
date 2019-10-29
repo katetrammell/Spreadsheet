@@ -2,10 +2,7 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
 
-/**
- * Class to represent cells in a spreadsheet which contain doubles.
- */
-public class BasicDoubleCell extends AbstractBasicCell<Double> {
+ public class BasicDoubleCell extends AbstractBasicCell<Double> {
 
   public BasicDoubleCell(Double val) {
     super(val);
@@ -23,27 +20,40 @@ public class BasicDoubleCell extends AbstractBasicCell<Double> {
     super(form, deps);
   }
 
-  @Override
-  public boolean isNumericValue() {
-    return true;
-  }
+   @Override
+   public boolean isNumericValue() {
+     return true;
+   }
 
-  public Double getNumericValue(double base) {
+   public Double getNumericValue(double base) {
     return this.getValue();
   }
 
 
-  @Override
-  public boolean equals(Object other) {
-    if (!(other instanceof BasicDoubleCell)) {
-      return false;
-    }
-    else {
-      BasicDoubleCell otherBC = (BasicDoubleCell) other;
-      return (this.getValue() == otherBC.getValue()
-          && this.getFormula() == otherBC.getFormula());
-    }
-  }
+   @Override
+   public boolean equals(Object other) {
+     if(!(other instanceof BasicDoubleCell)) {
+       return false;
+     } else {
+       BasicDoubleCell otherBC = (BasicDoubleCell) other;
+       if (this.getFormula() != null) {
+         return this.getFormula().equals(((BasicDoubleCell) other).getFormula());
+       }else if (this.getValue() != null) {
+         return this.getValue().equals(((BasicDoubleCell) other).getValue());
+       } else {
+         return true;
+       }
+     }
+   }
 
-
+   @Override
+   public String toString() {
+     String ans = "";
+     if (this.getValue() != null) {
+       ans += this.getValue().toString();
+     } if (this.getFormula() != null) {
+       ans += this.getFormula().toString();
+     }
+     return ans;
+   }
 }

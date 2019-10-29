@@ -1,14 +1,11 @@
 package edu.cs3500.spreadsheets.model;
 
-/**
- * Interface for formulas in cells. Allows formulas
- * to be evaluated.
- * @param <T> the data type of the formula.
- */
+import java.util.List;
+
 public interface Formula<T> {
 
   /**
-   * evaluates the formula based on what cells it is given.
+   * evaluates the formula
    * @return the result of the formula
    */
   T evaluate();
@@ -21,9 +18,11 @@ public interface Formula<T> {
 
   /**
    * Adds a cell to the list of cells.
-   * @param cell to be added.
+   * @param c to be added.
    */
-  void addCell(Cell cell);
+  void addCoord(Coord c);
+
+  List<Coord> getCoords();
 
 
 }

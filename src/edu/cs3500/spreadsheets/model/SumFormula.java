@@ -3,36 +3,29 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Formula class that enables the sum function.
- */
 public class SumFormula implements Formula<Double> {
-  private List<Cell> cells;
+  private List<Coord> coords;
   private List<Formula<Double>> forms;
+  BasicSpreadsheet spread;
 
-  /**
-   * Constructor for SumFormula that sets both fields.
-   * @param cells Cells to be used.
-   * @param forms Formulas to be used.
-   */
-  public SumFormula(ArrayList<Cell> cells, ArrayList<Formula<Double>> forms) {
-    this.cells = cells;
+
+  public SumFormula(ArrayList<Coord> c, ArrayList<Formula<Double>> forms, BasicSpreadsheet spread) {
+    this.coords = c;
     this.forms = forms;
+    this.spread = spread;
   }
 
-  /**
-   * Constructor that sets fields to default values.
-   */
-  public SumFormula() {
-    this.cells = new ArrayList<Cell>();
+  public SumFormula(BasicSpreadsheet s){
+    this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
+    this.spread = s;
   }
 
   @Override
   public Double evaluate() {
     Double totalSum = 0.0;
-    for (Cell c : cells) {
-     totalSum += c.getNumericValue(0.0);
+    for (Coord c : coords) {
+     totalSum += spread.getCellAt(c).getNumericValue(0.0);
     }
     for (Formula<Double> f : forms) {
       totalSum += f.evaluate();
@@ -47,8 +40,36 @@ public class SumFormula implements Formula<Double> {
   }
 
   @Override
-  public void addCell(Cell cell) {
+  public void addCoord(Coord c) {
 
-    this.cells.add(cell);
+    this.coords.add(c);
+  }
+
+  @Override
+  public String toString() {
+    String ans = "(Sum : ";
+    for (Coord c : this.coords) {
+      ans += c.toString() + " ";
+    }
+    for (Formula f : this.forms) {
+      ans += f.toString() + " ";
+    }
+    ans += ")";
+    return ans;
+  }
+
+  @Override
+  public List<Coord> getCoords() {
+    ArrayList<Coord> ans = new ArrayList<Coord>();
+    for (Formula f : this.forms) {
+      ans.addAll(f.getCoords());
+    }
+    for (Coord c : this.coords) {
+      if (spread.getCellAt(c) != null && spread.getCellAt(c).getFormula() != null) {
+        ans.addAll(spread.getCellAt(c).getFormula().getCoords());
+      }
+    }
+    ans.addAll(this.coords);
+    return ans;
   }
 }

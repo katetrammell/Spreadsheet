@@ -1,35 +1,32 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class that represent lessThanFormula.
  */
 public class LessThanFormula implements Formula<Boolean> {
 
-  private Cell cell1;
-  private Cell cell2;
+  private Coord coord1;
+  private Coord coord2;
+  private BasicSpreadsheet spread;
 
-  /**
-   * Constructor for LessThanFormula. Takes in the cells to be compared.
-   * @param cell1 first cell.
-   * @param cell2 second cell.
-   */
-  public LessThanFormula(Cell cell1, Cell cell2) {
-    if (!cell1.isNumericValue() | !cell2.isNumericValue()) {
+  public LessThanFormula(Coord coord1, Coord coord2, BasicSpreadsheet spread) {
+    this.spread = spread;
+    if (!spread.getCellAt(coord1).isNumericValue() | !spread.getCellAt(coord2).isNumericValue()) {
       throw new IllegalArgumentException();
     }
-    this.cell1 = cell1;
-    this.cell2 = cell2;
+    this.coord1 = coord1;
+    this.coord2 = coord2;
   }
 
-  public LessThanFormula() {
-    this.cell1 = null;
-    this.cell2 = null;
-  }
 
   @Override
   public Boolean evaluate() {
     // casted because at this point we know it is a double
-    return (double) cell1.getValue() < (double) cell2.getValue();
+    return (double) spread.getCellAt(coord1).getValue()
+        < (double) spread.getCellAt(coord2).getValue();
   }
 
   @Override
@@ -38,8 +35,30 @@ public class LessThanFormula implements Formula<Boolean> {
   }
 
   @Override
-  public void addCell(Cell cell) {
+  public void addCoord(Coord c) {
     throw new IllegalCallerException("LessThanFormula has to be intialized with cells");
+  }
+
+  @Override
+  public List<Coord> getCoords() {
+    ArrayList<Coord> ans = new ArrayList<Coord>();
+    ans.add(this.coord1);
+    ans.add(this.coord2);
+    if (spread.getCellAt(coord1) != null && spread.getCellAt(coord1).getFormula() != null) {
+      ans.addAll(spread.getCellAt(coord1).getFormula().getCoords());
+    }
+    if (spread.getCellAt(coord2) != null && spread.getCellAt(coord2).getFormula() != null) {
+      ans.addAll(spread.getCellAt(coord2).getFormula().getCoords());
+    }
+    return ans;
+  }
+
+  @Override
+  public String toString() {
+    String ans = "(Less than : ";
+    ans += this.coord1.toString() + " ";
+    ans += this.coord2.toString() + ")";
+    return ans;
   }
 
 }

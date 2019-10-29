@@ -74,4 +74,13 @@ public class Coord {
   public int hashCode() {
     return Objects.hash(row, col);
   }
+
+  public int getX (){
+    return this.row;
+  }
+
+  public int getY() {
+    return this.col;
+  }
+
 }

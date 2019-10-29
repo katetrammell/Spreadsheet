@@ -3,35 +3,40 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Formula class for the CONCAT function. Enables any amount of cells
- * to be concatenated. Booleans and doubles will be converted to
- * string and concatenated alongside other strings.
- */
-public class ConcatFormula implements Formula<String> {
-  private List<Cell> cells;
-  private List<Formula> forms;
+public class ConcatFormula implements Formula<String>{
+  private List<Coord> coords;
+  private List<Formula<String>> forms;
+  private BasicSpreadsheet spread;
 
-  public ConcatFormula() {
-    this.cells = new ArrayList<Cell>();
-    this.forms = new ArrayList<Formula>();
+  public ConcatFormula(BasicSpreadsheet s) {
+    this.coords = new ArrayList<Coord>();
+    this.forms = new ArrayList<Formula<String>>();
+    this.spread = s;
   }
 
-  public ConcatFormula(List<Cell> c, List<Formula> f) {
-    this.cells = c;
-    this.forms = f;
+  public ConcatFormula(ArrayList<Coord> c, BasicSpreadsheet s) {
+    this.coords = c;
+    this.forms = new ArrayList<Formula<String>>();
+    this.spread = s;
   }
+
+  public ConcatFormula(List<Coord> c, List<Formula<String>> f, BasicSpreadsheet s){
+      this.coords = c;
+      this.spread = s;
+      this.forms = f;
+  }
+
 
 
 
   @Override
   public String evaluate() {
     String ans = "";
-    for (Cell c : cells) {
-      ans = ans + c.toString();
+    for (Coord c : coords) {
+      ans = ans + spread.getCellAt(c).toString();
     }
-    for (Formula f : forms) {
-      ans = ans + f.evaluate().toString();
+    for (Formula<String> f : forms) {
+      ans = ans + f.evaluate();
     }
     return ans;
   }
@@ -42,9 +47,37 @@ public class ConcatFormula implements Formula<String> {
   }
 
   @Override
-  public void addCell(Cell cell) {
-    this.cells.add(cell);
+  public void addCoord(Coord c) {
+    this.coords.add(c);
   }
 
+  @Override
+  public List<Coord> getCoords() {
+    ArrayList<Coord> ans = new ArrayList<Coord>();
+    for (Formula<String> f : this.forms) {
+      ans.addAll(f.getCoords());
+    }
+    for (Coord c : this.coords) {
+      Cell bs = spread.getCellAt(c);
+      if (bs != null && bs.getFormula() != null) {
+        ans.addAll(bs.getFormula().getCoords());
+      }
+    }
+    ans.addAll(this.coords);
+    return ans;
+  }
+
+  @Override
+  public String toString() {
+    String ans = "(Concat : ";
+    for (Coord c : this.coords) {
+      ans = ans + c.toString() + " ";
+    }
+    for (Formula f : this.forms) {
+      ans = ans + f.toString() + " ";
+    }
+    ans += ")";
+    return ans;
+  }
 
 }

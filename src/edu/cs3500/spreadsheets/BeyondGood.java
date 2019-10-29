@@ -7,6 +7,9 @@ import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The main class for our program.
@@ -18,6 +21,7 @@ public class BeyondGood {
    */
   public static void main(String[] args) {
     WorksheetBuilder<BasicSpreadsheet> builder = new OurBuilder();
+
     FileReader fileR;
 
     try {
@@ -28,7 +32,7 @@ public class BeyondGood {
    BasicSpreadsheet spread = WorksheetReader.read(builder, fileR);
     try {
       System.out.print("Cell is: " +
-          spread.getCellAt(Integer.parseInt(args[3].substring(1)), Coord.colNameToIndex(args[3].substring(0, 1)))
+          spread.getCellAt(BeyondGood.StringToCoord(args[3]))
           + "\n");
 
     } catch (NumberFormatException e) {
@@ -42,5 +46,26 @@ public class BeyondGood {
       - evaluate all the cells, and
       - report any errors, or print the evaluated value of the requested cell.
     */
+  }
+
+  private static Coord StringToCoord(String s) {
+    Scanner scan = new Scanner(s);
+    final Pattern cellRef = Pattern.compile("([A-Za-z]+)([1-9][0-9]*)");
+    scan.useDelimiter("\\s+");
+    int col;
+    int row;
+    while (scan.hasNext("#.*")) {
+      scan.nextLine();
+      scan.skip("\\s*");
+    }
+    String cell = scan.next();
+    Matcher m = cellRef.matcher(cell);
+    if (m.matches()) {
+      col = Coord.colNameToIndex(m.group(1));
+      row = Integer.parseInt(m.group(2));
+    } else {
+      throw new IllegalArgumentException();
+    }
+    return new Coord(col, row);
   }
 }

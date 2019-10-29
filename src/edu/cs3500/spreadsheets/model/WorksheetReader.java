@@ -56,28 +56,15 @@ public final class WorksheetReader {
     public WorksheetBuilder<BasicSpreadsheet> createCell(int col, int row, String contents) {
 
       new Parser();
-      Sexp sexp = Parser.parse(contents);
-      Cell c = sexpToCell(sexp);
-      this.basicSpread.setCell(c, row, col);
-
-      /*
-      try {
-       Double i =  Double.valueOf(contents);
-       basicSpread.setCell(new BasicDoubleCell(i), row, col);
-      } catch (NumberFormatException e) {
-        if (contents.equalsIgnoreCase("true")) {
-          basicSpread.setCell(new BasicBooleanCell(true), row, col);
-        } else if (contents.equalsIgnoreCase("false")) {
-          basicSpread.setCell(new BasicBooleanCell(false), row, col);
-        } else if (contents.equals(null)) {
-          basicSpread.setCell(null, row, col);
-        } else {
-          basicSpread.setCell(new BasicStringCell(contents), row, col);
-        }
-
+      Sexp sexp;
+      if (contents.substring(0,1).equals("=")) {
+        sexp = Parser.parse(contents.substring(1));
+      } else {
+        sexp = Parser.parse(contents);
       }
+      Cell c = sexpToCell(sexp);
+      this.basicSpread.setCell(c, row , col );
 
-       */
       return this;
     }
 
@@ -88,7 +75,7 @@ public final class WorksheetReader {
      * @return Cell that has been converted from sexp.
      */
     private Cell sexpToCell(Sexp sexp) {
-      return sexp.accept(new CellMaker());
+      return sexp.accept(new CellMaker(this.basicSpread));
 
     }
 

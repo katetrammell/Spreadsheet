@@ -1,3 +1,4 @@
+/*
 package edu.cs3500.spreadsheets.sexp;
 
 import edu.cs3500.spreadsheets.model.Cell;
@@ -5,9 +6,11 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
+*/
 /**
  * Tests for the Visitor class CellMaker.
- */
+ *//*
+
 public class CellMakerTest {
 
   @Test
@@ -69,3 +72,4 @@ public class CellMakerTest {
     Assert.assertEquals((double)c1.getFormula().evaluate(), 5.4, .0001);
   }
 }
+*/

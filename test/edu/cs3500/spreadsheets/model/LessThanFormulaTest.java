@@ -1,3 +1,4 @@
+/*
 package edu.cs3500.spreadsheets.model;
 
 import org.junit.Assert;
@@ -6,9 +7,11 @@ import org.junit.Test;
 
 
 
+*/
 /**
- * Class for testing LessThanFormula.
- */
+ * Class for testing LessThanFormula
+ *//*
+
 public class LessThanFormulaTest {
 
   BasicSpreadsheet spread1 = new BasicSpreadsheet(3, 3);
@@ -58,3 +61,4 @@ public class LessThanFormulaTest {
   }
 
 }
+*/

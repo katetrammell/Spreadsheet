@@ -89,7 +89,13 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
 
   @Override
   public String toString() {
-    return this.getValue().toString();
+    if (this.getValue() != null) {
+      return this.getValue().toString();
+    } else if (this.getFormula() != null) {
+      return this.getFormula().toString();
+    } else {
+      return "";
+    }
   }
 
 }

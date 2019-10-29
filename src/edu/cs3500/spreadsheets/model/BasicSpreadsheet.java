@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,18 +35,26 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.height = 0;
   }
 
-
-  @Override
-  public Cell getCellAt(int row, int col) throws IllegalArgumentException {
-    if (row < 0 || col < 0) {
+  public Cell getCellAt(Coord c) throws IllegalArgumentException {
+    int row = c.getX();
+    int col = c.getY();
+    if (row < 1 || col < 1) {
       throw new IllegalArgumentException("Invalid row or column");
     }
-    return this.grid.get(new Coord(row, col));
+    return this.grid.get(new Coord(col , row));
   }
 
   @Override
-  public void setCell(Cell c, int row, int col) {
-    if (row < 0 | col < 0) {
+  public Cell getCellAt(int row, int col) throws IllegalArgumentException {
+    if (row <= 0 || col <= 0) {
+      throw new IllegalArgumentException("Invalid row or column");
+    }
+    return this.grid.get(new Coord(col, row));
+  }
+
+  @Override
+  public void setCell(Cell c, int row, int col) throws IllegalArgumentException{
+    if (row <= 0 | col <= 0) {
       throw new IllegalArgumentException("Invalid row or column");
     }
     if (row > this.height) {
@@ -53,9 +62,16 @@ public class BasicSpreadsheet implements Spreadsheet {
     }
     if (col > this.width) {
       this.width = col;
+    } if (c.getFormula() != null) {
+      List<Coord> cc = c.getFormula().getCoords();
+      if (c.getFormula().getCoords().contains(new Coord(col, row))) {
+
+        throw new IllegalArgumentException("Cyclic reference");
+      }
     }
-    this.grid.put(new Coord(row, col), c);
+      this.grid.put(new Coord(row , col ), c);
   }
+
 
   @Override
   public int getWidth() {
