@@ -41,7 +41,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     if (row < 1 || col < 1) {
       throw new IllegalArgumentException("Invalid row or column");
     }
-    return this.grid.get(new Coord(col , row));
+    return this.grid.get(c);
   }
 
   @Override
@@ -54,7 +54,7 @@ public class BasicSpreadsheet implements Spreadsheet {
 
   @Override
   public void setCell(Cell c, int row, int col) throws IllegalArgumentException{
-    if (row <= 0 | col <= 0) {
+    if (row <= 0 || col <= 0) {
       throw new IllegalArgumentException("Invalid row or column");
     }
     if (row > this.height) {
@@ -64,12 +64,11 @@ public class BasicSpreadsheet implements Spreadsheet {
       this.width = col;
     } if (c.getFormula() != null) {
       List<Coord> cc = c.getFormula().getCoords();
-      if (c.getFormula().getCoords().contains(new Coord(col, row))) {
-
+      if (cc.contains(new Coord(col, row))) {
         throw new IllegalArgumentException("Cyclic reference");
       }
     }
-      this.grid.put(new Coord(row , col ), c);
+      this.grid.put(new Coord(col , row ), c);
   }
 
 

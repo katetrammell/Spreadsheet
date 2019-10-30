@@ -69,7 +69,7 @@ public final class WorksheetReader {
     }
 
     /**
-     * Helper methot to convert S expressions to
+     * Helper method to convert S expressions to
      * cells.
      * @param sexp s expression from parser.
      * @return Cell that has been converted from sexp.

@@ -26,7 +26,7 @@ public class CellMaker implements SexpVisitor<Cell>{
 
   @Override
   public Cell visitSList(List<Sexp> l) {
-    if (l.size() < 3) {
+    if (l.size() < 2) {
       throw new IllegalArgumentException(
           "need at least one symbol and two arguments");
     }
@@ -94,6 +94,8 @@ public class CellMaker implements SexpVisitor<Cell>{
       }
       else if (l.get(i).accept(new IsList())) {
         formula.addFormula(l.get(i).accept(new CellMaker(this.spread)).getFormula());
+      } else {
+        formula.addConstant(l.get(i).accept(new CellMaker(this.spread)).getValue());
       }
     }
   }

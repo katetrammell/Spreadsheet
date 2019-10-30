@@ -1,6 +1,6 @@
-/*
-package edu.cs3500.spreadsheets.model;
 
+package edu.cs3500.spreadsheets.model;
+/*
 import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +10,7 @@ import org.junit.Test;
  * Class for testing ProductFormula.
  */
 public class ProductFormulaTest {
+/*
 
   BasicSpreadsheet spread1;
 
@@ -82,6 +83,7 @@ public class ProductFormulaTest {
     ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
     Assert.assertEquals(50.0, prodForm1.evaluate(), .001);
   }
+*/
 
 }
-*/
+

@@ -10,6 +10,7 @@ public class ProductFormula implements Formula<Double> {
 
   private List<Coord> coords;
   private List<Formula<Double>> forms;
+  private List<Double> constants;
   private BasicSpreadsheet spread;
 
   public ProductFormula(ArrayList<Coord> coords, ArrayList<Formula<Double>> forms,
@@ -17,17 +18,20 @@ public class ProductFormula implements Formula<Double> {
     this.coords = coords;
     this.forms = forms;
     this.spread = spread;
+    this.constants = new ArrayList<Double>();
   }
 
   public ProductFormula(ArrayList<Coord> c, BasicSpreadsheet spread) {
     this.coords = c;
     this.forms = new ArrayList<Formula<Double>>();
+    this.constants = new ArrayList<Double>();
     this.spread = spread;
   }
 
   public ProductFormula( BasicSpreadsheet spread) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
+    this.constants = new ArrayList<Double>();
     this.spread = spread;
   }
 
@@ -48,6 +52,9 @@ public class ProductFormula implements Formula<Double> {
     for (Formula<Double> f : forms) {
       totalProduct = totalProduct * f.evaluate();
     }
+    for (Double d : constants) {
+      totalProduct = totalProduct * d;
+    }
 
     return totalProduct;
   }
@@ -60,6 +67,15 @@ public class ProductFormula implements Formula<Double> {
   @Override
   public void addCoord(Coord c) {
     this.coords.add(c);
+  }
+
+  @Override
+  public void addConstant(Object t) {
+    if (!(t instanceof Double)) {
+      throw new IllegalArgumentException("not a num");
+    }
+    this.constants.add((Double) t);
+
   }
 
   @Override
@@ -86,6 +102,9 @@ public class ProductFormula implements Formula<Double> {
     for (Formula<Double> f : this.forms) {
       ans += f.toString() + " ";
     }
+    for (Double d : constants) {
+      ans += d.toString() + " ";
+    }
     ans += ")";
     return ans;
   }
@@ -99,7 +118,9 @@ public class ProductFormula implements Formula<Double> {
       return this.coords.containsAll(((ProductFormula) other).coords)
           && otherP.coords.containsAll(this.coords)
           && this.forms.containsAll(otherP.forms)
-          && otherP.forms.containsAll(this.forms);
+          && otherP.forms.containsAll(this.forms)
+          && this.constants.containsAll(otherP.constants)
+          && otherP.constants.containsAll(this.constants);
     }
   }
 

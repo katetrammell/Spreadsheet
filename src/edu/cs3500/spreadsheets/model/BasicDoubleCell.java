@@ -26,7 +26,14 @@ import java.util.List;
    }
 
    public Double getNumericValue(double base) {
-    return this.getValue();
+    if (this.getFormula() == null && this.getValue() == null) {
+      return base;
+    }
+     else if (this.getValue() == null) {
+       return this.getFormula().evaluate();
+     } else {
+       return this.getValue();
+     }
   }
 
 

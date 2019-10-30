@@ -1,0 +1,5 @@
+A20 4.0
+G7 true
+G9 =(PRODUCT A20 G7)
+B6 =(SUM G9 A20)
+A20 G9

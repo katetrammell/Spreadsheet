@@ -6,6 +6,7 @@ import java.util.List;
 public class SumFormula implements Formula<Double> {
   private List<Coord> coords;
   private List<Formula<Double>> forms;
+  private List<Double> constants;
   BasicSpreadsheet spread;
 
 
@@ -13,12 +14,14 @@ public class SumFormula implements Formula<Double> {
     this.coords = c;
     this.forms = forms;
     this.spread = spread;
+    this.constants = new ArrayList<Double>();
   }
 
   public SumFormula(BasicSpreadsheet s){
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
     this.spread = s;
+    this.constants = new ArrayList<Double>();
   }
 
   @Override
@@ -29,6 +32,9 @@ public class SumFormula implements Formula<Double> {
     }
     for (Formula<Double> f : forms) {
       totalSum += f.evaluate();
+    }
+    for (Double d : constants) {
+      totalSum += d;
     }
     return totalSum;
   }
@@ -46,6 +52,15 @@ public class SumFormula implements Formula<Double> {
   }
 
   @Override
+  public void addConstant(Object t) {
+    if (!(t instanceof Double)) {
+      throw new IllegalArgumentException("not a num");
+    }
+    this.constants.add((Double) t);
+
+  }
+
+  @Override
   public String toString() {
     String ans = "(Sum : ";
     for (Coord c : this.coords) {
@@ -53,6 +68,9 @@ public class SumFormula implements Formula<Double> {
     }
     for (Formula f : this.forms) {
       ans += f.toString() + " ";
+    }
+    for (Double d : constants) {
+      ans += d.toString() + " ";
     }
     ans += ")";
     return ans;

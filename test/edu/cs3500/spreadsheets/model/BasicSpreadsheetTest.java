@@ -1,6 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +18,11 @@ public class BasicSpreadsheetTest {
   @Before
   public void setUp() {
     spread1 = new BasicSpreadsheet(3, 3);
-    spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
+   /* spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
     spread1.setCell(new BasicStringCell("hi"), 0, 1);
     spread1.setCell(new BasicStringCell(" there"), 0, 2);
 
-    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
+    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);*/
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
   }
 
@@ -205,6 +207,13 @@ public class BasicSpreadsheetTest {
   @Test (expected = IllegalArgumentException.class)
   public void testSetInvalidCol() {
     spread1.setCell(new BasicDoubleCell(2.1),2, -1);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testSelfRef() {
+    ArrayList<Coord> c = new ArrayList<Coord>();
+    c.add(new Coord (3, 4));
+    spread1.setCell(new BasicStringCell(new ConcatFormula(c,spread1)), 4, 3);
   }
 
 }

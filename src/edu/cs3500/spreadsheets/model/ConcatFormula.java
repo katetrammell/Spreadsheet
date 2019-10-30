@@ -5,25 +5,29 @@ import java.util.List;
 
 public class ConcatFormula implements Formula<String>{
   private List<Coord> coords;
-  private List<Formula<String>> forms;
+  private List<Formula> forms;
+  private List<String> constants;
   private BasicSpreadsheet spread;
 
   public ConcatFormula(BasicSpreadsheet s) {
     this.coords = new ArrayList<Coord>();
-    this.forms = new ArrayList<Formula<String>>();
+    this.forms = new ArrayList<Formula>();
+    this.constants = new ArrayList<String>();
     this.spread = s;
   }
 
   public ConcatFormula(ArrayList<Coord> c, BasicSpreadsheet s) {
     this.coords = c;
-    this.forms = new ArrayList<Formula<String>>();
+    this.forms = new ArrayList<Formula>();
     this.spread = s;
+    this.constants = new ArrayList<String>();
   }
 
-  public ConcatFormula(List<Coord> c, List<Formula<String>> f, BasicSpreadsheet s){
+  public ConcatFormula(List<Coord> c, List<Formula> f, BasicSpreadsheet s){
       this.coords = c;
       this.spread = s;
       this.forms = f;
+      this.constants = new ArrayList<String>();
   }
 
 
@@ -35,8 +39,11 @@ public class ConcatFormula implements Formula<String>{
     for (Coord c : coords) {
       ans = ans + spread.getCellAt(c).toString();
     }
-    for (Formula<String> f : forms) {
+    for (Formula f : forms) {
       ans = ans + f.evaluate();
+    }
+    for (String s : constants) {
+      ans = ans + s;
     }
     return ans;
   }
@@ -49,6 +56,12 @@ public class ConcatFormula implements Formula<String>{
   @Override
   public void addCoord(Coord c) {
     this.coords.add(c);
+  }
+
+  @Override
+  public void addConstant(Object s) {
+    this.constants.add(s.toString());
+
   }
 
   @Override
@@ -75,6 +88,9 @@ public class ConcatFormula implements Formula<String>{
     }
     for (Formula f : this.forms) {
       ans = ans + f.toString() + " ";
+    }
+    for (String s: constants){
+      ans = ans + s;
     }
     ans += ")";
     return ans;

@@ -22,7 +22,11 @@ public interface Formula<T> {
    */
   void addCoord(Coord c);
 
+  void addConstant(Object t);
+
   List<Coord> getCoords();
+
+
 
 
 }
