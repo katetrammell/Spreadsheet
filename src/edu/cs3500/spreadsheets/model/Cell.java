@@ -37,7 +37,7 @@ public interface Cell<T> {
    * gets the formula of this cell. Returns null if this cell is a value cell.
    * @return formula of the cell or null if a value cell
    */
-  Formula getFormula();
+  Formula<T> getFormula();
 
   /**
    * Calculates the numeric value of the cell.

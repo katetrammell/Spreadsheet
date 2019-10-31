@@ -22,8 +22,16 @@ public interface Formula<T> {
    */
   void addCoord(Coord c);
 
+  //TODO: What does this do
   void addConstant(Object t);
 
+  /**
+   * Gets all the coordinates involved with this formula.
+   * If a formula references a cell that just contains a cell
+   * it will add that cell, if that cell also has formulas, it will includes
+   * those cells and recursively gather any cells those cells refernce.
+   * @return the list o coordiantes involves with a formula
+   */
   List<Coord> getCoords();
 
 
