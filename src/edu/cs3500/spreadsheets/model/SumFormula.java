@@ -7,10 +7,11 @@ import java.util.List;
  * Class to facilitate summing cells.
  */
 public class SumFormula implements Formula<Double> {
+
   private List<Coord> coords;
   private List<Formula<Double>> forms;
   private List<Double> constants;
-  BasicSpreadsheet spread;
+  private BasicSpreadsheet spread;
 
 
   public SumFormula(ArrayList<Coord> c, ArrayList<Formula<Double>> forms, BasicSpreadsheet spread) {
@@ -20,7 +21,7 @@ public class SumFormula implements Formula<Double> {
     this.constants = new ArrayList<Double>();
   }
 
-  public SumFormula(BasicSpreadsheet s){
+  public SumFormula(BasicSpreadsheet s) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
     this.spread = s;
@@ -31,7 +32,9 @@ public class SumFormula implements Formula<Double> {
   public Double evaluate() {
     Double totalSum = 0.0;
     for (Coord c : coords) {
-     totalSum += spread.getCellAt(c).getNumericValue(0.0);
+      if (spread.getCellAt(c) != null) {
+        totalSum += spread.getCellAt(c).getNumericValue(0.0);
+      }
     }
     for (Formula<Double> f : forms) {
       totalSum += f.evaluate();
@@ -95,9 +98,10 @@ public class SumFormula implements Formula<Double> {
     return ans;
   }
 
+
   public List<Coord> getCoords2() {
     ArrayList<Coord> coords = new ArrayList<Coord>();
-    for (Coord c: this.coords) {
+    for (Coord c : this.coords) {
 
     }
     return coords;

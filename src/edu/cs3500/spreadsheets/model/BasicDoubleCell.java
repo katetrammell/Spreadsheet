@@ -12,11 +12,11 @@ import java.util.List;
     super(form);
   }
 
-  public BasicDoubleCell(Double val, List<Cell> deps) {
+  public BasicDoubleCell(Double val, List<Coord> deps) {
     super(val, deps);
   }
 
-  public BasicDoubleCell(Formula<Double> form, List<Cell> deps) {
+  public BasicDoubleCell(Formula<Double> form, List<Coord> deps) {
     super(form, deps);
   }
 

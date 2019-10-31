@@ -23,7 +23,7 @@ public class ConcatFormulaTest {
     aC.add(new Coord(1, 2));
     spread.setCell(new BasicStringCell(new ConcatFormula(aC, spread)), 1, 3);
     ArrayList<Coord> aC2 = new ArrayList<Coord>();
-    aC2.add(new Coord(1, 3));
+    aC2.add(new Coord(3, 1));
     spread.setCell(new BasicDoubleCell(new ProductFormula(aC2, spread)), 1, 1);
   }
 

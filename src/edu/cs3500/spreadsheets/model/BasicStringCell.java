@@ -16,11 +16,11 @@ public class BasicStringCell extends AbstractBasicCell<String> {
     super(form);
   }
 
-  public BasicStringCell(String val, List<Cell> deps) {
+  public BasicStringCell(String val, List<Coord> deps) {
     super(val, deps);
   }
 
-  public BasicStringCell(Formula<String> form, List<Cell> deps) {
+  public BasicStringCell(Formula<String> form, List<Coord> deps) {
     super(form, deps);
   }
 

@@ -40,13 +40,15 @@ public class ProductFormula implements Formula<Double> {
   public Double evaluate() {
     boolean hitNumericYet = false;
 
-    Double totalProduct = 0.0;
+    Double totalProduct = 1.0;
     for (Coord c : coords) {
-      if (hitNumericYet) {
-        totalProduct = totalProduct * spread.getCellAt(c).getNumericValue(1.0);
-      } else if (spread.getCellAt(c).isNumericValue()) {
-        hitNumericYet = true;
-        totalProduct = spread.getCellAt(c).getNumericValue(1.0);
+      if (spread.getCellAt(c) != null) {
+        if (hitNumericYet) {
+          totalProduct = totalProduct * spread.getCellAt(c).getNumericValue(1.0);
+        } else if (spread.getCellAt(c).isNumericValue()) {
+          hitNumericYet = true;
+          totalProduct = spread.getCellAt(c).getNumericValue(1.0);
+        }
       }
     }
     for (Formula<Double> f : forms) {
@@ -54,6 +56,9 @@ public class ProductFormula implements Formula<Double> {
     }
     for (Double d : constants) {
       totalProduct = totalProduct * d;
+    }
+    if (!hitNumericYet) {
+      return 0.0;
     }
 
     return totalProduct;
@@ -92,6 +97,7 @@ public class ProductFormula implements Formula<Double> {
     }
     return ans;
   }
+
 
   @Override
   public String toString() {

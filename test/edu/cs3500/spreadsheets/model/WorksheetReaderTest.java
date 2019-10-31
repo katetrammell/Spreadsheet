@@ -61,7 +61,7 @@ public class WorksheetReaderTest {
         new BasicDoubleCell(new ProductFormula(lc, spread)));
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSelfReference() {
     FileReader f;
     try {
@@ -73,7 +73,7 @@ public class WorksheetReaderTest {
     BasicSpreadsheet spread = WorksheetReader.read(b, f);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testCircleReference() {
     FileReader f;
     try {
@@ -97,11 +97,27 @@ public class WorksheetReaderTest {
     Assert.assertEquals(spread.getCellAt(new Coord(1, 1)), new BasicDoubleCell(45.0));
     Assert.assertEquals(spread.getCellAt(2, 1), new BasicBooleanCell(true));
     Assert.assertEquals(spread.getCellAt(6, 2).getFormula().evaluate(), 45.0);
-  Assert.assertEquals((Double)spread.getCellAt(82, 2).getFormula().evaluate(),
-       (23.2 * 45), .0001);
-
+    Assert.assertEquals((Double) spread.getCellAt(82, 2).getFormula().evaluate(),
+        (23.2 * 45), .0001);
   }
 
 
+  @Test
+  public void testAnotherFile() {
+    FileReader f;
+    try {
+      f = new FileReader("AnotherFile.txt");
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("Bad file");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
 
+    Assert.assertEquals(spread.getCellAt(new Coord(1, 1)).getFormula(), null);
+    Assert.assertEquals((Double)spread.getCellAt(new Coord(1, 2)).getFormula().evaluate(),
+        144.0, .0001 );
+
+
+
+
+  }
 }

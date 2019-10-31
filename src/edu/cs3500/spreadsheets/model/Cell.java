@@ -18,13 +18,13 @@ public interface Cell<T> {
    * Gets a list of cells that reference this cell.
    * @return a list of cells that reference this cell
    */
-  List<Cell> getDependencies();
+  List<Coord> getDependencies();
 
   /**
    * Sets this cell as a dependent of the given cell.
    * @param c the cell that depends on this cell
    */
-  void setDependent(Cell c);
+  void setDependent(Coord c);
 
   /**
    * Gets the value of the cell.

@@ -14,6 +14,7 @@ public class LessThanFormula implements Formula<Boolean> {
   private Double d2;
   private BasicSpreadsheet spread;
 
+
   public LessThanFormula(Coord coord1, Coord coord2, BasicSpreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord1).isNumericValue() || !spread.getCellAt(coord2).isNumericValue()) {
@@ -23,6 +24,7 @@ public class LessThanFormula implements Formula<Boolean> {
     this.coord2 = coord2;
     this.d1 = null;
     this.d2 = null;
+
   }
 
   public LessThanFormula(Double d1, Double d2, BasicSpreadsheet spread) {
@@ -62,16 +64,16 @@ public class LessThanFormula implements Formula<Boolean> {
     Double num1;
     Double num2;
     if (this.coord1 != null) {
-      num1 = (double)spread.getCellAt(coord1).getNumericValue(0);
+      num1 = (double) spread.getCellAt(coord1).getNumericValue(0);
     } else {
       num1 = d1;
     }
     if (this.coord2 != null) {
-      num2 = (double)spread.getCellAt(coord2).getNumericValue(0);
+      num2 = (double) spread.getCellAt(coord2).getNumericValue(0);
     } else {
       num2 = d2;
     }
-    if (num1 == null|| num2 == null) {
+    if (num1 == null || num2 == null) {
       throw new IllegalArgumentException("Needs two num");
     }
     return num1 < num2;
@@ -93,9 +95,9 @@ public class LessThanFormula implements Formula<Boolean> {
       throw new IllegalArgumentException("Less than formula takes two numbers");
     }
     if (this.coord1 == null) {
-      this.d1 = (Double)o;
+      this.d1 = (Double) o;
     } else if (this.coord2 == null) {
-      this.d2 = (Double)o;
+      this.d2 = (Double) o;
     } else {
       throw new IllegalArgumentException("Formula already has two arguments");
     }
@@ -107,14 +109,17 @@ public class LessThanFormula implements Formula<Boolean> {
     ArrayList<Coord> ans = new ArrayList<Coord>();
     ans.add(this.coord1);
     ans.add(this.coord2);
-    if (spread.getCellAt(coord1) != null && spread.getCellAt(coord1).getFormula() != null) {
+    if (coord1 != null && spread.getCellAt(coord1) != null
+        && spread.getCellAt(coord1).getFormula() != null) {
       ans.addAll(spread.getCellAt(coord1).getFormula().getCoords());
     }
-    if (spread.getCellAt(coord2) != null && spread.getCellAt(coord2).getFormula() != null) {
+    if (coord2 != null && spread.getCellAt(coord2) != null
+        && spread.getCellAt(coord2).getFormula() != null) {
       ans.addAll(spread.getCellAt(coord2).getFormula().getCoords());
     }
     return ans;
   }
+
 
   @Override
   public String toString() {

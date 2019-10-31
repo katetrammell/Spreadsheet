@@ -13,7 +13,7 @@ import java.util.List;
 abstract public class AbstractBasicCell<T> implements Cell<T> {
   private final T value;
   private final Formula<T> formula;
-  private final List<Cell> dependencies;
+  private final List<Coord> dependencies;
 
   /**
    * Constructor for BasicCell that only takes in a value.
@@ -23,7 +23,7 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   public AbstractBasicCell(T val) {
     this.value = val;
     this.formula = null;
-    this.dependencies = new ArrayList<Cell>();
+    this.dependencies = new ArrayList<Coord>();
   }
 
   /**
@@ -34,7 +34,7 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   public AbstractBasicCell(Formula<T> form) {
     this.value = null;
     this.formula = form;
-    this.dependencies = new ArrayList<>();
+    this.dependencies = new ArrayList<Coord>();
 
   }
 
@@ -44,7 +44,7 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
    * @param val
    * @param deps
    */
-  public AbstractBasicCell(T val, List<Cell> deps) {
+  public AbstractBasicCell(T val, List<Coord> deps) {
     this.value = val;
     this.formula = null;
     this.dependencies = deps;
@@ -56,7 +56,7 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
    * @param form
    * @param deps
    */
- public AbstractBasicCell(Formula<T> form, List<Cell> deps) {
+ public AbstractBasicCell(Formula<T> form, List<Coord> deps) {
     this.value = null;
     this.formula = form;
     this.dependencies = deps;
@@ -77,13 +77,12 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   }
 
   @Override
-  public List<Cell> getDependencies() {
-    List<Cell> copy = new ArrayList<Cell>(this.dependencies);
-    return copy;
+  public List<Coord> getDependencies() {
+   return this.dependencies;
   }
 
   @Override
-  public  void setDependent(Cell c) {
+  public  void setDependent(Coord c) {
     this.dependencies.add(c);
   }
 

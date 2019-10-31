@@ -122,6 +122,21 @@ public class CellMaker implements SexpVisitor<Cell>{
   private void addArguments(Formula formula, List<Sexp> l) {
     for (int i = 1; i < l.size(); i++) {
       if (l.get(i).accept(new IsSymbol())) {
+        SSymbol currS = (SSymbol)l.get(i);
+        if (currS.toString().contains(":")) {
+          String[] splitUp = currS.toString().split(":");
+          try {
+            Coord topLeft = StringToCoord(splitUp[0]);
+            Coord bottomRight = StringToCoord(splitUp[1]);
+            for (int row = topLeft.getY(); row <= bottomRight.getY(); row ++) {
+              for (int col = topLeft.getX(); col <= bottomRight.getX(); col++) {
+                formula.addCoord(new Coord(col, row));
+              }
+            }
+          } catch (Exception e) {
+            break;
+          }
+        }
         try {
           Coord c = StringToCoord(l.get(i).toString());
           formula.addCoord(c);

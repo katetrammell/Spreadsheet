@@ -24,6 +24,7 @@ public class ConcatFormula implements Formula<String>{
     this.forms = new ArrayList<Formula>();
     this.spread = s;
     this.constants = new ArrayList<String>();
+
   }
 
   public ConcatFormula(List<Coord> c, List<Formula> f, BasicSpreadsheet s){
@@ -31,6 +32,7 @@ public class ConcatFormula implements Formula<String>{
       this.spread = s;
       this.forms = f;
       this.constants = new ArrayList<String>();
+
   }
 
 
@@ -38,7 +40,9 @@ public class ConcatFormula implements Formula<String>{
   public String evaluate() {
     String ans = "";
     for (Coord c : coords) {
-      ans = ans + spread.getCellAt(c).toString();
+      if (spread.getCellAt(c) != null){
+        ans = ans + spread.getCellAt(c).toString();
+      }
     }
     for (Formula f : forms) {
       ans = ans + f.evaluate();
@@ -78,8 +82,10 @@ public class ConcatFormula implements Formula<String>{
       }
     }
     ans.addAll(this.coords);
+
     return ans;
   }
+
 
   @Override
   public String toString() {

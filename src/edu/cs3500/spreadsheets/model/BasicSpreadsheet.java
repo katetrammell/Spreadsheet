@@ -36,10 +36,8 @@ public class BasicSpreadsheet implements Spreadsheet {
   }
 
   public Cell<?> getCellAt(Coord c) throws IllegalArgumentException {
-    int row = c.getX();
-    int col = c.getY();
-    if (row < 1 || col < 1) {
-      throw new IllegalArgumentException("Invalid row or column");
+    if (c == null) {
+      throw new IllegalArgumentException("coord cannot be null");
     }
     return this.grid.get(c);
   }
@@ -57,18 +55,30 @@ public class BasicSpreadsheet implements Spreadsheet {
     if (row <= 0 || col <= 0) {
       throw new IllegalArgumentException("Invalid row or column");
     }
+
     if (row > this.height) {
       this.height = row;
     }
     if (col > this.width) {
       this.width = col;
     } if (c.getFormula() != null) {
-      List<Coord> cc = c.getFormula().getCoords();
+      List<?> cc = c.getFormula().getCoords();
       if (cc.contains(new Coord(col, row))) {
         throw new IllegalArgumentException("Cyclic reference");
       }
     }
       this.grid.put(new Coord(col , row ), c);
+    if (c.getFormula() != null) {
+      Formula<?> f = c.getFormula();
+      for (Coord coord : f.getCoords()) {
+        if (coord != null) {
+          if (this.getCellAt(coord) != null) {
+            this.getCellAt(coord).setDependent(new Coord(col, row));
+          }
+        }
+      }
+
+    }
   }
 
 

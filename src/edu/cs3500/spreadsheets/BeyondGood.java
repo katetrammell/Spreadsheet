@@ -24,16 +24,29 @@ public class BeyondGood {
 
     FileReader fileR;
 
+    BasicSpreadsheet spread;
+
     try {
       fileR = new FileReader(args[1]);
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("Please give the name of a file");
     }
-   BasicSpreadsheet spread = WorksheetReader.read(builder, fileR);
+   // try {
+      spread = WorksheetReader.read(builder, fileR);
+    //} catch (Exception e) {
+    //  System.out.print("Bad Spreadsheet");
+    //  return;
+   // }
     try {
-      System.out.print("Cell is: " +
-          spread.getCellAt(BeyondGood.StringToCoord(args[3]))
-          + "\n");
+      String cellV;
+      if ( spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula() != null) {
+        cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula()
+            .evaluate().toString();
+      } else {
+        cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getValue().toString();
+      }
+        System.out.print("Cell is: " +
+         cellV + "\n");
 
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Must give valid row and col arguments");

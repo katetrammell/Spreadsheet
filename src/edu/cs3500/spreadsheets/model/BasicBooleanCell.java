@@ -14,11 +14,11 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
     super(form);
   }
 
-  public BasicBooleanCell(Boolean val, List<Cell> deps) {
+  public BasicBooleanCell(Boolean val, List<Coord> deps) {
     super(val, deps);
   }
 
-  public BasicBooleanCell(Formula<Boolean> form, List<Cell> deps) {
+  public BasicBooleanCell(Formula<Boolean> form, List<Coord> deps) {
     super(form, deps);
   }
 

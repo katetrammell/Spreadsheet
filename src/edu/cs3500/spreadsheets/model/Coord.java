@@ -76,11 +76,11 @@ public class Coord {
   }
 
   public int getX (){
-    return this.row;
+    return this.col;
   }
 
   public int getY() {
-    return this.col;
+    return this.row;
   }
 
 }

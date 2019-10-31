@@ -318,8 +318,8 @@ public class BasicSpreadsheetTest {
   @Test
   public void testGetAndSetCell() {
     Assert.assertEquals(spread1.getCellAt(1, 1), new BasicDoubleCell(3.2));
-    spread1.setCell(new BasicBooleanCell(false), 2, 2);
-    Assert.assertEquals(spread1.getCellAt(2, 2), new BasicBooleanCell(false));
+    spread1.setCell(new BasicBooleanCell(false), 3, 4);
+    Assert.assertEquals(spread1.getCellAt(new Coord(4, 3)), new BasicBooleanCell(false));
   }
 
 
