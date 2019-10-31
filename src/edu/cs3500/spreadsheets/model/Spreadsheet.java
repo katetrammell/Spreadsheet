@@ -1,46 +1,11 @@
 package edu.cs3500.spreadsheets.model;
 
 /**
- * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X
+ * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X.
  */
 public interface Spreadsheet {
 
-  //TODO: Uncomment this... possibly why we were getting errors
-  /*
-  *//**
-   * Sums the values of the given cells.
-   * Ignores non-numeric values and defaults to zero.
-   * @param range Any number of cell's to sum
-   * @return sum of the cells' values
-   *//*
-  public double sum(Cell... range);
 
-  *//**
-   * Multiplies the values of the given cells.
-   * Ignores non-numeric values and defaults to 0.
-   * @param range Any number of cells to multiply
-   * @return product of the cells' values
-   *//*
-  public double product(Cell... range);
-
-  *//**
-   * Compares the two cells numerical value.
-   * @param cell1 the first cell.
-   * @param cell2 the second cell
-   * @return weather or not the first cell is greater than the second
-   * @throws IllegalArgumentException if any of the cells are missing or not a number
-   *
-   *//*
-  public boolean greaterThan(Cell cell1, Cell cell2);
-
-  *//**
-   * Concatenates the given cells.
-   * Ignores non string cells. Defaults to "".
-   * @param range cells to concatenates
-   * @return the concatenation of the cells
-   *//*
-  public String concat(Cell... range);
-*/
   /**
    * TODO: Decide what to do if there is no cell
    * Gets the cell at the specified location.

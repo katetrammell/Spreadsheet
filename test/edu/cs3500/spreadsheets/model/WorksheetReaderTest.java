@@ -2,11 +2,6 @@ package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
-import edu.cs3500.spreadsheets.sexp.Parser;
-import edu.cs3500.spreadsheets.sexp.SList;
-import edu.cs3500.spreadsheets.sexp.SNumber;
-import edu.cs3500.spreadsheets.sexp.SSymbol;
-import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -31,7 +26,7 @@ public class WorksheetReaderTest {
   }
 
   /**
-   * Tests that create cell and createWorksheet work as expected
+   * Tests that create cell and createWorksheet work as expected.
    */
   @Test
   public void testCreateWorksheet() {
@@ -118,10 +113,10 @@ public class WorksheetReaderTest {
         144.0, .0001 );
     Assert.assertEquals((Double)spread.getCellAt(new Coord(3, 2)).getFormula().evaluate(),
         0.0, .0001 );
-    List<Coord> A2Coords = new ArrayList<Coord>();
-    A2Coords.add(new Coord(3, 1));
-    A2Coords.add(new Coord(1, 1));
-    A2Coords.add(new Coord(3, 1));
-    A2Coords.add(new Coord(1,1));
+    List<Coord> a2Coords = new ArrayList<Coord>();
+    a2Coords.add(new Coord(3, 1));
+    a2Coords.add(new Coord(1, 1));
+    a2Coords.add(new Coord(3, 1));
+    a2Coords.add(new Coord(1,1));
   }
 }

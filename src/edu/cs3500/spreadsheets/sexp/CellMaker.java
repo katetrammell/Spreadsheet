@@ -1,21 +1,34 @@
 package edu.cs3500.spreadsheets.sexp;
 
-import edu.cs3500.spreadsheets.model.*;
-
+import edu.cs3500.spreadsheets.model.BasicBooleanCell;
+import edu.cs3500.spreadsheets.model.BasicDoubleCell;
+import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
+import edu.cs3500.spreadsheets.model.BasicStringCell;
+import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.ConcatFormula;
+import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.Formula;
+import edu.cs3500.spreadsheets.model.LessThanFormula;
+import edu.cs3500.spreadsheets.model.ProductFormula;
+import edu.cs3500.spreadsheets.model.SumFormula;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class that utilizes visitor pattern to create cells
+ * Class that utilizes visitor pattern to create cells.
  */
-public class CellMaker implements SexpVisitor<Cell>{
+public class CellMaker implements SexpVisitor<Cell> {
+
   BasicSpreadsheet spread;
+
 
   public CellMaker(BasicSpreadsheet s) {
     this.spread = s;
   }
+
+
   @Override
   public Cell visitBoolean(boolean b) {
     return new BasicBooleanCell(b);
@@ -44,9 +57,9 @@ public class CellMaker implements SexpVisitor<Cell>{
         this.addArguments(formula, l);
         return new BasicDoubleCell(formula);
       case "PRODUCT":
-       ProductFormula form = new ProductFormula(this.spread);
-       this.addArguments(form, l);
-       return new BasicDoubleCell(form);
+        ProductFormula form = new ProductFormula(this.spread);
+        this.addArguments(form, l);
+        return new BasicDoubleCell(form);
       case "CONCAT":
         ConcatFormula cForm = new ConcatFormula(this.spread);
         this.addArguments(cForm, l);
@@ -57,17 +70,17 @@ public class CellMaker implements SexpVisitor<Cell>{
         }
         LessThanFormula lformula;
         try {
-          lformula = new LessThanFormula(StringToCoord(l.get(1).toString()),
-              StringToCoord(l.get(2).toString()), this.spread);
-        } catch (IllegalArgumentException IAE) {
+          lformula = new LessThanFormula(stringToCoord(l.get(1).toString()),
+              stringToCoord(l.get(2).toString()), this.spread);
+        } catch (IllegalArgumentException iAE) {
           try {
-            lformula = new LessThanFormula(StringToCoord(l.get(1).toString()),
+            lformula = new LessThanFormula(stringToCoord(l.get(1).toString()),
                 l.get(2).accept(new CellMaker(this.spread)).getNumericValue(0), this.spread);
           } catch (Exception e1) {
             try {
               lformula = new LessThanFormula(
                   l.get(1).accept(new CellMaker(this.spread)).getNumericValue(0),
-                  StringToCoord(l.get(2).toString()), this.spread);
+                  stringToCoord(l.get(2).toString()), this.spread);
             } catch (Exception e2) {
               try {
                 lformula = new LessThanFormula(
@@ -80,7 +93,6 @@ public class CellMaker implements SexpVisitor<Cell>{
           }
         }
 
-
         return new BasicBooleanCell(lformula);
       default:
         throw new IllegalArgumentException("invalid symbol");
@@ -89,10 +101,11 @@ public class CellMaker implements SexpVisitor<Cell>{
 
   /**
    * Turns strings into coordinates.
+   *
    * @param s string from file.
    * @return coordinate that reflects the information from string
    */
-  private Coord StringToCoord(String s) {
+  private Coord stringToCoord(String s) {
     Scanner scan = new Scanner(s);
     final Pattern cellRef = Pattern.compile("([A-Za-z]+)([1-9][0-9]*)");
     scan.useDelimiter("\\s+");
@@ -116,19 +129,20 @@ public class CellMaker implements SexpVisitor<Cell>{
 
   /**
    * Iterates through list of sexpressions and adds them to the given formula.
+   *
    * @param formula formula to be modified
-   * @param l list of sexpressions to iterate through
+   * @param l       list of sexpressions to iterate through
    */
   private void addArguments(Formula formula, List<Sexp> l) {
     for (int i = 1; i < l.size(); i++) {
       if (l.get(i).accept(new IsSymbol())) {
-        SSymbol currS = (SSymbol)l.get(i);
+        SSymbol currS = (SSymbol) l.get(i);
         if (currS.toString().contains(":")) {
           String[] splitUp = currS.toString().split(":");
           try {
-            Coord topLeft = StringToCoord(splitUp[0]);
-            Coord bottomRight = StringToCoord(splitUp[1]);
-            for (int row = topLeft.getY(); row <= bottomRight.getY(); row ++) {
+            Coord topLeft = stringToCoord(splitUp[0]);
+            Coord bottomRight = stringToCoord(splitUp[1]);
+            for (int row = topLeft.getY(); row <= bottomRight.getY(); row++) {
               for (int col = topLeft.getX(); col <= bottomRight.getX(); col++) {
                 formula.addCoord(new Coord(col, row));
               }
@@ -138,13 +152,12 @@ public class CellMaker implements SexpVisitor<Cell>{
           }
         }
         try {
-          Coord c = StringToCoord(l.get(i).toString());
+          Coord c = stringToCoord(l.get(i).toString());
           formula.addCoord(c);
         } catch (IllegalArgumentException e) {
           break;
         }
-      }
-      else if (l.get(i).accept(new IsList())) {
+      } else if (l.get(i).accept(new IsList())) {
         formula.addFormula(l.get(i).accept(new CellMaker(this.spread)).getFormula());
       } else {
         formula.addConstant(l.get(i).accept(new CellMaker(this.spread)).getValue());

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Class that tests ConcatFormula.
+ */
 public class ConcatFormulaTest {
 
   @Test(expected = IllegalArgumentException.class)

@@ -1,8 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Class that represent lessThanFormula.
@@ -16,6 +14,12 @@ public class LessThanFormula implements Formula<Boolean> {
   private BasicSpreadsheet spread;
 
 
+  /**
+   * Constructor for the class.
+   * @param coord1 coordinate 1
+   * @param coord2 coordinate 2
+   * @param spread spreadsheet
+   */
   public LessThanFormula(Coord coord1, Coord coord2, BasicSpreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord1).isNumericValue() || !spread.getCellAt(coord2).isNumericValue()) {
@@ -28,6 +32,12 @@ public class LessThanFormula implements Formula<Boolean> {
 
   }
 
+  /**
+   * Constructor for the class.
+   * @param d1 double 1
+   * @param d2 double 2
+   * @param spread spreadsheet
+   */
   public LessThanFormula(Double d1, Double d2, BasicSpreadsheet spread) {
     this.spread = spread;
     this.coord1 = null;
@@ -37,6 +47,12 @@ public class LessThanFormula implements Formula<Boolean> {
 
   }
 
+  /**
+   * Constructor for the class.
+   * @param coord1 coordinate 1
+   * @param d2 double 2
+   * @param spread spreadsheet
+   */
   public LessThanFormula(Coord coord1, Double d2, BasicSpreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord1).isNumericValue()) {
@@ -48,6 +64,12 @@ public class LessThanFormula implements Formula<Boolean> {
     this.d2 = d2;
   }
 
+  /**
+   * Constructor for the class.
+   * @param d1 double 1
+   * @param coord2 coordinate 2
+   * @param spread spreadsheet
+   */
   public LessThanFormula(Double d1, Coord coord2, BasicSpreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord2).isNumericValue()) {
@@ -109,7 +131,7 @@ public class LessThanFormula implements Formula<Boolean> {
   public HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> currHash) {
     HashMap<Coord, Integer> ans = new HashMap<Coord, Integer>();
     if (this.coord1 != null && spread.getCellAt(coord1) != null) {
-      if (currHash.containsKey(coord1)){
+      if (currHash.containsKey(coord1)) {
         ans.putAll(currHash.get(coord1));
       } else {
         ans.put(coord1,0);
@@ -119,7 +141,7 @@ public class LessThanFormula implements Formula<Boolean> {
       }
     }
     if (this.coord2 != null && spread.getCellAt(coord2) != null) {
-      if (currHash.containsKey(coord2)){
+      if (currHash.containsKey(coord2)) {
         ans.putAll(currHash.get(coord2));
       } else {
         ans.put(coord2,0);
@@ -136,10 +158,19 @@ public class LessThanFormula implements Formula<Boolean> {
   @Override
   public String toString() {
     String ans = "(Less than : ";
-    ans += this.coord1.toString() + " ";
-    ans += this.coord2.toString();
-    ans += this.d1.toString();
-    ans += this.d2.toString() + ")";
+    if (coord1 != null) {
+      ans += this.coord1.toString() + " ";
+    }
+    if (coord2 != null) {
+      ans += this.coord2.toString() + " ";
+    }
+    if (d1 != null) {
+      ans += this.d1.toString() + " ";
+    }
+    if (d2 != null) {
+      ans += this.d2.toString() + " ";
+    }
+    ans = ans + ")";
     return ans;
   }
 

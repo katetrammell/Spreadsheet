@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class to represent a spreadsheet. Enables creating and access of
- * cells on a spreadsheet.
+ * Class to represent a spreadsheet. Enables creating and access of cells on a spreadsheet.
  */
 public class BasicSpreadsheet implements Spreadsheet {
 
@@ -15,9 +14,8 @@ public class BasicSpreadsheet implements Spreadsheet {
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
 
   /**
-   * Constructor for the class.
-   * Sets the size of the gird to the given width and height.
-   * Sets all cells in the grid to null
+   * Constructor for the class. Sets the size of the gird to the given width and height. Sets all
+   * cells in the grid to null
    */
   public BasicSpreadsheet(int width, int height) {
     this.grid = new HashMap<>();
@@ -27,8 +25,7 @@ public class BasicSpreadsheet implements Spreadsheet {
   }
 
   /**
-   * Default constructor for BasicSpreadsheet.
-   * Sets fields to defaults.
+   * Default constructor for BasicSpreadsheet. Sets fields to defaults.
    */
   public BasicSpreadsheet() {
     this.grid = new HashMap<>();
@@ -80,17 +77,6 @@ public class BasicSpreadsheet implements Spreadsheet {
       listOfDep.put(new Coord(col, row), cc);
     }
     this.grid.put(new Coord(col, row), c);
-/*    if (c.getFormula() != null) {
-      Formula<?> f = c.getFormula();
-      for (Coord coord : f.getCoords()) {
-        if (coord != null) {
-          if (this.getCellAt(coord) != null) {
-            this.getCellAt(coord).setDependent(new Coord(col, row));
-          }
-        }
-      }
-
-    }*/
   }
 
 

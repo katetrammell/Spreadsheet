@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Class for testing LessThanFormula
+ * Class for testing LessThanFormula.
  */
 
 public class LessThanFormulaTest {
@@ -22,7 +22,6 @@ public class LessThanFormulaTest {
     spread1.setCell(new BasicDoubleCell(3.2), 1, 9);
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
     spread1.setCell(new BasicDoubleCell(-1.0), 5, 11);
-   // LessThanFormula f = new LessThanFormula(new Coord);
   }
 
   @Test

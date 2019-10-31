@@ -28,6 +28,7 @@ public class BasicDoubleCell extends AbstractBasicCell<Double> {
     return true;
   }
 
+  @Override
   public Double getNumericValue(double base) {
     if (this.getFormula() == null && this.getValue() == null) {
       return base;
@@ -53,6 +54,11 @@ public class BasicDoubleCell extends AbstractBasicCell<Double> {
         return true;
       }
     }
+  }
+
+  @Override
+  public int hashCode()  {
+    return super.hashCode();
   }
 
   @Override

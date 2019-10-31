@@ -14,6 +14,12 @@ public class ProductFormula implements Formula<Double> {
   private List<Double> constants;
   private BasicSpreadsheet spread;
 
+  /**
+   * Constructor for the class.
+   * @param coords list of coordinates
+   * @param forms list of formulas to be evaluates
+   * @param spread spreadsheet
+   */
   public ProductFormula(ArrayList<Coord> coords, ArrayList<Formula<Double>> forms,
       BasicSpreadsheet spread) {
     this.coords = coords;
@@ -22,6 +28,11 @@ public class ProductFormula implements Formula<Double> {
     this.constants = new ArrayList<Double>();
   }
 
+  /**
+   * Constructor for the class.
+   * @param c list of coordinates
+   * @param spread spreadsheet
+   */
   public ProductFormula(ArrayList<Coord> c, BasicSpreadsheet spread) {
     this.coords = c;
     this.forms = new ArrayList<Formula<Double>>();
@@ -29,6 +40,10 @@ public class ProductFormula implements Formula<Double> {
     this.spread = spread;
   }
 
+  /**
+   * Constructor for the class.
+   * @param spread spreadsheet
+   */
   public ProductFormula( BasicSpreadsheet spread) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
@@ -86,6 +101,7 @@ public class ProductFormula implements Formula<Double> {
 
   }
 
+  @Override
   public HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> currHash) {
     HashMap<Coord, Integer> ans = new HashMap<Coord, Integer>();
     for (Formula<?> f : this.forms) {
@@ -104,7 +120,7 @@ public class ProductFormula implements Formula<Double> {
         }
       }
     }
-    for (Coord cord : this.coords){
+    for (Coord cord : this.coords) {
       ans.put(cord, 0);
     }
     return ans;
@@ -140,6 +156,11 @@ public class ProductFormula implements Formula<Double> {
           && this.constants.containsAll(otherP.constants)
           && otherP.constants.containsAll(this.constants);
     }
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
   }
 
 }

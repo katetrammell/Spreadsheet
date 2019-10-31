@@ -15,6 +15,12 @@ public class SumFormula implements Formula<Double> {
   private BasicSpreadsheet spread;
 
 
+  /**
+   * Constructor for the class.
+   * @param c list of coordinates
+   * @param forms list of formulas
+   * @param spread spreadsheet
+   */
   public SumFormula(ArrayList<Coord> c, ArrayList<Formula<Double>> forms, BasicSpreadsheet spread) {
     this.coords = c;
     this.forms = forms;
@@ -22,6 +28,10 @@ public class SumFormula implements Formula<Double> {
     this.constants = new ArrayList<Double>();
   }
 
+  /**
+   * Constructor for the class.
+   * @param s spreadsheet
+   */
   public SumFormula(BasicSpreadsheet s) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
@@ -83,7 +93,7 @@ public class SumFormula implements Formula<Double> {
     return ans;
   }
 
-  // I think this gets in circular loops
+  @Override
   public HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> currHash) {
     HashMap<Coord, Integer> ans = new HashMap<Coord, Integer>();
     for (Formula<?> f : this.forms) {
@@ -102,18 +112,10 @@ public class SumFormula implements Formula<Double> {
         }
       }
     }
-    for (Coord cord : this.coords){
+    for (Coord cord : this.coords) {
       ans.put(cord, 0);
     }
     return ans;
   }
 
-
-  public List<Coord> getCoords2() {
-    ArrayList<Coord> coords = new ArrayList<Coord>();
-    for (Coord c : this.coords) {
-
-    }
-    return coords;
-  }
 }
