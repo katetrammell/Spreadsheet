@@ -3,6 +3,9 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to facilitate summing cells.
+ */
 public class SumFormula implements Formula<Double> {
   private List<Coord> coords;
   private List<Formula<Double>> forms;
@@ -76,18 +79,44 @@ public class SumFormula implements Formula<Double> {
     return ans;
   }
 
+  // I think this gets in circular loops
   @Override
   public List<Coord> getCoords() {
     ArrayList<Coord> ans = new ArrayList<Coord>();
     for (Formula f : this.forms) {
-      ans.addAll(f.getCoords());
+      List<Coord> newCoords = f.getCoords();
+      for (Coord c: newCoords) {
+        if (ans.contains(c)) {
+          throw new IllegalArgumentException("Circular reference");
+        }
+        else {
+          ans.add(c);
+        }
+      }
     }
     for (Coord c : this.coords) {
       if (spread.getCellAt(c) != null && spread.getCellAt(c).getFormula() != null) {
-        ans.addAll(spread.getCellAt(c).getFormula().getCoords());
+        //ans.addAll(spread.getCellAt(c).getFormula().getCoords());
+        List<Coord> newCoords2 = spread.getCellAt(c).getFormula().getCoords();
+        for (Coord c2: newCoords2) {
+          if (ans.contains(c2)) {
+            throw new IllegalArgumentException("Circular Refernce 2");
+          }
+          else {
+            ans.add(c2);
+          }
+        }
       }
     }
     ans.addAll(this.coords);
     return ans;
+  }
+
+  public List<Coord> getCoords2() {
+    ArrayList<Coord> coords = new ArrayList<Coord>();
+    for (Coord c: this.coords) {
+
+    }
+    return coords;
   }
 }

@@ -1,16 +1,11 @@
-/*
+
 package edu.cs3500.spreadsheets.model;
 
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
-
-
-*/
 /**
  * Class for testing LessThanFormula
- *//*
+ */
 
 public class LessThanFormulaTest {
 
@@ -27,6 +22,7 @@ public class LessThanFormulaTest {
     spread1.setCell(new BasicDoubleCell(-1.0), 5, 0);
   }
 
+  /*
   @Test(expected = IllegalArgumentException.class)
   public void testError() {
     LessThanFormula ltform = new LessThanFormula(spread1.getCellAt(0, 1),
@@ -59,6 +55,6 @@ public class LessThanFormulaTest {
         spread1.getCellAt(5, 0));
     Assert.assertFalse(ltform.evaluate());
   }
-
+   */
 }
-*/
+

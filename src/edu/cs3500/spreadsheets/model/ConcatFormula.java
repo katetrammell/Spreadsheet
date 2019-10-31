@@ -3,6 +3,9 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to facilitate concatenating cells.
+ */
 public class ConcatFormula implements Formula<String>{
   private List<Coord> coords;
   private List<Formula> forms;
@@ -29,8 +32,6 @@ public class ConcatFormula implements Formula<String>{
       this.forms = f;
       this.constants = new ArrayList<String>();
   }
-
-
 
 
   @Override

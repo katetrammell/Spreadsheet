@@ -34,8 +34,8 @@ public class WorksheetReaderTest {
    */
   @Test
   public void testCreateWorksheet() {
-    BasicDoubleCell c = (BasicDoubleCell) b.createCell(0, 0,
-        "=(PRODUCT -1.0 -2.0)").createWorksheet().getCellAt(0, 0);
+    BasicDoubleCell c = (BasicDoubleCell) b.createCell(1, 1,
+        "=(PRODUCT -1.0 -2.0)").createWorksheet().getCellAt(1, 1);
     Assert.assertEquals(c.getFormula().evaluate(), 2.0, .000001);
   }
 

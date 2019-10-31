@@ -7,6 +7,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class that utilizes visitor pattern to create cells
+ */
 public class CellMaker implements SexpVisitor<Cell>{
   BasicSpreadsheet spread;
 
@@ -84,6 +87,11 @@ public class CellMaker implements SexpVisitor<Cell>{
     }
   }
 
+  /**
+   * Turns strings into coordinates.
+   * @param s string from file.
+   * @return coordinate that reflects the information from string
+   */
   private Coord StringToCoord(String s) {
     Scanner scan = new Scanner(s);
     final Pattern cellRef = Pattern.compile("([A-Za-z]+)([1-9][0-9]*)");
@@ -96,11 +104,12 @@ public class CellMaker implements SexpVisitor<Cell>{
     }
     String cell = scan.next();
     Matcher m = cellRef.matcher(cell);
+    //TODO: I think the problem may be here
     if (m.matches()) {
       col = Coord.colNameToIndex(m.group(1));
       row = Integer.parseInt(m.group(2));
     } else {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("test");
     }
     return new Coord(col, row);
   }

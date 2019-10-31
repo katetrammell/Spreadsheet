@@ -36,7 +36,7 @@ public class BasicSpreadsheetTest {
     BasicSpreadsheet spread = new BasicSpreadsheet(5, 5);
     Assert.assertEquals(spread.getWidth(), 5);
     Assert.assertEquals(spread.getHeight(), 5);
-    Assert.assertEquals(spread.getCellAt(0, 3), null);
+    Assert.assertEquals(spread.getCellAt(1, 3), null);
   }
 
   @Test
@@ -82,11 +82,45 @@ public class BasicSpreadsheetTest {
   // no formulas involved, should just return an empty list
   @Test
   public void testGetCoords() {
-    Assert.assertEquals(new ArrayList<>(),
-        spread1.getCellAt(1, 1).getFormula().getCoords());
+    ArrayList<Coord> cs = new ArrayList<Coord>();
+    cs.add(new Coord(1,1));
+    ArrayList<Formula<Double>> fs = new ArrayList<Formula<Double>>();
+    Formula f = new SumFormula(cs, fs, spread1);
+    Cell newCell = new BasicDoubleCell(f);
+    spread1.setCell(newCell, 1, 2);
+    ArrayList<Coord> expected = new ArrayList<Coord>();
+    expected.add(new Coord(1, 1));
+    Assert.assertEquals(expected,
+        spread1.getCellAt(1, 2).getFormula().getCoords());
   }
 
+  //TODO: Is this testing right? Shouldn't get coords incldue
+  // 2,1 and 1,1?
   @Test
+  public void testGetCoords3() {
+    ArrayList<Coord> cs = new ArrayList<Coord>();
+    ArrayList<Coord> cs2 = new ArrayList<Coord>();
+    cs2.add(new Coord(2,1));
+    cs.add(new Coord(1,1));
+    ArrayList<Formula<Double>> fs = new ArrayList<Formula<Double>>();
+    SumFormula f = new SumFormula(cs, fs, spread1);
+    Cell newCell = new BasicDoubleCell(f);
+    spread1.setCell(newCell, 1, 2);
+    ArrayList<Coord> expected = new ArrayList<Coord>();
+    expected.add(new Coord(1, 1));
+    expected.add(new Coord(2,1));
+    SumFormula f2 = new SumFormula(cs2, fs, spread1);
+    Cell nextCell = new BasicDoubleCell(f2);
+    spread1.setCell(newCell, 2, 2);
+    Cell t= spread1.getCellAt(2, 2);
+    Assert.assertEquals(expected,
+        spread1.getCellAt(2, 2).getFormula().getCoords());
+  }
+
+
+
+  // return null pinter bc cell 1,1 doesn't havea  formula
+  @Test(expected = NullPointerException.class)
   public void testGetCoords2() {
     Formula f = new SumFormula(spread1);
     f.addCoord(new Coord(1, 1));
@@ -256,7 +290,7 @@ public class BasicSpreadsheetTest {
   //tests get cell at and set cell
   @Test
   public void testGetAndSetCell() {
-    Assert.assertEquals(spread1.getCellAt(0, 1), new BasicStringCell("hi"));
+    Assert.assertEquals(spread1.getCellAt(1, 1), new BasicDoubleCell(3.2));
     spread1.setCell(new BasicBooleanCell(false), 2, 2);
     Assert.assertEquals(spread1.getCellAt(2, 2), new BasicBooleanCell(false));
   }

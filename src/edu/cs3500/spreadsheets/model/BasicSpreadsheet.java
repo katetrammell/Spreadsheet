@@ -35,7 +35,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.height = 0;
   }
 
-  public Cell getCellAt(Coord c) throws IllegalArgumentException {
+  public Cell<?> getCellAt(Coord c) throws IllegalArgumentException {
     int row = c.getX();
     int col = c.getY();
     if (row < 1 || col < 1) {

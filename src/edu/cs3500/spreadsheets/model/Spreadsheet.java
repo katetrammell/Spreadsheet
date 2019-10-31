@@ -8,14 +8,16 @@ public interface Spreadsheet {
   //TODO: Uncomment this... possibly why we were getting errors
   /*
   *//**
-   * Sums the values of the given cells. Ignores non-numeric values and defaults to zero.
+   * Sums the values of the given cells.
+   * Ignores non-numeric values and defaults to zero.
    * @param range Any number of cell's to sum
    * @return sum of the cells' values
    *//*
   public double sum(Cell... range);
 
   *//**
-   * Multiplies the values of the given cells. Ignores non-numeric values and defaults to 0.
+   * Multiplies the values of the given cells.
+   * Ignores non-numeric values and defaults to 0.
    * @param range Any number of cells to multiply
    * @return product of the cells' values
    *//*
@@ -32,7 +34,8 @@ public interface Spreadsheet {
   public boolean greaterThan(Cell cell1, Cell cell2);
 
   *//**
-   * Concatenates the given cells. Ignores non string cells. Defaults to "".
+   * Concatenates the given cells.
+   * Ignores non string cells. Defaults to "".
    * @param range cells to concatenates
    * @return the concatenation of the cells
    *//*
