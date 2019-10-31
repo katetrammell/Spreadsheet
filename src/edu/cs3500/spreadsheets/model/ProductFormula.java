@@ -52,9 +52,11 @@ public class ProductFormula implements Formula<Double> {
       }
     }
     for (Formula<Double> f : forms) {
+      hitNumericYet = true;
       totalProduct = totalProduct * f.evaluate();
     }
     for (Double d : constants) {
+      hitNumericYet = true;
       totalProduct = totalProduct * d;
     }
     if (!hitNumericYet) {
