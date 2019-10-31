@@ -1,6 +1,6 @@
 
 package edu.cs3500.spreadsheets.model;
-/*
+
 import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,81 +9,81 @@ import org.junit.Test;
 /**
  * Class for testing ProductFormula.
  */
+
 public class ProductFormulaTest {
-/*
+
 
   BasicSpreadsheet spread1;
+  ArrayList<Coord> coords = new ArrayList<Coord>();
 
 
   @Before
   public void setUp() {
     spread1 = new BasicSpreadsheet(3, 3);
-    spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
-    spread1.setCell(new BasicStringCell("hi"), 0, 1);
-    spread1.setCell(new BasicStringCell(" there"), 0, 2);
-    spread1.setCell(new BasicDoubleCell(10.0), 0, 3);
-    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
+    spread1.setCell(new BasicDoubleCell(5.0), 5, 5);
+    spread1.setCell(new BasicStringCell("hi"), 6, 1);
+    spread1.setCell(new BasicStringCell(" there"), 7, 2);
+    spread1.setCell(new BasicDoubleCell(10.0), 8, 3);
+    spread1.setCell(new BasicDoubleCell(3.2), 1, 9);
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
-    spread1.setCell(new BasicDoubleCell(-1.0), 5, 0);
+    spread1.setCell(new BasicDoubleCell(-1.0), 5, 3);
   }
 
   @Test
-  public void testProduct() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    cells.add(spread1.getCellAt(0,0));
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-
-    Assert.assertEquals(prodForm1.evaluate(), 5.0, .001);
+  public void testDefault() {
+    ProductFormula f = new ProductFormula((ArrayList<Coord>) coords,
+        new ArrayList<Formula<Double>>(), spread1);
+    Assert.assertEquals(0.0, f.evaluate(), .001);
   }
 
   @Test
-  public void testProdBoolString() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    cells.add(spread1.getCellAt(1, 1));
-    cells.add(spread1.getCellAt(0, 1));
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-    Assert.assertEquals(0.0, prodForm1.evaluate(), .001);
+  public void testDefaultWithNulls() {
+    coords.add(new Coord(50, 50));
+    ProductFormula f = new ProductFormula((ArrayList<Coord>) coords,
+        new ArrayList<Formula<Double>>(), spread1);
+    Assert.assertEquals(0.0, f.evaluate(), .001);
   }
 
   @Test
-  public void testProdTwoDoubles() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    cells.add(spread1.getCellAt(0, 0));
-    cells.add(spread1.getCellAt(0, 3));
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-    Assert.assertEquals(50.0, prodForm1.evaluate(), .001);
+  public void testDefaultWithStrings() {
+    coords.add(new Coord(1, 6));
+    coords.add(new Coord(2, 7));
+    ProductFormula f = new ProductFormula((ArrayList<Coord>) coords,
+        new ArrayList<Formula<Double>>(), spread1);
+    Assert.assertEquals(0.0, f.evaluate(), .001);
   }
 
   @Test
-  public void testNegN() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    cells.add(spread1.getCellAt(0, 0));
-    cells.add(spread1.getCellAt(5, 0));
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-    Assert.assertEquals(-5.0, prodForm1.evaluate(), .001);
+  public void testDefaultWithStringsAndBool() {
+    coords.add(new Coord(1, 6));
+    coords.add(new Coord(2, 7));
+    coords.add(new Coord(1, 1));
+    ProductFormula f = new ProductFormula((ArrayList<Coord>) coords,
+        new ArrayList<Formula<Double>>(), spread1);
+    Assert.assertEquals(0.0, f.evaluate(), .001);
   }
 
   @Test
-  public void testNoArgs() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-    Assert.assertEquals(0.0, prodForm1.evaluate(), .001);
+  public void testProd() {
+    coords.add(new Coord(3, 8));
+    coords.add(new Coord(5, 5));
+    ProductFormula f = new ProductFormula((ArrayList<Coord>) coords,
+        new ArrayList<Formula<Double>>(), spread1);
+    Assert.assertEquals(50.0, f.evaluate(), .001);
   }
 
   @Test
-  public void testBoolStringN() {
-    ArrayList<Cell> cells = new ArrayList<Cell>();
-    // doubles
-    cells.add(spread1.getCellAt(0, 0));
-    cells.add(spread1.getCellAt(0, 3));
-    //boolean
-    cells.add(spread1.getCellAt(1, 1));
-    //string
-    cells.add(spread1.getCellAt(0, 1));
-    ProductFormula prodForm1 = new ProductFormula(cells, new ArrayList<Formula<Double>>());
-    Assert.assertEquals(50.0, prodForm1.evaluate(), .001);
+  public void testProdWithStringsBoolsAndNulls() {
+    coords.add(new Coord(3, 8));
+    coords.add(new Coord(5, 5));
+    coords.add(new Coord(50, 50));
+    coords.add(new Coord(1, 6));
+    coords.add(new Coord(1, 1));
+    ProductFormula f = new ProductFormula((ArrayList<Coord>) coords,
+        new ArrayList<Formula<Double>>(), spread1);
+    Assert.assertEquals(50.0, f.evaluate(), .001);
   }
-*/
+
 
 }
 
