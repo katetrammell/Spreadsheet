@@ -18,12 +18,16 @@ public class BasicSpreadsheetTest {
   @Before
   public void setUp() {
     spread1 = new BasicSpreadsheet(3, 3);
-   /* spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
+    /*
+    spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
     spread1.setCell(new BasicStringCell("hi"), 0, 1);
     spread1.setCell(new BasicStringCell(" there"), 0, 2);
 
-    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);*/
+    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
+
+     */
+    spread1.setCell(new BasicDoubleCell(3.2), 1, 1);
   }
 
   // Tests constructor fills with nulls
@@ -34,6 +38,67 @@ public class BasicSpreadsheetTest {
     Assert.assertEquals(spread.getHeight(), 5);
     Assert.assertEquals(spread.getCellAt(0, 3), null);
   }
+
+  @Test
+  public void testGetCell() {
+    Cell t = spread1.getCellAt(1, 1);
+    Cell expected = new BasicDoubleCell(3.2);
+    Assert.assertEquals(expected, t);
+  }
+
+  @Test
+  public void testGetCellNull() {
+    Cell c = spread1.getCellAt(20, 20);
+    Assert.assertNull(c);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetCellE() {
+    spread1.setCell(new BasicDoubleCell(3.2), 0, 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetCellECol() {
+    spread1.setCell(new BasicDoubleCell(3.2), 0, 1);
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetCellERow() {
+    spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
+  }
+
+  @Test
+  public void testWidthHeight() {
+    Assert.assertTrue(spread1.getWidth() < 10);
+    Assert.assertTrue(spread1.getHeight() < 10);
+    spread1.setCell(new BasicDoubleCell(3.2), 22, 20);
+    Assert.assertTrue(spread1.getWidth() == 20);
+    Assert.assertTrue(spread1.getHeight() == 22);
+  }
+
+  // formulas:
+
+  // no formulas involved, should just return an empty list
+  @Test
+  public void testGetCoords() {
+    Assert.assertEquals(new ArrayList<>(),
+        spread1.getCellAt(1, 1).getFormula().getCoords());
+  }
+
+  @Test
+  public void testGetCoords2() {
+    Formula f = new SumFormula(spread1);
+    f.addCoord(new Coord(1, 1));
+    Cell newCell = new BasicDoubleCell(f);
+    List<Coord> expected = new ArrayList<>();
+    expected.add(new Coord(1,1 ));
+    Assert.assertEquals(expected,
+        spread1.getCellAt(1, 1).getFormula().getCoords());
+  }
+
+
+
 
 /*
 //tests that sum of non numbers = 0

@@ -39,6 +39,7 @@ public interface Spreadsheet {
   public String concat(Cell... range);
 */
   /**
+   * TODO: Decide what to do if there is no cell
    * Gets the cell at the specified location.
    * @param column the column of the cell
    * @param row the row number of the cell

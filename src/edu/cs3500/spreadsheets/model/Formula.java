@@ -1,7 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
-
+//TODO: Is adding the spreadsheet to the formula class something we really want to do?
+// shouldn't the formula really not know what we want it to do
 public interface Formula<T> {
 
   /**
@@ -22,8 +23,16 @@ public interface Formula<T> {
    */
   void addCoord(Coord c);
 
+  //TODO: What does this do
   void addConstant(Object t);
 
+  /**
+   * Gets all the coordinates involved with this formula.
+   * If a formula references a cell that just contains a cell
+   * it will add that cell, if that cell also has formulas, it will includes
+   * those cells and recursively gather any cells those cells refernce.
+   * @return the list o coordiantes involves with a formula
+   */
   List<Coord> getCoords();
 
 
