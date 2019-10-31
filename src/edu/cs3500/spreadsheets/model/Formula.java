@@ -1,7 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
-
+//TODO: Is adding the spreadsheet to the formula class something we really want to do?
+// shouldn't the formula really not know what we want it to do
 public interface Formula<T> {
 
   /**

@@ -79,9 +79,21 @@ public class BasicSpreadsheetTest {
 
   // formulas:
 
+  // no formulas involved, should just return an empty list
   @Test
   public void testGetCoords() {
     Assert.assertEquals(new ArrayList<>(),
+        spread1.getCellAt(1, 1).getFormula().getCoords());
+  }
+
+  @Test
+  public void testGetCoords2() {
+    Formula f = new SumFormula(spread1);
+    f.addCoord(new Coord(1, 1));
+    Cell newCell = new BasicDoubleCell(f);
+    List<Coord> expected = new ArrayList<>();
+    expected.add(new Coord(1,1 ));
+    Assert.assertEquals(expected,
         spread1.getCellAt(1, 1).getFormula().getCoords());
   }
 
