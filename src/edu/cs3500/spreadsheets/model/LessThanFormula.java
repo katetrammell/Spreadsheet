@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -105,18 +106,29 @@ public class LessThanFormula implements Formula<Boolean> {
   }
 
   @Override
-  public List<Coord> getCoords() {
-    ArrayList<Coord> ans = new ArrayList<Coord>();
-    ans.add(this.coord1);
-    ans.add(this.coord2);
-    if (coord1 != null && spread.getCellAt(coord1) != null
-        && spread.getCellAt(coord1).getFormula() != null) {
-      ans.addAll(spread.getCellAt(coord1).getFormula().getCoords());
+  public HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> currHash) {
+    HashMap<Coord, Integer> ans = new HashMap<Coord, Integer>();
+    if (this.coord1 != null && spread.getCellAt(coord1) != null) {
+      if (currHash.containsKey(coord1)){
+        ans.putAll(currHash.get(coord1));
+      } else {
+        ans.put(coord1,0);
+        if (spread.getCellAt(coord1).getFormula() != null) {
+          ans.putAll(spread.getCellAt(coord1).getFormula().getCoords(currHash));
+        }
+      }
     }
-    if (coord2 != null && spread.getCellAt(coord2) != null
-        && spread.getCellAt(coord2).getFormula() != null) {
-      ans.addAll(spread.getCellAt(coord2).getFormula().getCoords());
+    if (this.coord2 != null && spread.getCellAt(coord2) != null) {
+      if (currHash.containsKey(coord2)){
+        ans.putAll(currHash.get(coord2));
+      } else {
+        ans.put(coord2,0);
+        if (spread.getCellAt(coord2).getFormula() != null) {
+          ans.putAll(spread.getCellAt(coord2).getFormula().getCoords(currHash));
+        }
+      }
     }
+
     return ans;
   }
 

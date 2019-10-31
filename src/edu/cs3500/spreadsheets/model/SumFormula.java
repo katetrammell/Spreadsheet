@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -83,17 +84,26 @@ public class SumFormula implements Formula<Double> {
   }
 
   // I think this gets in circular loops
-  @Override
-  public List<Coord> getCoords() {
-    ArrayList<Coord> ans = new ArrayList<Coord>();
-    for (Formula<Double> f : this.forms) {
-      ans.addAll(f.getCoords());
+  public HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> currHash) {
+    HashMap<Coord, Integer> ans = new HashMap<Coord, Integer>();
+    for (Formula<?> f : this.forms) {
+      ans.putAll(f.getCoords(currHash));
     }
-    ans.addAll(this.coords);
     for (Coord c : this.coords) {
-      if (spread.getCellAt(c) != null && spread.getCellAt(c).getFormula() != null) {
-        ans.addAll(spread.getCellAt(c).getFormula().getCoords());
+      if (c != null) {
+        if (currHash.containsKey(c)) {
+          ans.putAll(currHash.get(c));
+        } else {
+          Cell bs = spread.getCellAt(c);
+          if (bs != null && bs.getFormula() != null) {
+            Formula<?> form = bs.getFormula();
+            ans.putAll(form.getCoords(currHash));
+          }
+        }
       }
+    }
+    for (Coord cord : this.coords){
+      ans.put(cord, 0);
     }
     return ans;
   }

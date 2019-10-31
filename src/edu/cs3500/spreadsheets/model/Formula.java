@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.HashMap;
 import java.util.List;
 //TODO: Is adding the spreadsheet to the formula class something we really want to do?
 // shouldn't the formula really not know what we want it to do
@@ -33,7 +34,7 @@ public interface Formula<T> {
    * those cells and recursively gather any cells those cells refernce.
    * @return the list o coordiantes involves with a formula
    */
-  List<Coord> getCoords();
+  HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> Currhash);
 
 
 
