@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.sexp;
 import java.util.List;
 
 /**
- * Checks the if different sexpressions are a list.
+ * Checks the if different sexpressions are a symbol.
  */
 public class IsSymbol implements SexpVisitor<Boolean> {
   @Override

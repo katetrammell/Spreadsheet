@@ -52,9 +52,32 @@ public class CellMaker implements SexpVisitor<Cell>{
         if (l.size() != 3) {
           throw new IllegalArgumentException();
         }
-        Coord c1 = StringToCoord(l.get(1).toString());
-        Coord c2 = StringToCoord(l.get(2).toString());
-        LessThanFormula lformula = new LessThanFormula(c1, c2, this.spread);
+        LessThanFormula lformula;
+        try {
+          lformula = new LessThanFormula(StringToCoord(l.get(1).toString()),
+              StringToCoord(l.get(2).toString()), this.spread);
+        } catch (IllegalArgumentException IAE) {
+          try {
+            lformula = new LessThanFormula(StringToCoord(l.get(1).toString()),
+                l.get(2).accept(new CellMaker(this.spread)).getNumericValue(0), this.spread);
+          } catch (Exception e1) {
+            try {
+              lformula = new LessThanFormula(
+                  l.get(1).accept(new CellMaker(this.spread)).getNumericValue(0),
+                  StringToCoord(l.get(2).toString()), this.spread);
+            } catch (Exception e2) {
+              try {
+                lformula = new LessThanFormula(
+                    l.get(1).accept(new CellMaker(this.spread)).getNumericValue(0),
+                    l.get(1).accept(new CellMaker(this.spread)).getNumericValue(0), this.spread);
+              } catch (Exception e3) {
+                throw new IllegalArgumentException("Less than arguments invalid");
+              }
+            }
+          }
+        }
+
+
         return new BasicBooleanCell(lformula);
       default:
         throw new IllegalArgumentException("invalid symbol");
@@ -90,7 +113,12 @@ public class CellMaker implements SexpVisitor<Cell>{
   private void addArguments(Formula formula, List<Sexp> l) {
     for (int i = 1; i < l.size(); i++) {
       if (l.get(i).accept(new IsSymbol())) {
-        formula.addCoord(StringToCoord(l.get(i).toString()));
+        try {
+          Coord c = StringToCoord(l.get(i).toString());
+          formula.addCoord(c);
+        } catch (IllegalArgumentException e) {
+          break;
+        }
       }
       else if (l.get(i).accept(new IsList())) {
         formula.addFormula(l.get(i).accept(new CellMaker(this.spread)).getFormula());
