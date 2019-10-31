@@ -5,6 +5,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 public class BeyondGood {
   /**
    * The main entry point.
+   *
    * @param args any command-line arguments
    */
   public static void main(String[] args) {
@@ -31,21 +33,21 @@ public class BeyondGood {
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("Please give the name of a file");
     }
-      spread = WorksheetReader.read(builder, fileR);
+    spread = WorksheetReader.read(builder, fileR);
     try {
       String cellV;
-      if ( spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula() != null) {
-        if (spread.getCellAt(BeyondGood.StringToCoord(args[3])).isNumericValue()) {
+      if (spread.getCellAt(BeyondGood.stringToCoord(args[3])).getFormula() != null) {
+        if (spread.getCellAt(BeyondGood.stringToCoord(args[3])).isNumericValue()) {
           cellV = String.format("%f",
-              spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula().evaluate());
+              spread.getCellAt(BeyondGood.stringToCoord(args[3])).getFormula().evaluate());
         } else {
-          cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula()
+          cellV = spread.getCellAt(BeyondGood.stringToCoord(args[3])).getFormula()
               .evaluate().toString();
         }
       } else {
-        cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getValue().toString();
+        cellV = spread.getCellAt(BeyondGood.stringToCoord(args[3])).getValue().toString();
       }
-         System.out.print(cellV);
+      System.out.print(cellV);
 
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Must give valid row and col arguments");
@@ -60,7 +62,7 @@ public class BeyondGood {
     */
   }
 
-  private static Coord StringToCoord(String s) {
+  private static Coord stringToCoord(String s) {
     Scanner scan = new Scanner(s);
     final Pattern cellRef = Pattern.compile("([A-Za-z]+)([1-9][0-9]*)");
     scan.useDelimiter("\\s+");

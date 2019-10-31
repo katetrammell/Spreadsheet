@@ -1,7 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +13,7 @@ public class BasicSpreadsheet implements Spreadsheet {
   private int width;
   private int height;
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
+
   /**
    * Constructor for the class.
    * Sets the size of the gird to the given width and height.
@@ -37,6 +37,13 @@ public class BasicSpreadsheet implements Spreadsheet {
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
   }
 
+  /**
+   * Get cell at specified location.
+   *
+   * @param c coordinate of cell
+   * @return cell at lovation
+   * @throws IllegalArgumentException if coord is null
+   */
   public Cell<?> getCellAt(Coord c) throws IllegalArgumentException {
     if (c == null) {
       throw new IllegalArgumentException("coord cannot be null");
@@ -53,7 +60,7 @@ public class BasicSpreadsheet implements Spreadsheet {
   }
 
   @Override
-  public void setCell(Cell c, int row, int col) throws IllegalArgumentException{
+  public void setCell(Cell c, int row, int col) throws IllegalArgumentException {
     if (row <= 0 || col <= 0) {
       throw new IllegalArgumentException("Invalid row or column");
     }
@@ -63,7 +70,8 @@ public class BasicSpreadsheet implements Spreadsheet {
     }
     if (col > this.width) {
       this.width = col;
-    } if (c.getFormula() != null) {
+    }
+    if (c.getFormula() != null) {
       Formula<?> form = c.getFormula();
       HashMap<Coord, Integer> cc = form.getCoords(this.listOfDep);
       if (cc.containsKey(new Coord(col, row))) {
@@ -71,7 +79,7 @@ public class BasicSpreadsheet implements Spreadsheet {
       }
       listOfDep.put(new Coord(col, row), cc);
     }
-      this.grid.put(new Coord(col , row ), c);
+    this.grid.put(new Coord(col, row), c);
 /*    if (c.getFormula() != null) {
       Formula<?> f = c.getFormula();
       for (Coord coord : f.getCoords()) {

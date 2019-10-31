@@ -36,7 +36,7 @@ public class BasicStringCell extends AbstractBasicCell<String> {
 
   @Override
   public boolean equals(Object other) {
-    if(!(other instanceof BasicStringCell)) {
+    if (!(other instanceof BasicStringCell)) {
       return false;
     } else {
       BasicStringCell otherBC = (BasicStringCell) other;

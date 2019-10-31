@@ -2,7 +2,10 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
 
- public class BasicDoubleCell extends AbstractBasicCell<Double> {
+/**
+ * Class to represent double cells in a spreadsheet.
+ */
+public class BasicDoubleCell extends AbstractBasicCell<Double> {
 
   public BasicDoubleCell(Double val) {
     super(val);
@@ -20,47 +23,47 @@ import java.util.List;
     super(form, deps);
   }
 
-   @Override
-   public boolean isNumericValue() {
-     return true;
-   }
+  @Override
+  public boolean isNumericValue() {
+    return true;
+  }
 
-   public Double getNumericValue(double base) {
+  public Double getNumericValue(double base) {
     if (this.getFormula() == null && this.getValue() == null) {
       return base;
+    } else if (this.getValue() == null) {
+      return this.getFormula().evaluate();
+    } else {
+      return this.getValue();
     }
-     else if (this.getValue() == null) {
-       return this.getFormula().evaluate();
-     } else {
-       return this.getValue();
-     }
   }
 
 
-   @Override
-   public boolean equals(Object other) {
-     if(!(other instanceof BasicDoubleCell)) {
-       return false;
-     } else {
-       BasicDoubleCell otherBC = (BasicDoubleCell) other;
-       if (this.getFormula() != null) {
-         return this.getFormula().equals(((BasicDoubleCell) other).getFormula());
-       }else if (this.getValue() != null) {
-         return this.getValue().equals(((BasicDoubleCell) other).getValue());
-       } else {
-         return true;
-       }
-     }
-   }
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof BasicDoubleCell)) {
+      return false;
+    } else {
+      BasicDoubleCell otherBC = (BasicDoubleCell) other;
+      if (this.getFormula() != null) {
+        return this.getFormula().equals(((BasicDoubleCell) other).getFormula());
+      } else if (this.getValue() != null) {
+        return this.getValue().equals(((BasicDoubleCell) other).getValue());
+      } else {
+        return true;
+      }
+    }
+  }
 
-   @Override
-   public String toString() {
-     String ans = "";
-     if (this.getValue() != null) {
-       ans += String.format("%f", this.getValue());
-     } if (this.getFormula() != null) {
-       ans += this.getFormula().toString();
-     }
-     return ans;
-   }
+  @Override
+  public String toString() {
+    String ans = "";
+    if (this.getValue() != null) {
+      ans += String.format("%f", this.getValue());
+    }
+    if (this.getFormula() != null) {
+      ans += this.getFormula().toString();
+    }
+    return ans;
+  }
 }

@@ -75,7 +75,7 @@ public class Coord {
     return Objects.hash(row, col);
   }
 
-  public int getX (){
+  public int getX () {
     return this.col;
   }
 

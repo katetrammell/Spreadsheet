@@ -7,12 +7,18 @@ import java.util.List;
 /**
  * Class to facilitate concatenating cells.
  */
-public class ConcatFormula implements Formula<String>{
+public class ConcatFormula implements Formula<String> {
+
   private List<Coord> coords;
   private List<Formula> forms;
   private List<String> constants;
   private BasicSpreadsheet spread;
 
+  /**
+   * Constructor with just a spreadsheet.
+   *
+   * @param s spredsheet.
+   */
   public ConcatFormula(BasicSpreadsheet s) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula>();
@@ -20,6 +26,12 @@ public class ConcatFormula implements Formula<String>{
     this.spread = s;
   }
 
+  /**
+   * Constructor with coordinates and spreadshet.
+   *
+   * @param c arraylsit of coordinates on spreadsheet.
+   * @param s spreadsheet in question.
+   */
   public ConcatFormula(ArrayList<Coord> c, BasicSpreadsheet s) {
     this.coords = c;
     this.forms = new ArrayList<Formula>();
@@ -28,11 +40,18 @@ public class ConcatFormula implements Formula<String>{
 
   }
 
-  public ConcatFormula(List<Coord> c, List<Formula> f, BasicSpreadsheet s){
-      this.coords = c;
-      this.spread = s;
-      this.forms = f;
-      this.constants = new ArrayList<String>();
+  /**
+   * Constructor with coordaintes, formulas, and spreadsheet.
+   *
+   * @param c coordiantes on spreadsheet.
+   * @param f formulas that are relevant.
+   * @param s spreadhseet to be used.
+   */
+  public ConcatFormula(List<Coord> c, List<Formula> f, BasicSpreadsheet s) {
+    this.coords = c;
+    this.spread = s;
+    this.forms = f;
+    this.constants = new ArrayList<String>();
 
   }
 
@@ -41,7 +60,7 @@ public class ConcatFormula implements Formula<String>{
   public String evaluate() {
     String ans = "";
     for (Coord c : coords) {
-      if (spread.getCellAt(c) != null){
+      if (spread.getCellAt(c) != null) {
         ans = ans + spread.getCellAt(c).toString();
       }
     }
@@ -89,7 +108,7 @@ public class ConcatFormula implements Formula<String>{
         }
       }
     }
-    for (Coord cord : this.coords){
+    for (Coord cord : this.coords) {
       ans.put(cord, 0);
     }
     return ans;
@@ -105,7 +124,7 @@ public class ConcatFormula implements Formula<String>{
     for (Formula f : this.forms) {
       ans = ans + f.toString() + " ";
     }
-    for (String s: constants){
+    for (String s : constants) {
       ans = ans + s;
     }
     ans += ")";

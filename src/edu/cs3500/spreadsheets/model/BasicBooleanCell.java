@@ -1,8 +1,10 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * Class to represent Boolean cells in spreadsheet.
+ */
 public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
 
   //test
@@ -34,7 +36,7 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
 
   @Override
   public boolean equals(Object other) {
-    if(!(other instanceof BasicBooleanCell)) {
+    if (!(other instanceof BasicBooleanCell)) {
       return false;
     } else {
       BasicBooleanCell otherBC = (BasicBooleanCell) other;
@@ -43,5 +45,8 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
     }
   }
 
-
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
 }

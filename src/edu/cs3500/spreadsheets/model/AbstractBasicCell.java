@@ -8,6 +8,7 @@ import java.util.List;
  * Abstract class for cells. Enables reuse of code for different cell types.
  * Fields are final, so modifying cell values will have to be done be done by
  * creating a new cell altogether.
+ *
  * @param <T> The data type of cthe cell that extends the class.
  */
 abstract public class AbstractBasicCell<T> implements Cell<T> {
@@ -18,6 +19,7 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   /**
    * Constructor for BasicCell that only takes in a value.
    * Sets other fields to default.
+   *
    * @param val value to be set.
    */
   public AbstractBasicCell(T val) {
@@ -29,6 +31,7 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   /**
    * Constructor that takes only a formula.
    * Sets other fields to default values.
+   *
    * @param form - formula to be set.
    */
   public AbstractBasicCell(Formula<T> form) {
@@ -41,8 +44,9 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   /**
    * Constructor that takes in a value and a list of dependencies.
    * Formula set to null.
-   * @param val
-   * @param deps
+   *
+   * @param val  value to be set
+   * @param deps depencies to be set
    */
   public AbstractBasicCell(T val, List<Coord> deps) {
     this.value = val;
@@ -53,24 +57,21 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
   /**
    * Constructor that takes in formula and a list of dependcies,
    * value set to null.
-   * @param form
-   * @param deps
+   *
+   * @param form formulas to be set
+   * @param deps dependencies to bet set
    */
- public AbstractBasicCell(Formula<T> form, List<Coord> deps) {
+  public AbstractBasicCell(Formula<T> form, List<Coord> deps) {
     this.value = null;
     this.formula = form;
     this.dependencies = deps;
   }
 
-
-
-  //TODO make copy of value?
   @Override
   public T getValue() {
-    return  this.value;
+    return this.value;
   }
 
-  //TODO make copy of formula?
   @Override
   public Formula<T> getFormula() {
     return this.formula;
@@ -78,11 +79,11 @@ abstract public class AbstractBasicCell<T> implements Cell<T> {
 
   @Override
   public List<Coord> getDependencies() {
-   return this.dependencies;
+    return this.dependencies;
   }
 
   @Override
-  public  void setDependent(Coord c) {
+  public void setDependent(Coord c) {
     this.dependencies.add(c);
   }
 
