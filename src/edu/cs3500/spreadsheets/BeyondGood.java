@@ -31,22 +31,21 @@ public class BeyondGood {
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("Please give the name of a file");
     }
-   // try {
       spread = WorksheetReader.read(builder, fileR);
-    //} catch (Exception e) {
-    //  System.out.print("Bad Spreadsheet");
-    //  return;
-   // }
     try {
       String cellV;
       if ( spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula() != null) {
-        cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula()
-            .evaluate().toString();
+        if (spread.getCellAt(BeyondGood.StringToCoord(args[3])).isNumericValue()) {
+          cellV = String.format("%f",
+              spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula().evaluate());
+        } else {
+          cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getFormula()
+              .evaluate().toString();
+        }
       } else {
         cellV = spread.getCellAt(BeyondGood.StringToCoord(args[3])).getValue().toString();
       }
-        System.out.print("Cell is: " +
-         cellV + "\n");
+         System.out.print(cellV);
 
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Must give valid row and col arguments");

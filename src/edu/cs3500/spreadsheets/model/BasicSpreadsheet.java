@@ -13,7 +13,7 @@ public class BasicSpreadsheet implements Spreadsheet {
   private final Map<Coord, Cell> grid;
   private int width;
   private int height;
-
+  private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
   /**
    * Constructor for the class.
    * Sets the size of the gird to the given width and height.
@@ -23,6 +23,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.grid = new HashMap<>();
     this.width = width;
     this.height = height;
+    listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
   }
 
   /**
@@ -33,6 +34,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.grid = new HashMap<>();
     this.width = 0;
     this.height = 0;
+    listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
   }
 
   public Cell<?> getCellAt(Coord c) throws IllegalArgumentException {
@@ -62,13 +64,15 @@ public class BasicSpreadsheet implements Spreadsheet {
     if (col > this.width) {
       this.width = col;
     } if (c.getFormula() != null) {
-      List<?> cc = c.getFormula().getCoords();
-      if (cc.contains(new Coord(col, row))) {
+      Formula<?> form = c.getFormula();
+      HashMap<Coord, Integer> cc = form.getCoords(this.listOfDep);
+      if (cc.containsKey(new Coord(col, row))) {
         throw new IllegalArgumentException("Cyclic reference");
       }
+      listOfDep.put(new Coord(col, row), cc);
     }
       this.grid.put(new Coord(col , row ), c);
-    if (c.getFormula() != null) {
+/*    if (c.getFormula() != null) {
       Formula<?> f = c.getFormula();
       for (Coord coord : f.getCoords()) {
         if (coord != null) {
@@ -78,7 +82,7 @@ public class BasicSpreadsheet implements Spreadsheet {
         }
       }
 
-    }
+    }*/
   }
 
 

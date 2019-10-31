@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -70,19 +71,27 @@ public class ConcatFormula implements Formula<String>{
   }
 
   @Override
-  public List<Coord> getCoords() {
-    ArrayList<Coord> ans = new ArrayList<Coord>();
-    for (Formula<String> f : this.forms) {
-      ans.addAll(f.getCoords());
+  public HashMap<Coord, Integer> getCoords(HashMap<Coord, HashMap<Coord, Integer>> currHash) {
+    HashMap<Coord, Integer> ans = new HashMap<Coord, Integer>();
+    for (Formula<?> f : this.forms) {
+      ans.putAll(f.getCoords(currHash));
     }
     for (Coord c : this.coords) {
-      Cell bs = spread.getCellAt(c);
-      if (bs != null && bs.getFormula() != null) {
-        ans.addAll(bs.getFormula().getCoords());
+      if (c != null) {
+        if (currHash.containsKey(c)) {
+          ans.putAll(currHash.get(c));
+        } else {
+          Cell bs = spread.getCellAt(c);
+          if (bs != null && bs.getFormula() != null) {
+            Formula<?> form = bs.getFormula();
+            ans.putAll(form.getCoords(currHash));
+          }
+        }
       }
     }
-    ans.addAll(this.coords);
-
+    for (Coord cord : this.coords){
+      ans.put(cord, 0);
+    }
     return ans;
   }
 

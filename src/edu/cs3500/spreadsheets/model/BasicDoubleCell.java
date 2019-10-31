@@ -57,7 +57,7 @@ import java.util.List;
    public String toString() {
      String ans = "";
      if (this.getValue() != null) {
-       ans += this.getValue().toString();
+       ans += String.format("%f", this.getValue());
      } if (this.getFormula() != null) {
        ans += this.getFormula().toString();
      }

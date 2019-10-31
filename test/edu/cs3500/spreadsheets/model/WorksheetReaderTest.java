@@ -10,6 +10,7 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -115,9 +116,12 @@ public class WorksheetReaderTest {
     Assert.assertEquals(spread.getCellAt(new Coord(1, 1)).getFormula(), null);
     Assert.assertEquals((Double)spread.getCellAt(new Coord(1, 2)).getFormula().evaluate(),
         144.0, .0001 );
-
-
-
-
+    Assert.assertEquals((Double)spread.getCellAt(new Coord(3, 2)).getFormula().evaluate(),
+        0.0, .0001 );
+    List<Coord> A2Coords = new ArrayList<Coord>();
+    A2Coords.add(new Coord(3, 1));
+    A2Coords.add(new Coord(1, 1));
+    A2Coords.add(new Coord(3, 1));
+    A2Coords.add(new Coord(1,1));
   }
 }
