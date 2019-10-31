@@ -83,32 +83,15 @@ public class SumFormula implements Formula<Double> {
   @Override
   public List<Coord> getCoords() {
     ArrayList<Coord> ans = new ArrayList<Coord>();
-    for (Formula f : this.forms) {
-      List<Coord> newCoords = f.getCoords();
-      for (Coord c: newCoords) {
-        if (ans.contains(c)) {
-          throw new IllegalArgumentException("Circular reference");
-        }
-        else {
-          ans.add(c);
-        }
-      }
-    }
-    for (Coord c : this.coords) {
-      if (spread.getCellAt(c) != null && spread.getCellAt(c).getFormula() != null) {
-        //ans.addAll(spread.getCellAt(c).getFormula().getCoords());
-        List<Coord> newCoords2 = spread.getCellAt(c).getFormula().getCoords();
-        for (Coord c2: newCoords2) {
-          if (ans.contains(c2)) {
-            throw new IllegalArgumentException("Circular Refernce 2");
-          }
-          else {
-            ans.add(c2);
-          }
-        }
-      }
+    for (Formula<Double> f : this.forms) {
+      ans.addAll(f.getCoords());
     }
     ans.addAll(this.coords);
+    for (Coord c : this.coords) {
+      if (spread.getCellAt(c) != null && spread.getCellAt(c).getFormula() != null) {
+        ans.addAll(spread.getCellAt(c).getFormula().getCoords());
+      }
+    }
     return ans;
   }
 

@@ -28,6 +28,20 @@ public class BasicSpreadsheetTest {
 
      */
     spread1.setCell(new BasicDoubleCell(3.2), 1, 1);
+    spread1.setCell(new BasicDoubleCell(3.5), 1,  2);
+    spread1.setCell(new BasicDoubleCell(5.0), 1, 3);
+    spread1.setCell(new BasicDoubleCell(10.0), 1, 4);
+    ArrayList<Coord> coords = new ArrayList<>();
+
+    for (int i = 1; i < 5; i++) {
+      coords.add(new Coord(1, i));
+    }
+    coords.add(new Coord(3, 7));
+    ArrayList<Coord> coords2 = coords;
+    coords2.add(new Coord(1, 5));
+    SumFormula f = new SumFormula(coords, new ArrayList<>(), spread1);
+    spread1.setCell(new BasicDoubleCell(f), 1, 5);
+
   }
 
   // Tests constructor fills with nulls
@@ -51,6 +65,8 @@ public class BasicSpreadsheetTest {
     Cell c = spread1.getCellAt(20, 20);
     Assert.assertNull(c);
   }
+
+
 
   @Test(expected = IllegalArgumentException.class)
   public void testSetCellE() {
@@ -115,6 +131,17 @@ public class BasicSpreadsheetTest {
     Cell t= spread1.getCellAt(2, 2);
     Assert.assertEquals(expected,
         spread1.getCellAt(2, 2).getFormula().getCoords());
+  }
+
+  @Test
+  public void testGC4() {
+    Assert.assertEquals(new ArrayList<>(),
+        spread1.getCellAt(1, 5).getFormula().getCoords());
+  }
+
+  @Test
+  public void testGetCell5() {
+    Assert.assertEquals(20, spread1.getCellAt(1, 5).getValue());
   }
 
 

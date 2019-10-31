@@ -20,7 +20,10 @@ public class LessThanFormulaTest {
     spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
     spread1.setCell(new BasicDoubleCell(-1.0), 5, 0);
+    LessThanFormula f = new LessThanFormula(new Coord)
   }
+
+
 
   /*
   @Test(expected = IllegalArgumentException.class)
