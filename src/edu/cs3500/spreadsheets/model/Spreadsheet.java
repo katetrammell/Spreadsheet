@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X.
  */
@@ -7,7 +10,6 @@ public interface Spreadsheet {
 
 
   /**
-   * TODO: Decide what to do if there is no cell
    * Gets the cell at the specified location.
    * @param column the column of the cell
    * @param row the row number of the cell
@@ -15,6 +17,12 @@ public interface Spreadsheet {
    * @throw IllegalArgumentException if location is invalid
    */
   Cell getCellAt(int column, int row) throws IllegalArgumentException;
+
+  /**
+   * Returns a HashMap of all cells and their corresponding Coords.
+   * @return HashMap of cells and Coords
+   */
+  HashMap<Coord, Cell> getAllCells();
 
   /**
    * Sets the cell at the given location to the given cell.

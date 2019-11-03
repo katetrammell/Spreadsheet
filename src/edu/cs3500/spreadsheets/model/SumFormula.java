@@ -79,7 +79,7 @@ public class SumFormula implements Formula<Double> {
 
   @Override
   public String toString() {
-    String ans = "(Sum : ";
+    String ans = "=(SUM ";
     for (Coord c : this.coords) {
       ans += c.toString() + " ";
     }

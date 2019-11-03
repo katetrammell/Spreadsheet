@@ -117,7 +117,7 @@ public class ConcatFormula implements Formula<String> {
 
   @Override
   public String toString() {
-    String ans = "(Concat : ";
+    String ans = "=(CONCAT ";
     for (Coord c : this.coords) {
       ans = ans + c.toString() + " ";
     }

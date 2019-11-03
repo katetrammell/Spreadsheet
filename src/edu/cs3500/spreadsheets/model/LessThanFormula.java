@@ -157,7 +157,7 @@ public class LessThanFormula implements Formula<Boolean> {
 
   @Override
   public String toString() {
-    String ans = "(Less than : ";
+    String ans = "=(< ";
     if (coord1 != null) {
       ans += this.coord1.toString() + " ";
     }

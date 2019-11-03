@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class BasicSpreadsheet implements Spreadsheet {
 
-  private final Map<Coord, Cell> grid;
+  private final HashMap<Coord, Cell> grid;
   private int width;
   private int height;
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
@@ -54,6 +54,11 @@ public class BasicSpreadsheet implements Spreadsheet {
       throw new IllegalArgumentException("Invalid row or column");
     }
     return this.grid.get(new Coord(col, row));
+  }
+
+  @Override
+  public HashMap<Coord, Cell> getAllCells() {
+    return this.grid;
   }
 
   @Override

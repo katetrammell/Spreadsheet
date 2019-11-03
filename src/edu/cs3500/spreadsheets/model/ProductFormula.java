@@ -129,7 +129,7 @@ public class ProductFormula implements Formula<Double> {
 
   @Override
   public String toString() {
-    String ans = "(Product : ";
+    String ans = "=(PRODUCT ";
     for (Coord c : this.coords) {
       ans += c.toString() + " ";
     }
