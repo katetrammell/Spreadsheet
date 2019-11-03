@@ -5,9 +5,12 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
+import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,10 +26,61 @@ public class BeyondGood {
    * @param args any command-line arguments
    */
   public static void main(String[] args) {
+    switch (args[0]) {
+      case "-in":
+        if (args[2].equals("-eval")) {
+          inEval(args);
+          break;
+        }
+        else if (args[2].equals("-save")) {
+          inSave(args);
+          break;
+        }
+        else if (args[2].equals("-gui")) {
+          //inGui();
+        }
+        else {
+          throw new IllegalArgumentException(
+              "-in but invalid second argument");
+        }
+      case "-gui":
+        //inGuiBlank();
+        break;
+      default:
+        throw new IllegalArgumentException("invalid first keyword");
+    }
+  }
+
+  /**
+   * Takes in given file, saves as new file
+   * @param args arguments from run configuration as described in assignment
+   */
+  private static void inSave(String[] args) {
+    WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
+    FileReader f;
+    try {
+      f = new FileReader(args[1]);
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File not found");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
+    BasicSpreadsheetTextualView view = new BasicSpreadsheetTextualView();
+    try {
+      PrintWriter writer = new PrintWriter(args[3]);
+      view.render(spread, writer);
+      writer.close();
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Writing failed");
+    }
+  }
+
+  /**
+   * Takes in spreadsheet data and evaluates a cell
+   * @param args arguments as described in assignment from run configurations
+   */
+  private static void inEval(String[] args) {
     WorksheetBuilder<BasicSpreadsheet> builder = new OurBuilder();
-
     FileReader fileR;
-
     BasicSpreadsheet spread;
 
     try {
@@ -53,8 +107,6 @@ public class BeyondGood {
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException("Must give valid row and col arguments");
     }
-
-
   }
 
   private static Coord stringToCoord(String s) {

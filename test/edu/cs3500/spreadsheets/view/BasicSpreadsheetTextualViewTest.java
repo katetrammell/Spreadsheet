@@ -44,4 +44,32 @@ public class BasicSpreadsheetTextualViewTest {
 
   }
 
+  @Test
+  public void renderGUI() {
+    WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
+    FileReader f;
+    try {
+      f = new FileReader("BigData.txt");
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("Bad file");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
+
+    BasicSpreadSheetGraphicalView gui = new BasicSpreadSheetGraphicalView();
+    gui.render(spread);
+  }
+
+  public static void main(String[] args) {
+    WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
+    FileReader f;
+    try {
+      f = new FileReader("BigData.txt");
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("Bad file");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
+
+    BasicSpreadSheetGraphicalView gui = new BasicSpreadSheetGraphicalView();
+    gui.render(spread);
+  }
 }
