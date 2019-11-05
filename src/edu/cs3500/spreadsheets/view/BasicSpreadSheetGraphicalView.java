@@ -8,7 +8,6 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.util.HashMap;
 
 public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
@@ -16,41 +15,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
   public void render(Spreadsheet model) {
     JFrame window = new JFrame();
     JTable spread;
-    HashMap<Coord, Cell> spreadData = model.getAllCells();
-    int spreadHeight = model.getHeight();
-    int spreadWidth = model.getWidth();
-    // +1 to account for extra index column
-    String[][] spreadStrings = new String[spreadHeight][spreadWidth + 1];
-    // gets all the data from model
-    for (int i = 0; i < spreadHeight; i++) {
-      for (int j = 0; j < spreadWidth + 1; j++) {
-        String cell;
-        if (j == 0 ) {
-          cell = Integer.toString(i + 1);
-        }
-        else if (spreadData.containsKey(new Coord(j , i + 1))) {
-          Cell currentCell = model.getCellAt(i + 1, j );
-          if (currentCell.getFormula() == null) {
-            cell = currentCell.toString();
-          }
-          else {
-            cell = currentCell.getFormula().evaluate().toString();
-          }
-        }
-        else {
-          cell = "";
-        }
-        spreadStrings[i][j] = cell;
-      }
+    CellTableModel table = new CellTableModel(model);
+    spread = new JTable(table);
+    for (int i = 0; i < model.getWidth() + 1; i++) {
+      spread.setDefaultRenderer(table.getColumnClass(i),
+          new CustomCellRenderer());
     }
-    // to get column names from model
-    String[] columnNames = new String[spreadWidth + 1];
-    columnNames[0] = "";
-    for (int i = 2; i <= spreadWidth + 1; i++) {
-      columnNames[i - 1] = Coord.colIndexToName(i);
-    }
-
-    spread = new JTable(spreadStrings, columnNames);
     spread.setBounds(30, 40, 200, 300);
     JScrollPane scroll = new JScrollPane(spread,
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -76,6 +46,14 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
     @Override
     public int getRowCount() {
       return model.getHeight();
+    }
+
+    @Override
+    public String getColumnName(int i) {
+      if (i == 0) {
+        return "";
+      }
+      return Coord.colIndexToName(i);
     }
 
     @Override
@@ -110,7 +88,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int column) {
-      if (row == 0 | column == 0) {
+      if (column == 0) {
         setBackground(Color.LIGHT_GRAY);
       }
       else {

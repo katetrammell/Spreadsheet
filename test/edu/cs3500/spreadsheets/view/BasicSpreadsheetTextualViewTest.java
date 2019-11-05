@@ -38,10 +38,6 @@ public class BasicSpreadsheetTextualViewTest {
       System.out.print("didn't work");
       return;
     }
-
-
-
-
   }
 
   @Test
