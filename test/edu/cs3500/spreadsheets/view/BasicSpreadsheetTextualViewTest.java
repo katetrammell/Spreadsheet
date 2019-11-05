@@ -63,7 +63,7 @@ public class BasicSpreadsheetTextualViewTest {
     WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
     FileReader f;
     try {
-      f = new FileReader("BigData.txt");
+      f = new FileReader("BigHorizontal.txt");
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("Bad file");
     }
