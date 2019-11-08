@@ -66,6 +66,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
   }
 
+
   private static class CellTableModel extends AbstractTableModel {
     private final Spreadsheet model;
 
