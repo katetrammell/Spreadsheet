@@ -40,8 +40,15 @@ public class BasicStringCell extends AbstractBasicCell<String> {
       return false;
     } else {
       BasicStringCell otherBC = (BasicStringCell) other;
-      return (this.getValue().equals(otherBC.getValue())
-          && this.getFormula() == otherBC.getFormula());
+      boolean equalValue = true;
+      boolean equalForm =true;
+      if (this.getValue() != null) {
+        equalValue= this.getValue().equals(otherBC.getValue());
+      } if (this.getFormula() != null) {
+        equalForm = this.getFormula() == otherBC.getFormula();
+      }
+      return equalForm && equalValue;
+
     }
   }
 
@@ -52,6 +59,10 @@ public class BasicStringCell extends AbstractBasicCell<String> {
 
   @Override
   public String toString() {
-    return this.getValue();
+    if(this.getFormula() == null) {
+      return "\"" + this.getValue() + "\"";
+    } else {
+      return this.getFormula().toString();
+    }
   }
 }

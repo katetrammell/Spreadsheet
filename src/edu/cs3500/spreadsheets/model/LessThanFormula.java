@@ -161,11 +161,11 @@ public class LessThanFormula implements Formula<Boolean> {
     if (coord1 != null) {
       ans += this.coord1.toString() + " ";
     }
-    if (coord2 != null) {
-      ans += this.coord2.toString() + " ";
-    }
     if (d1 != null) {
       ans += this.d1.toString() + " ";
+    }
+    if (coord2 != null) {
+      ans += this.coord2.toString() + " ";
     }
     if (d2 != null) {
       ans += this.d2.toString() + " ";

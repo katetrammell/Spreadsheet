@@ -1,2 +1,2 @@
-A4 = 12
-Z2 = false
+A4 12
+Z2 false
