@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 
+/**
+ * Represents a view of a spreadsheet model.
+ */
 public interface SpreadsheetView {
 
   /**

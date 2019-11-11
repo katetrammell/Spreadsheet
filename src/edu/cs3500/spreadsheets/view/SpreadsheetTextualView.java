@@ -3,6 +3,9 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 
+/**
+ * Represents a textual view of a spreadsheet.
+ */
 public interface SpreadsheetTextualView extends SpreadsheetView {
 
   /**

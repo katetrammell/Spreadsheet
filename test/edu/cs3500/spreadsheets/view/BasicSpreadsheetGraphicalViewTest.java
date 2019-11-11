@@ -8,6 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import org.junit.Test;
 
+
+/**
+ * A class for testing the BasicSpreadsheetGraphicalViewTest class.
+ */
 public class BasicSpreadsheetGraphicalViewTest {
 
 

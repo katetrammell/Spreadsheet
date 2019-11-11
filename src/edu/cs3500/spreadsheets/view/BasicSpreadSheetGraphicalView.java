@@ -9,8 +9,15 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
+/**
+ * A class for a graphical view of a table using JTable.
+ */
 public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
+  /**
+   * Renders the given model as a graphical view.
+   * @param model the spreadsheet to be rendered
+   */
   @Override
   public void render(Spreadsheet model) {
     JFrame window = new JFrame();
@@ -37,6 +44,9 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
   }
 
 
+  /**
+   * A custom TableModel class to implement the graphical view.
+   */
   private static class CellTableModel extends AbstractTableModel {
     private final Spreadsheet model;
 
@@ -44,11 +54,19 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
       this.model = model;
     }
 
+    /**
+     * Gets the number of rows.
+     * @return an int representing the number of rows
+     */
     @Override
     public int getRowCount() {
       return model.getHeight();
     }
 
+    /**
+     * Gets the number of columns.
+     * @return an int representing the number of columns.
+     */
     @Override
     public String getColumnName(int i) {
       if (i == 0) {
@@ -62,6 +80,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
       return model.getWidth() + 1;
     }
 
+    /**
+     * gets the value at a given column and row.
+     * @param rowIndex the row.
+     * @param columnIndex the column.
+     * @return the value in the model at the given row and col.
+     */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
       String cell;
@@ -84,8 +108,21 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
     }
   }
 
+  /**
+   * A custom TableCellRenderer class.
+   */
   private static class CustomCellRenderer extends DefaultTableCellRenderer {
 
+    /**
+     * renders the cell.
+     * @param table the table to get the cell from
+     * @param value the value to be rendered
+     * @param isSelected if the cell is currently selected.
+     * @param hasFocus if the call has focus.
+     * @param row the row of the cell.
+     * @param column the column of the cell.
+     * @return a component of the cell
+     */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int column) {

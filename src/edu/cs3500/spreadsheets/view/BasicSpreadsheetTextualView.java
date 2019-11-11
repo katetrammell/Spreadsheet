@@ -3,14 +3,14 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class for a textual view of a spreadsheet model.
+ */
 public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
 
 
