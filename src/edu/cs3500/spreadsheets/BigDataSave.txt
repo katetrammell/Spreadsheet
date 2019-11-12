@@ -1,0 +1,5 @@
+A2 true
+A1 45.000000
+B82 =(PRODUCT B6 23.2 )
+A8 "hi"
+B6 =(SUM A1 A2 )

@@ -5,6 +5,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
+import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalView;
 import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
 
 import java.io.FileNotFoundException;
@@ -37,18 +38,38 @@ public class BeyondGood {
           break;
         }
         else if (args[2].equals("-gui")) {
-          //inGui();
+          inGui(args);
         }
         else {
           throw new IllegalArgumentException(
               "-in but invalid second argument");
         }
       case "-gui":
-        //inGuiBlank();
+        inGuiBlank();
         break;
       default:
         throw new IllegalArgumentException("invalid first keyword");
     }
+  }
+
+  private static void inGui(String[] args) {
+    WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
+    FileReader f;
+    try {
+      f = new FileReader(args[1]);
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File not found");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
+    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView();
+    view.render(spread);
+
+  }
+
+  private static void inGuiBlank() {
+    BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);
+    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView();
+    view.render(spread);
   }
 
   /**
