@@ -39,6 +39,7 @@ public class BeyondGood {
         }
         else if (args[2].equals("-gui")) {
           inGui(args);
+          break;
         }
         else {
           throw new IllegalArgumentException(

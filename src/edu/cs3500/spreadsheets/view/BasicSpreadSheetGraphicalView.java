@@ -3,11 +3,14 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
+import javafx.scene.control.ScrollBar;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+
 
 /**
  * A class for a graphical view of a table using JTable.
@@ -41,6 +44,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
     window.setVisible(true);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    //scroll.getHorizontalScrollBar().addAdjustmentListener();
   }
 
 
@@ -103,8 +107,11 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
       }
       else {
         cell = "";
-    }
-    return cell;
+      }
+      if (cell.length() > 7) {
+        cell = cell.substring(0, 7);
+      }
+      return cell;
     }
   }
 
@@ -135,4 +142,8 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
       return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }
   }
+
 }
+
+
+

@@ -1,5 +1,5 @@
 A1 45.0
 A2 true
 A8 "hi"
-B6 =(SUM A1 A2)
+B6 =(SUM A1 A2 32.1426)
 B82 =(PRODUCT B6 23.2)

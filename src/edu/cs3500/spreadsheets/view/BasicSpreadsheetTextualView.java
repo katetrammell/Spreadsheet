@@ -54,6 +54,5 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
     StringWriter writer = new StringWriter();
     render(model, writer);
     System.out.print(writer.getBuffer());
-
   }
 }
