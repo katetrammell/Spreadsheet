@@ -117,7 +117,6 @@ public class CellMaker implements SexpVisitor<Cell> {
     }
     String cell = scan.next();
     Matcher m = cellRef.matcher(cell);
-    //TODO: I think the problem may be here
     if (m.matches()) {
       col = Coord.colNameToIndex(m.group(1));
       row = Integer.parseInt(m.group(2));

@@ -4,10 +4,13 @@ import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.*;
 
 
 /**
@@ -19,7 +22,6 @@ public class BasicSpreadsheetTextualViewTest {
    * Tests that an exception is thrown from render() when the model arg is null.
    */
   @Test (expected = IllegalArgumentException.class)
-
   public void testModelExp() {
     new BasicSpreadsheetTextualView().render(null, new StringWriter());
   }
@@ -52,7 +54,7 @@ public class BasicSpreadsheetTextualViewTest {
   }
 
   /**
-   * Circularly tests the rendering of a file that contains.
+   * Circularly tests the rendering of a file that contains one cell of every type.
    */
   @Test
   public void testRender1() {
@@ -93,7 +95,7 @@ public class BasicSpreadsheetTextualViewTest {
   }
 
   /**
-   * Tests that rendering of an empty spreadsheet gives an empty file
+   * Tests that rendering of an empty spreadsheet gives an empty file.
    */
   @Test
   public void render1() {

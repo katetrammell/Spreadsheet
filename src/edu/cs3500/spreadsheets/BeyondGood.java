@@ -62,6 +62,7 @@ public class BeyondGood {
       throw new IllegalArgumentException("File not found");
     }
     BasicSpreadsheet spread = WorksheetReader.read(b, f);
+
     BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView();
     view.render(spread);
 
