@@ -75,7 +75,7 @@ public class BeyondGood {
   }
 
   /**
-   * Takes in given file, saves as new file
+   * Takes in given file, saves as new file.
    * @param args arguments from run configuration as described in assignment
    */
   private static void inSave(String[] args) {
@@ -98,7 +98,7 @@ public class BeyondGood {
   }
 
   /**
-   * Takes in spreadsheet data and evaluates a cell
+   * Takes in spreadsheet data and evaluates a cell.
    * @param args arguments as described in assignment from run configurations
    */
   private static void inEval(String[] args) {

@@ -3,13 +3,13 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
-import javafx.scene.control.ScrollBar;
-
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
 
 
 /**
@@ -19,6 +19,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
   /**
    * Renders the given model as a graphical view.
+   *
    * @param model the spreadsheet to be rendered
    */
   @Override
@@ -52,6 +53,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
    * A custom TableModel class to implement the graphical view.
    */
   private static class CellTableModel extends AbstractTableModel {
+
     private final Spreadsheet model;
 
     private CellTableModel(Spreadsheet model) {
@@ -60,6 +62,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
     /**
      * Gets the number of rows.
+     *
      * @return an int representing the number of rows
      */
     @Override
@@ -69,6 +72,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
     /**
      * Gets the number of columns.
+     *
      * @return an int representing the number of columns.
      */
     @Override
@@ -86,26 +90,24 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
     /**
      * gets the value at a given column and row.
-     * @param rowIndex the row.
+     *
+     * @param rowIndex    the row.
      * @param columnIndex the column.
      * @return the value in the model at the given row and col.
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
       String cell;
-      if (columnIndex == 0 ) {
+      if (columnIndex == 0) {
         cell = Integer.toString(rowIndex + 1);
-      }
-      else if (model.getAllCells().containsKey(new Coord(columnIndex, rowIndex + 1))) {
-        Cell currentCell = model.getCellAt(rowIndex + 1, columnIndex );
+      } else if (model.getAllCells().containsKey(new Coord(columnIndex, rowIndex + 1))) {
+        Cell currentCell = model.getCellAt(rowIndex + 1, columnIndex);
         if (currentCell.getFormula() == null) {
           cell = currentCell.toString();
-        }
-        else {
+        } else {
           cell = currentCell.getFormula().evaluate().toString();
         }
-      }
-      else {
+      } else {
         cell = "";
       }
       if (cell.length() > 7) {
@@ -122,21 +124,21 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
 
     /**
      * renders the cell.
-     * @param table the table to get the cell from
-     * @param value the value to be rendered
+     *
+     * @param table      the table to get the cell from
+     * @param value      the value to be rendered
      * @param isSelected if the cell is currently selected.
-     * @param hasFocus if the call has focus.
-     * @param row the row of the cell.
-     * @param column the column of the cell.
+     * @param hasFocus   if the call has focus.
+     * @param row        the row of the cell.
+     * @param column     the column of the cell.
      * @return a component of the cell
      */
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
-                                                   boolean isSelected, boolean hasFocus, int row, int column) {
+        boolean isSelected, boolean hasFocus, int row, int column) {
       if (column == 0) {
         setBackground(Color.LIGHT_GRAY);
-      }
-      else {
+      } else {
         setBackground(Color.WHITE);
       }
       return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

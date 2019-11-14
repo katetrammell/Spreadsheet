@@ -1,7 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class to represent a spreadsheet. Enables creating and access of cells on a spreadsheet.

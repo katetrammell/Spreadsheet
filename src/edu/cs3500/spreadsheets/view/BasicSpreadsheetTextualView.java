@@ -47,7 +47,7 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
    * @throws IllegalArgumentException if given model is null
    */
   @Override
-  public void render(Spreadsheet model) throws IllegalArgumentException{
+  public void render (Spreadsheet model) throws IllegalArgumentException{
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null");
     }

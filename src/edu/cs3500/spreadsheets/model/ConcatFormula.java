@@ -119,7 +119,7 @@ public class ConcatFormula implements Formula<String> {
   public String toString() {
     String ans = "=(CONCAT ";
     for (Coord c : this.coords) {
-        ans = ans + c.toString() + " ";
+      ans = ans + c.toString() + " ";
 
     }
     for (Formula f : this.forms) {
