@@ -12,7 +12,7 @@ public class ProductFormula implements Formula<Double> {
   private List<Coord> coords;
   private List<Formula<Double>> forms;
   private List<Double> constants;
-  private BasicSpreadsheet spread;
+  private Spreadsheet spread;
 
   /**
    * Constructor for the class.
@@ -21,7 +21,7 @@ public class ProductFormula implements Formula<Double> {
    * @param spread spreadsheet
    */
   public ProductFormula(ArrayList<Coord> coords, ArrayList<Formula<Double>> forms,
-      BasicSpreadsheet spread) {
+                        Spreadsheet spread) {
     this.coords = coords;
     this.forms = forms;
     this.spread = spread;
@@ -33,7 +33,7 @@ public class ProductFormula implements Formula<Double> {
    * @param c list of coordinates
    * @param spread spreadsheet
    */
-  public ProductFormula(ArrayList<Coord> c, BasicSpreadsheet spread) {
+  public ProductFormula(ArrayList<Coord> c, Spreadsheet spread) {
     this.coords = c;
     this.forms = new ArrayList<Formula<Double>>();
     this.constants = new ArrayList<Double>();
@@ -44,7 +44,7 @@ public class ProductFormula implements Formula<Double> {
    * Constructor for the class.
    * @param spread spreadsheet
    */
-  public ProductFormula( BasicSpreadsheet spread) {
+  public ProductFormula( Spreadsheet spread) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
     this.constants = new ArrayList<Double>();

@@ -12,14 +12,14 @@ public class ConcatFormula implements Formula<String> {
   private List<Coord> coords;
   private List<Formula> forms;
   private List<String> constants;
-  private BasicSpreadsheet spread;
+  private Spreadsheet spread;
 
   /**
    * Constructor with just a spreadsheet.
    *
    * @param s spredsheet.
    */
-  public ConcatFormula(BasicSpreadsheet s) {
+  public ConcatFormula(Spreadsheet s) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula>();
     this.constants = new ArrayList<String>();
@@ -32,7 +32,7 @@ public class ConcatFormula implements Formula<String> {
    * @param c arraylsit of coordinates on spreadsheet.
    * @param s spreadsheet in question.
    */
-  public ConcatFormula(ArrayList<Coord> c, BasicSpreadsheet s) {
+  public ConcatFormula(ArrayList<Coord> c, Spreadsheet s) {
     this.coords = c;
     this.forms = new ArrayList<Formula>();
     this.spread = s;
@@ -47,7 +47,7 @@ public class ConcatFormula implements Formula<String> {
    * @param f formulas that are relevant.
    * @param s spreadhseet to be used.
    */
-  public ConcatFormula(List<Coord> c, List<Formula> f, BasicSpreadsheet s) {
+  public ConcatFormula(List<Coord> c, List<Formula> f, Spreadsheet s) {
     this.coords = c;
     this.spread = s;
     this.forms = f;

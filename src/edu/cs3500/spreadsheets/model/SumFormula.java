@@ -12,7 +12,7 @@ public class SumFormula implements Formula<Double> {
   private List<Coord> coords;
   private List<Formula<Double>> forms;
   private List<Double> constants;
-  private BasicSpreadsheet spread;
+  private Spreadsheet spread;
 
 
   /**
@@ -21,7 +21,7 @@ public class SumFormula implements Formula<Double> {
    * @param forms list of formulas
    * @param spread spreadsheet
    */
-  public SumFormula(ArrayList<Coord> c, ArrayList<Formula<Double>> forms, BasicSpreadsheet spread) {
+  public SumFormula(ArrayList<Coord> c, ArrayList<Formula<Double>> forms, Spreadsheet spread) {
     this.coords = c;
     this.forms = forms;
     this.spread = spread;
@@ -32,7 +32,7 @@ public class SumFormula implements Formula<Double> {
    * Constructor for the class.
    * @param s spreadsheet
    */
-  public SumFormula(BasicSpreadsheet s) {
+  public SumFormula(Spreadsheet s) {
     this.coords = new ArrayList<Coord>();
     this.forms = new ArrayList<Formula<Double>>();
     this.spread = s;

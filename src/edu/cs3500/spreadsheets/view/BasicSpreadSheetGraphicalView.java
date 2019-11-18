@@ -3,19 +3,32 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
+
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 
 /**
  * A class for a graphical view of a table using JTable.
  */
-public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
+public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
+
+  private JFrame frame;
+  private JTable table;
+  private JTextField textBox;
+  private JButton xButton;
+  private JButton checkButton;
+  private JButton addRowButton;
+  private JButton addColumnButton;
+
+
+  public BasicSpreadSheetGraphicalView() {
+    frame = new JFrame();
+  }
 
   /**
    * Renders the given model as a graphical view.
@@ -24,28 +37,77 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
    */
   @Override
   public void render(Spreadsheet model) {
-    JFrame window = new JFrame();
-    JTable spread;
-    CellTableModel table = new CellTableModel(model);
-    spread = new JTable(table);
+    textBox = new JTextField(50);
+    frame.setLayout(new FlowLayout());
+    frame.add(textBox);
+    xButton = new JButton("X");
+    xButton.setActionCommand("X Button");
+    frame.add(xButton);
+    checkButton = new JButton("✓");
+    checkButton.setActionCommand("Check Button");
+    frame.add(checkButton);
+    addRowButton = new JButton("+ Row");
+    addRowButton.setActionCommand("Add Row");
+    frame.add(addRowButton);
+    addColumnButton = new JButton("+ Column");
+    addColumnButton.setActionCommand("Add column");
+    frame.add(addColumnButton);
+    CellTableModel tableModel = new CellTableModel(model);
+    table = new JTable(tableModel);
     for (int i = 0; i < model.getWidth() + 1; i++) {
-      spread.setDefaultRenderer(table.getColumnClass(i),
+      table.setDefaultRenderer(tableModel.getColumnClass(i),
           new CustomCellRenderer());
     }
-    spread.setBounds(30, 40, 200, 300);
-    JScrollPane scroll = new JScrollPane(spread,
+    table.setBounds(30, 40, 200, 300);
+    JScrollPane scroll = new JScrollPane(table,
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-    spread.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    spread.setEditingColumn(0);
-    spread.setBackground(Color.BLACK);
-    window.setTitle("test");
-    window.add(scroll);
-    window.setSize(500, 200);
-    window.setVisible(true);
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    table.setEditingColumn(0);
+    table.setBackground(Color.BLACK);
+    frame.setTitle("test");
+    frame.add(scroll);
+    frame.setSize(500, 200);
+    frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  }
 
-    //scroll.getHorizontalScrollBar().addAdjustmentListener();
+  @Override
+  public void updateCell(Coord c, Cell cell) {
+    // the + 1 at get x is to account for the labeled column
+    System.out.print(table.getValueAt(c.getY() - 1, c.getX()));
+    table.setValueAt(cell.toString(), c.getY() -1 , c.getX());
+    System.out.println(c.toString());
+  }
+
+  @Override
+  public String getTextBox() {
+    return textBox.getText();
+  }
+
+  @Override
+  public void setTextBox(String s) {
+    textBox.setText(s);
+  }
+
+  @Override
+  public void setListener(ActionListener listener) {
+    checkButton.addActionListener(listener);
+    xButton.addActionListener(listener);
+    // our controller will extend the action listener and
+    // mouse listener interface
+    table.addMouseListener((MouseListener) listener);
+  }
+
+  @Override
+  public Coord getSelectedCell() {
+    // indexed to one to account for label rows
+    return new Coord(table.getSelectedColumn(), table.getSelectedRow() + 1);
+  }
+
+  @Override
+  public JTable getTable() {
+    return this.table;
   }
 
 
@@ -53,9 +115,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadsheetView {
    * A custom TableModel class to implement the graphical view.
    */
   private static class CellTableModel extends AbstractTableModel {
-
     private final Spreadsheet model;
-
     private CellTableModel(Spreadsheet model) {
       this.model = model;
     }

@@ -93,4 +93,20 @@ public class BasicSpreadsheet implements Spreadsheet {
   public int getHeight() {
     return this.height;
   }
+
+  @Override
+  public void setWidth(int width) {
+    if (width < this.getWidth()) {
+      throw new IllegalArgumentException("Cannot reduce spreadsheet size");
+    }
+    this.width = width;
+  }
+
+  @Override
+  public void setHeight(int height) {
+    if (height < this.getHeight()) {
+      throw new IllegalArgumentException("Cannot reduce spreadsheet size");
+    }
+    this.height = height;
+  }
 }

@@ -1,16 +1,8 @@
 package edu.cs3500.spreadsheets.sexp;
 
-import edu.cs3500.spreadsheets.model.BasicBooleanCell;
-import edu.cs3500.spreadsheets.model.BasicDoubleCell;
-import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
-import edu.cs3500.spreadsheets.model.BasicStringCell;
-import edu.cs3500.spreadsheets.model.Cell;
-import edu.cs3500.spreadsheets.model.ConcatFormula;
-import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.LessThanFormula;
-import edu.cs3500.spreadsheets.model.ProductFormula;
-import edu.cs3500.spreadsheets.model.SumFormula;
+import edu.cs3500.spreadsheets.model.*;
+import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -21,10 +13,10 @@ import java.util.regex.Pattern;
  */
 public class CellMaker implements SexpVisitor<Cell> {
 
-  BasicSpreadsheet spread;
+  private Spreadsheet spread;
 
 
-  public CellMaker(BasicSpreadsheet s) {
+  public CellMaker(Spreadsheet s) {
     this.spread = s;
   }
 

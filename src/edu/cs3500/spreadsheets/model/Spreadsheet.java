@@ -18,6 +18,13 @@ public interface Spreadsheet {
   Cell getCellAt(int column, int row) throws IllegalArgumentException;
 
   /**
+   * Gets the cell at the specified location.
+   * @param c coordiante of the desired cell.
+   * @return cell at location c;
+   */
+  Cell getCellAt(Coord c);
+
+  /**
    * Returns a HashMap of all cells and their corresponding Coords.
    * @return HashMap of cells and Coords
    */
@@ -45,5 +52,17 @@ public interface Spreadsheet {
    * @return the height of the spreadsheet
    */
   int getHeight();
+
+  /**
+   * Changes the width of spreadsheet
+   * @param width width to be changed to
+   */
+  void setWidth(int width);
+
+  /**
+   * Changes the height of the spreadsheet.
+   * @param height height to be changed to.
+   */
+  void setHeight(int height);
 
 }

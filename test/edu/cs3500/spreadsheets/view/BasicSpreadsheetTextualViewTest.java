@@ -104,7 +104,7 @@ public class BasicSpreadsheetTextualViewTest {
     BasicSpreadsheet spread = new BasicSpreadsheet();
     PrintWriter testPW;
     try {
-     testPW = new PrintWriter("EmptyFile.txt");
+      testPW = new PrintWriter("EmptyFile.txt");
       v.render(spread, testPW);
       testPW.close();
     } catch (IOException e) {

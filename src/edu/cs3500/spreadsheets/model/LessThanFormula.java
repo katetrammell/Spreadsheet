@@ -11,7 +11,7 @@ public class LessThanFormula implements Formula<Boolean> {
   private Coord coord2;
   private Double d1;
   private Double d2;
-  private BasicSpreadsheet spread;
+  private Spreadsheet spread;
 
 
   /**
@@ -20,7 +20,7 @@ public class LessThanFormula implements Formula<Boolean> {
    * @param coord2 coordinate 2
    * @param spread spreadsheet
    */
-  public LessThanFormula(Coord coord1, Coord coord2, BasicSpreadsheet spread) {
+  public LessThanFormula(Coord coord1, Coord coord2, Spreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord1).isNumericValue() || !spread.getCellAt(coord2).isNumericValue()) {
       throw new IllegalArgumentException();
@@ -38,7 +38,7 @@ public class LessThanFormula implements Formula<Boolean> {
    * @param d2 double 2
    * @param spread spreadsheet
    */
-  public LessThanFormula(Double d1, Double d2, BasicSpreadsheet spread) {
+  public LessThanFormula(Double d1, Double d2, Spreadsheet spread) {
     this.spread = spread;
     this.coord1 = null;
     this.coord2 = null;
@@ -53,7 +53,7 @@ public class LessThanFormula implements Formula<Boolean> {
    * @param d2 double 2
    * @param spread spreadsheet
    */
-  public LessThanFormula(Coord coord1, Double d2, BasicSpreadsheet spread) {
+  public LessThanFormula(Coord coord1, Double d2, Spreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord1).isNumericValue()) {
       throw new IllegalArgumentException();
@@ -70,7 +70,7 @@ public class LessThanFormula implements Formula<Boolean> {
    * @param coord2 coordinate 2
    * @param spread spreadsheet
    */
-  public LessThanFormula(Double d1, Coord coord2, BasicSpreadsheet spread) {
+  public LessThanFormula(Double d1, Coord coord2, Spreadsheet spread) {
     this.spread = spread;
     if (!spread.getCellAt(coord2).isNumericValue()) {
       throw new IllegalArgumentException();
@@ -136,7 +136,8 @@ public class LessThanFormula implements Formula<Boolean> {
       } else {
         ans.put(coord1,0);
         if (spread.getCellAt(coord1).getFormula() != null) {
-          ans.putAll(spread.getCellAt(coord1).getFormula().getCoords(currHash));
+          Cell<?> c = spread.getCellAt(coord1);
+          ans.putAll(c.getFormula().getCoords(currHash));
         }
       }
     }
@@ -146,7 +147,8 @@ public class LessThanFormula implements Formula<Boolean> {
       } else {
         ans.put(coord2,0);
         if (spread.getCellAt(coord2).getFormula() != null) {
-          ans.putAll(spread.getCellAt(coord2).getFormula().getCoords(currHash));
+          Cell<?> c = spread.getCellAt(coord1);
+          ans.putAll(c.getFormula().getCoords(currHash));
         }
       }
     }
