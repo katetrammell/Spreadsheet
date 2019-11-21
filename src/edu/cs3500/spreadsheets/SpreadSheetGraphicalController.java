@@ -14,8 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * Controller for graphical spreadsheet.
- * TODO: ADD TO CONTROLLER DIRECTORY LATER
+ * Controller for graphical spreadsheet. TODO: ADD TO CONTROLLER DIRECTORY LATER
  */
 public class SpreadSheetGraphicalController implements ActionListener, MouseListener {
 
@@ -51,7 +50,7 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
         try {
           new Parser();
           Sexp sexp;
-          if (contents.substring(0,1).equals("=")) {
+          if (contents.substring(0, 1).equals("=")) {
             sexp = Parser.parse(contents.substring(1));
           } else {
             sexp = Parser.parse(contents);
@@ -73,10 +72,9 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
         view.updateCell(new Coord(1, newHeight + 1), null);
         break;
       case "Add column":
-        System.out.println("adding col");
-          int newWidth = spread.getWidth() + 1;
-          spread.setWidth(newWidth);
-          view.updateCell(new Coord(newWidth + 1, 1), null);
+        int newWidth = spread.getWidth() + 1;
+        spread.setWidth(newWidth);
+        view.addCol();
     }
   }
 
@@ -91,8 +89,7 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
     Cell testCell = spread.getCellAt(c);
     if (testCell != null) {
       view.setTextBox(testCell.toString());
-    }
-    else {
+    } else {
       view.setTextBox("");
     }
     this.lastSelectedCell = c;
