@@ -56,8 +56,10 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
           }
           Cell cell = sexp.accept(new CellMaker(spread));
           spread.setCell(cell, coord.getX(), coord.getY());
+          System.out.println("Coord set: " + cell.toString());
           view.updateCell(coord, cell);
         } catch (Exception ee) {
+          ee.printStackTrace();
           view.setTextBox("Error. Invalid input");
         }
         break;
@@ -84,6 +86,7 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
       view.setTextBox("");
     }
     this.lastSelectedCell = c;
+    System.out.println("Last selected cell: " + c.toString());
   }
 
   @Override

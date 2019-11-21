@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.Vector;
 
 
 /**
@@ -19,6 +20,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
 
   private JFrame frame;
   private JTable table;
+  private CellTableModel tableModel;
   private JTextField textBox;
   private JButton xButton;
   private JButton checkButton;
@@ -52,11 +54,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     addColumnButton = new JButton("+ Column");
     addColumnButton.setActionCommand("Add column");
     frame.add(addColumnButton);
-    CellTableModel tableModel = new CellTableModel(model);
+    tableModel = new CellTableModel(model);
     table = new JTable(tableModel);
     for (int i = 0; i < model.getWidth() + 1; i++) {
       table.setDefaultRenderer(tableModel.getColumnClass(i),
           new CustomCellRenderer());
+      System.out.println(tableModel.getColumnClass(i).toString());
     }
     table.setBounds(30, 40, 200, 300);
     JScrollPane scroll = new JScrollPane(table,
@@ -75,9 +78,10 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   @Override
   public void updateCell(Coord c, Cell cell) {
     // the + 1 at get x is to account for the labeled column
-    System.out.print(table.getValueAt(c.getY() - 1, c.getX()));
-    table.setValueAt(cell.toString(), c.getY() -1 , c.getX());
-    System.out.println(c.toString());
+    tableModel.setValueAt(cell.toString(), c.getY(), c.getX());
+    tableModel.setValueAt("TTTTTTTTTTTTTT", 2 , 2);
+    tableModel.fireTableCellUpdated(c.getY(), c.getX());
+    System.out.println("From updateCell: " + c.toString());
   }
 
   @Override
@@ -102,6 +106,8 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   @Override
   public Coord getSelectedCell() {
     // indexed to one to account for label rows
+    System.out.println("FROM get Selected Cell: " +
+        new Coord(table.getSelectedColumn(), table.getSelectedRow() + 1).toString());
     return new Coord(table.getSelectedColumn(), table.getSelectedRow() + 1);
   }
 
@@ -173,8 +179,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
       if (cell.length() > 7) {
         cell = cell.substring(0, 7);
       }
+      System.out.println("FROM GET VALUE AT: rowIndex: " + rowIndex + "colIndex: " + columnIndex);
       return cell;
     }
+
+
+
   }
 
   /**
