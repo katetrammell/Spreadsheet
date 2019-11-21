@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.Vector;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 
@@ -86,6 +87,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     }
     tableModel.setValueAt(str, c.getX(), c.getY());
     tableModel.fireTableCellUpdated(c.getX(), c.getY());
+    tableModel.fireTableDataChanged();
+  }
+
+  @Override
+  public void addCol() {
+    table.addColumn(new TableColumn());
     tableModel.fireTableDataChanged();
   }
 
