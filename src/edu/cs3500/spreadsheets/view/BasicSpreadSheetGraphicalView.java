@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.Vector;
+import javax.swing.table.TableModel;
 
 
 /**
@@ -30,6 +31,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
 
   public BasicSpreadSheetGraphicalView() {
     frame = new JFrame();
+
   }
 
   /**
@@ -66,8 +68,6 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
     table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    table.setEditingColumn(0);
-    table.setBackground(Color.BLACK);
     frame.setTitle("test");
     frame.add(scroll);
     frame.setSize(500, 200);
@@ -78,10 +78,15 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   @Override
   public void updateCell(Coord c, Cell cell) {
     // the + 1 at get x is to account for the labeled column
-    tableModel.setValueAt(cell.toString(), c.getY(), c.getX());
-    tableModel.setValueAt("TTTTTTTTTTTTTT", 2 , 2);
-    tableModel.fireTableCellUpdated(c.getY(), c.getX());
-    System.out.println("From updateCell: " + c.toString());
+    String str;
+    if (cell == null) {
+      str = "";
+    } else {
+      str = cell.toString();
+    }
+    tableModel.setValueAt(str, c.getX(), c.getY());
+    tableModel.fireTableCellUpdated(c.getX(), c.getY());
+    tableModel.fireTableDataChanged();
   }
 
   @Override
@@ -98,6 +103,8 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   public void setListener(ActionListener listener) {
     checkButton.addActionListener(listener);
     xButton.addActionListener(listener);
+    addColumnButton.addActionListener(listener);
+    addRowButton.addActionListener(listener);
     // our controller will extend the action listener and
     // mouse listener interface
     table.addMouseListener((MouseListener) listener);
@@ -179,7 +186,6 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
       if (cell.length() > 7) {
         cell = cell.substring(0, 7);
       }
-      System.out.println("FROM GET VALUE AT: rowIndex: " + rowIndex + "colIndex: " + columnIndex);
       return cell;
     }
 

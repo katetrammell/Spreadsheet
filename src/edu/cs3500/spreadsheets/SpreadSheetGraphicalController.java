@@ -34,17 +34,19 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    Coord coord = view.getSelectedCell();
-    Cell c = spread.getCellAt(coord);
+    Coord coord;
+    Cell c;
     switch (e.getActionCommand()) {
       case "X Button":
+        coord = view.getSelectedCell();
+        c = spread.getCellAt(coord);
         if (c != null) {
           view.setTextBox(c.toString());
         }
         break;
       case "Check Button":
         coord = lastSelectedCell;
-        c = spread.getCellAt(coord);
+        //c = spread.getCellAt(coord);
         String contents = view.getTextBox();
         try {
           new Parser();
@@ -55,9 +57,11 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
             sexp = Parser.parse(contents);
           }
           Cell cell = sexp.accept(new CellMaker(spread));
-          spread.setCell(cell, coord.getX(), coord.getY());
+          spread.setCell(cell, coord.getY(), coord.getX());
           System.out.println("Coord set: " + cell.toString());
+          System.out.println("coord: " + coord.toString());
           view.updateCell(coord, cell);
+
         } catch (Exception ee) {
           ee.printStackTrace();
           view.setTextBox("Error. Invalid input");

@@ -5,6 +5,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import javax.swing.table.TableModel;
 
 public interface SpreadSheetGraphicalView extends SpreadsheetView {
 
