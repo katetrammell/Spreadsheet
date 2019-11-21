@@ -71,6 +71,12 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
         int newHeight = spread.getHeight() + 1;
         spread.setHeight(newHeight);
         view.updateCell(new Coord(1, newHeight + 1), null);
+        break;
+      case "Add column":
+        System.out.println("adding col");
+          int newWidth = spread.getWidth() + 1;
+          spread.setWidth(newWidth);
+          view.updateCell(new Coord(newWidth + 1, 1), null);
     }
   }
 
