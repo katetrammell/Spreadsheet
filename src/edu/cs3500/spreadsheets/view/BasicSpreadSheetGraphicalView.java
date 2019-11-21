@@ -91,8 +91,9 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   }
 
   @Override
-  public void addCol() {
-    table.addColumn(new TableColumn());
+  public void addCol(int colNum) {
+    table.addColumn(new TableColumn(colNum,30,
+        new CustomCellRenderer(), new DefaultCellEditor(new JTextField())));
     tableModel.fireTableDataChanged();
   }
 

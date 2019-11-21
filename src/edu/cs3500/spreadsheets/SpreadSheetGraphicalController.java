@@ -74,7 +74,7 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
       case "Add column":
         int newWidth = spread.getWidth() + 1;
         spread.setWidth(newWidth);
-        view.addCol();
+        view.addCol(newWidth);
     }
   }
 
