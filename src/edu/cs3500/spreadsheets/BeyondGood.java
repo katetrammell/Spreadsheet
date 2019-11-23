@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets;
 
+import edu.cs3500.spreadsheets.controller.SpreadSheetGraphicalController;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
@@ -41,6 +42,10 @@ public class BeyondGood {
           inGui(args);
           break;
         }
+      else if (args[2].equals("-edit")) {
+          inEdit(args);
+          break;
+        }
         else {
           throw new IllegalArgumentException(
               "-in but invalid second argument");
@@ -48,6 +53,7 @@ public class BeyondGood {
       case "-gui":
         inGuiBlank();
         break;
+
       default:
         throw new IllegalArgumentException("invalid first keyword");
     }
@@ -62,10 +68,25 @@ public class BeyondGood {
       throw new IllegalArgumentException("File not found");
     }
     BasicSpreadsheet spread = WorksheetReader.read(b, f);
-    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView();
+    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView(false);
     SpreadSheetGraphicalController controller =
         new SpreadSheetGraphicalController(spread, view);
   }
+
+  private static void inEdit(String[] args) {
+    WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
+    FileReader f;
+    try {
+      f = new FileReader(args[1]);
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File not found");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
+    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView(true);
+    SpreadSheetGraphicalController controller =
+        new SpreadSheetGraphicalController(spread, view);
+  }
+
 
   private static void inGuiBlank() {
     BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);

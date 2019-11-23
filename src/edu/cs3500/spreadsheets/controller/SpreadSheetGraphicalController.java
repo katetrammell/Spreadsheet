@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets;
+package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
@@ -16,7 +16,8 @@ import java.awt.event.MouseListener;
 /**
  * Controller for graphical spreadsheet. TODO: ADD TO CONTROLLER DIRECTORY LATER
  */
-public class SpreadSheetGraphicalController implements ActionListener, MouseListener {
+public class SpreadSheetGraphicalController implements SpreadsheetController,
+    ActionListener, MouseListener {
 
 
   SpreadSheetGraphicalView view;
@@ -47,34 +48,14 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
         coord = lastSelectedCell;
         //c = spread.getCellAt(coord);
         String contents = view.getTextBox();
-        try {
-          new Parser();
-          Sexp sexp;
-          if (contents.substring(0, 1).equals("=")) {
-            sexp = Parser.parse(contents.substring(1));
-          } else {
-            sexp = Parser.parse(contents);
-          }
-          Cell cell = sexp.accept(new CellMaker(spread));
-          spread.setCell(cell, coord.getY(), coord.getX());
-          System.out.println("Coord set: " + cell.toString());
-          System.out.println("coord: " + coord.toString());
-          view.updateCell(coord, cell);
-
-        } catch (Exception ee) {
-          ee.printStackTrace();
-          view.setTextBox("Error. Invalid input");
-        }
+        this.changeCell(coord, contents);
         break;
       case "Add Row":
-        int newHeight = spread.getHeight() + 1;
-        spread.setHeight(newHeight);
-        view.updateCell(new Coord(1, newHeight + 1), null);
+        this.addRow();
         break;
       case "Add column":
-        int newWidth = spread.getWidth() + 1;
-        spread.setWidth(newWidth);
-        view.addCol(newWidth);
+       this.addCol();
+       break;
     }
   }
 
@@ -113,6 +94,42 @@ public class SpreadSheetGraphicalController implements ActionListener, MouseList
 
   @Override
   public void mouseExited(MouseEvent e) {
+
+  }
+
+
+  @Override
+  public void addRow() {
+    int newHeight = spread.getHeight() + 1;
+    spread.setHeight(newHeight);
+    view.updateCell(new Coord(1, newHeight + 1), null);
+  }
+
+  @Override
+  public void addCol() {
+    int newWidth = spread.getWidth() + 1;
+    spread.setWidth(newWidth);
+    view.addCol(newWidth);
+
+  }
+
+  @Override
+  public void changeCell(Coord coord, String contents) {
+    try {
+      new Parser();
+      Sexp sexp;
+      if (contents.substring(0, 1).equals("=")) {
+        sexp = Parser.parse(contents.substring(1));
+      } else {
+        sexp = Parser.parse(contents);
+      }
+      Cell cell = sexp.accept(new CellMaker(spread));
+      spread.setCell(cell, coord.getY(), coord.getX());
+      view.updateCell(coord, cell);
+
+    } catch (Exception ee) {
+      view.setTextBox("Error. Invalid input");
+    }
 
   }
 }
