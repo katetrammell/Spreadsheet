@@ -3,12 +3,15 @@ package edu.cs3500.spreadsheets;
 import edu.cs3500.spreadsheets.controller.SpreadSheetGraphicalController;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalView;
+import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
 
+import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,7 +45,7 @@ public class BeyondGood {
           inGui(args);
           break;
         }
-      else if (args[2].equals("-edit")) {
+        else if (args[2].equals("-edit")) {
           inEdit(args);
           break;
         }
@@ -67,8 +70,8 @@ public class BeyondGood {
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("File not found");
     }
-    BasicSpreadsheet spread = WorksheetReader.read(b, f);
-    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView(false);
+    Spreadsheet spread = WorksheetReader.read(b, f);
+    SpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView();
     SpreadSheetGraphicalController controller =
         new SpreadSheetGraphicalController(spread, view);
   }
@@ -82,7 +85,7 @@ public class BeyondGood {
       throw new IllegalArgumentException("File not found");
     }
     BasicSpreadsheet spread = WorksheetReader.read(b, f);
-    BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView(true);
+    BasicSpreadSheetGraphicalViewEditable view = new BasicSpreadSheetGraphicalViewEditable();
     SpreadSheetGraphicalController controller =
         new SpreadSheetGraphicalController(spread, view);
   }

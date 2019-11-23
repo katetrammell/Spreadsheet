@@ -3,42 +3,20 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
-
-import javax.swing.*;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.util.Vector;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 
 /**
  * A class for a graphical view of a table using JTable.
  */
 public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
-
-  private JFrame frame;
-  private JTable table;
-  private CellTableModel tableModel;
-  private JTextField textBox;
-  private JButton xButton;
-  private JButton checkButton;
-  private JButton addRowButton;
-  private JButton addColumnButton;
-  private boolean isEditable;
-
-  public BasicSpreadSheetGraphicalView(boolean isEditable) {
-    frame = new JFrame();
-    this.isEditable = isEditable;
-
-  }
-  public BasicSpreadSheetGraphicalView() {
-    frame = new JFrame();
-
-  }
 
   /**
    * Renders the given model as a graphical view.
@@ -47,105 +25,63 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
    */
   @Override
   public void render(Spreadsheet model) {
-    if (this.isEditable) {
-      textBox = new JTextField(50);
-      frame.setLayout(new FlowLayout());
-      frame.add(textBox);
-    }
-    xButton = new JButton("X");
-    xButton.setActionCommand("X Button");
-    frame.add(xButton);
-    checkButton = new JButton("✓");
-    checkButton.setActionCommand("Check Button");
-    frame.add(checkButton);
-    addRowButton = new JButton("+ Row");
-    addRowButton.setActionCommand("Add Row");
-    frame.add(addRowButton);
-    addColumnButton = new JButton("+ Column");
-    addColumnButton.setActionCommand("Add column");
-    frame.add(addColumnButton);
-    tableModel = new CellTableModel(model, this.isEditable);
-    table = new JTable(tableModel);
+    JFrame window = new JFrame();
+    JTable spread;
+    CellTableModel table = new CellTableModel(model);
+    spread = new JTable(table);
     for (int i = 0; i < model.getWidth() + 1; i++) {
-      table.setDefaultRenderer(tableModel.getColumnClass(i),
-          new CustomCellRenderer(this));
-      System.out.println(tableModel.getColumnClass(i).toString());
+      spread.setDefaultRenderer(table.getColumnClass(i),
+          new CustomCellRenderer());
     }
-    table.setBounds(30, 40, 200, 300);
-    JScrollPane scroll = new JScrollPane(table,
+    spread.setBounds(30, 40, 200, 300);
+    JScrollPane scroll = new JScrollPane(spread,
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-    frame.setTitle("test");
-    frame.add(scroll);
-    frame.setSize(500, 200);
-    frame.setVisible(true);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  }
+    spread.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    spread.setEditingColumn(0);
+    spread.setBackground(Color.BLACK);
+    window.setTitle("test");
+    window.add(scroll);
+    window.setSize(500, 200);
+    window.setVisible(true);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-  @Override
-  public void updateCell(Coord c, Cell cell) {
-    // the + 1 at get x is to account for the labeled column
-    if (this.isEditable) {
-      String str;
-      if (cell == null) {
-        str = "";
-      } else {
-        str = cell.toString();
-      }
-      tableModel.setValueAt(str, c.getX(), c.getY());
-      tableModel.fireTableCellUpdated(c.getX(), c.getY());
-      tableModel.fireTableDataChanged();
-    }
+    //scroll.getHorizontalScrollBar().addAdjustmentListener();
   }
 
   @Override
   public void addCol(int colNum) {
-    table.addColumn(new TableColumn(colNum,80,
-        new CustomCellRenderer(this), new DefaultCellEditor(new JTextField())));
-    tableModel.fireTableDataChanged();
+
+  }
+
+  @Override
+  public void updateCell(Coord c, Cell cell) {
+
   }
 
   @Override
   public String getTextBox() {
-    if (this.isEditable) {
-      return textBox.getText();
-    } else {
-      return "";
-    }
+    return null;
   }
 
   @Override
   public void setTextBox(String s) {
-    if (this.isEditable) {
-      textBox.setText(s);
-    }
+
   }
 
   @Override
   public void setListener(ActionListener listener) {
-    checkButton.addActionListener(listener);
-    xButton.addActionListener(listener);
-    addColumnButton.addActionListener(listener);
-    addRowButton.addActionListener(listener);
-    // our controller will extend the action listener and
-    // mouse listener interface
-    table.addMouseListener((MouseListener) listener);
+
   }
 
   @Override
   public Coord getSelectedCell() {
-    // indexed to one to account for label rows
-    if (table.getSelectedRow() > 0 && table.getSelectedColumn() > 0) {
-      return new Coord(table.getSelectedColumn(), table.getSelectedRow() + 1);
-    } else {
-      return new Coord(1,1);
-    }
+    return null;
   }
 
   @Override
   public JTable getTable() {
-    return this.table;
+    return null;
   }
 
 
@@ -153,12 +89,11 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
    * A custom TableModel class to implement the graphical view.
    */
   private static class CellTableModel extends AbstractTableModel {
-    private final Spreadsheet model;
-    private boolean isEditable;
 
-    private CellTableModel(Spreadsheet model, boolean isEditable) {
+    private final Spreadsheet model;
+
+    private CellTableModel(Spreadsheet model) {
       this.model = model;
-      this.isEditable = isEditable;
     }
 
     /**
@@ -216,21 +151,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
       }
       return cell;
     }
-
-
-
-
   }
 
   /**
    * A custom TableCellRenderer class.
    */
   private static class CustomCellRenderer extends DefaultTableCellRenderer {
-    BasicSpreadSheetGraphicalView view;
-
-    public  CustomCellRenderer(BasicSpreadSheetGraphicalView view) {
-      this.view = view;
-    }
 
     /**
      * renders the cell.
@@ -246,25 +172,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
         boolean isSelected, boolean hasFocus, int row, int column) {
-      boolean reallySelected;
-      try {
-        reallySelected = (row == table.getSelectedRow()
-            && column == table.getSelectedColumn());
-      } catch (IllegalArgumentException e) {
-        reallySelected = false;
-      }
-      Component cell = super.getTableCellRendererComponent(table, value,
-          false, false, row, column);
-
-
       if (column == 0) {
-        cell.setBackground(Color.LIGHT_GRAY);
-      } else if (reallySelected) {
-        cell.setBackground(Color.YELLOW);
+        setBackground(Color.LIGHT_GRAY);
       } else {
-        cell.setBackground(Color.white);
+        setBackground(Color.WHITE);
       }
-      return cell;
+      return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }
   }
 
