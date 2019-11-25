@@ -8,28 +8,23 @@ import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 /**
  * Controller for graphical spreadsheet. TODO: ADD TO CONTROLLER DIRECTORY LATER
  */
 public class SpreadSheetGraphicalController implements SpreadsheetController,
-    ActionListener, MouseListener {
+    ActionListener, MouseListener, KeyListener {
 
-
-  SpreadSheetGraphicalView view;
-  Spreadsheet spread;
-  Coord lastSelectedCell;
+  private SpreadSheetGraphicalView view;
+  private Spreadsheet spread;
+  private Coord lastSelectedCell;
 
   public SpreadSheetGraphicalController(Spreadsheet spread, SpreadSheetGraphicalView view) {
     this.spread = spread;
     this.view = view;
     view.render(spread);
     view.setListener(this);
-    System.out.print("Test");
   }
 
   @Override
@@ -110,7 +105,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
     int newWidth = spread.getWidth() + 1;
     spread.setWidth(newWidth);
     view.addCol(newWidth);
-
   }
 
   @Override
@@ -130,6 +124,54 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
     } catch (Exception ee) {
       view.setTextBox("Error. Invalid input");
     }
+
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    switch(e.getKeyCode()) {
+      case KeyEvent.VK_DOWN:
+        if (lastSelectedCell.getY() < spread.getHeight()) {
+          lastSelectedCell = new Coord(
+              lastSelectedCell.getX(), lastSelectedCell.getY() + 1);
+        }
+        break;
+      case KeyEvent.VK_UP:
+        if (lastSelectedCell.getY() > 1) {
+          lastSelectedCell = new Coord(
+              lastSelectedCell.getX(), lastSelectedCell.getY() - 1);
+        }
+        break;
+      case KeyEvent.VK_RIGHT:
+        if (lastSelectedCell.getX() < spread.getWidth()) {
+          if (lastSelectedCell.getX() == 0) {
+            System.out.print("test");
+            lastSelectedCell = new Coord(
+                1, lastSelectedCell.getY());
+          }
+          else {
+            lastSelectedCell = new Coord(
+                lastSelectedCell.getX() + 1, lastSelectedCell.getY());
+          }
+        }
+        break;
+      case KeyEvent.VK_LEFT:
+        if (lastSelectedCell.getX() > 1) {
+          lastSelectedCell = new Coord(
+              lastSelectedCell.getX() - 1, lastSelectedCell.getY());
+        }
+        break;
+    }
+    System.out.println("Last selected Cell: " + lastSelectedCell.toString());
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
 
   }
 }

@@ -25,6 +25,9 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
    */
   @Override
   public void render(Spreadsheet model) {
+    if (model == null) {
+      throw new IllegalArgumentException();
+    }
     JFrame window = new JFrame();
     JTable spread;
     CellTableModel table = new CellTableModel(model);
@@ -79,10 +82,6 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     return null;
   }
 
-  @Override
-  public JTable getTable() {
-    return null;
-  }
 
 
   /**

@@ -14,8 +14,4 @@ public interface SpreadsheetView {
    */
   void render(Spreadsheet model) throws IllegalArgumentException;
 
-
-
-
-
 }

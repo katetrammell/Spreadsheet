@@ -9,6 +9,10 @@ import javax.swing.table.TableModel;
 
 public interface SpreadSheetGraphicalView extends SpreadsheetView {
 
+  /**
+   * Adds a column to the view.
+   * @param colNum column index where the column is to be added.
+   */
   void addCol(int colNum);
 
   /**
@@ -32,7 +36,7 @@ public interface SpreadSheetGraphicalView extends SpreadsheetView {
 
   /**
    * Adds an action listener to an object.
-   * @param listener listener to be addded.
+   * @param listener listener to be added.
    */
   void setListener(ActionListener listener);
 
@@ -42,9 +46,4 @@ public interface SpreadSheetGraphicalView extends SpreadsheetView {
    */
   Coord getSelectedCell();
 
-  /**
-   * Gets the table from the view.
-   * @return table for view.
-   */
-  JTable getTable();
 }

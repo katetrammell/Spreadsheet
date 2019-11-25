@@ -9,6 +9,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 import javax.swing.table.TableColumn;
@@ -41,10 +42,12 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
    */
   @Override
   public void render(Spreadsheet model) {
-      textBox = new JTextField(50);
-      frame.setLayout(new FlowLayout());
-      frame.add(textBox);
-
+    if (model == null) {
+      throw new IllegalArgumentException();
+    }
+    textBox = new JTextField(50);
+    frame.setLayout(new FlowLayout());
+    frame.add(textBox);
     xButton = new JButton("X");
     xButton.setActionCommand("X Button");
     frame.add(xButton);
@@ -117,6 +120,7 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     // our controller will extend the action listener and
     // mouse listener interface
     table.addMouseListener((MouseListener) listener);
+    table.addKeyListener((KeyListener) listener);
   }
 
   @Override
@@ -128,12 +132,6 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
       return new Coord(1,1);
     }
   }
-
-  @Override
-  public JTable getTable() {
-    return this.table;
-  }
-
 
   /**
    * A custom TableModel class to implement the graphical view.
@@ -178,6 +176,7 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
      *
      * @param rowIndex    the row.
      * @param columnIndex the column.
+     * @param columnIndex the column.
      * @return the value in the model at the given row and col.
      */
     @Override
@@ -212,7 +211,7 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
   private static class CustomCellRenderer extends DefaultTableCellRenderer {
     BasicSpreadSheetGraphicalViewEditable view;
 
-    public  CustomCellRenderer(BasicSpreadSheetGraphicalViewEditable view) {
+    CustomCellRenderer(BasicSpreadSheetGraphicalViewEditable view) {
       this.view = view;
     }
 
