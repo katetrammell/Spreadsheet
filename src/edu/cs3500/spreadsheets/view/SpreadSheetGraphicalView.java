@@ -9,7 +9,7 @@ import javax.swing.table.TableModel;
 
 public interface SpreadSheetGraphicalView extends SpreadsheetView {
 
-   void addCol(int colNum);
+  void addCol(int colNum);
 
   /**
    * Updates a cell at a coordinate with the new provided cell.

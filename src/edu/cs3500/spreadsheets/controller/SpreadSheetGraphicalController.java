@@ -54,8 +54,8 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         this.addRow();
         break;
       case "Add column":
-       this.addCol();
-       break;
+        this.addCol();
+        break;
     }
   }
 

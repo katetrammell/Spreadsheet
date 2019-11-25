@@ -1,6 +1,6 @@
 package edu.cs3500.spreadsheets;
 
-import edu.cs3500.spreadsheets.controller.SpreadSheetGraphicalController;
+
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
@@ -10,6 +10,7 @@ import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalView;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
+import edu.cs3500.spreadsheets.controller.SpreadSheetGraphicalController;
 
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
 import java.io.FileNotFoundException;
