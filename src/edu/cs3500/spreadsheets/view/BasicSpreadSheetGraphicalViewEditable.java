@@ -29,10 +29,11 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
   private JButton checkButton;
   private JButton addRowButton;
   private JButton addColumnButton;
+  private JButton saveButton;
+  private JTextField saveText;
 
   public BasicSpreadSheetGraphicalViewEditable() {
     frame = new JFrame();
-
   }
 
   /**
@@ -60,6 +61,11 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     addColumnButton = new JButton("+ Column");
     addColumnButton.setActionCommand("Add column");
     frame.add(addColumnButton);
+    saveButton = new JButton("Save file as:");
+    saveButton.setActionCommand("Save Test");
+    frame.add(saveButton);
+    saveText = new JTextField(50);
+    frame.add(saveText);
     tableModel = new CellTableModel(model);
     table = new JTable(tableModel);
     for (int i = 0; i < model.getWidth() + 1; i++) {
@@ -121,16 +127,27 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     // mouse listener interface
     table.addMouseListener((MouseListener) listener);
     table.addKeyListener((KeyListener) listener);
+    saveButton.addActionListener(listener);
   }
 
   @Override
   public Coord getSelectedCell() {
     // indexed to one to account for label rows
-    if (table.getSelectedRow() > 0 && table.getSelectedColumn() > 0) {
+    if (table.getSelectedRow() >= 0 && table.getSelectedColumn() > 0) {
       return new Coord(table.getSelectedColumn(), table.getSelectedRow() + 1);
     } else {
       return new Coord(1,1);
     }
+  }
+
+  @Override
+  public String getSaveBox() {
+    return saveText.getText();
+  }
+
+  @Override
+  public void setSaveBox(String s) {
+    saveText.setText(s);
   }
 
   /**
@@ -238,8 +255,6 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
       }
       Component cell = super.getTableCellRendererComponent(table, value,
           false, false, row, column);
-
-
       if (column == 0) {
         cell.setBackground(Color.LIGHT_GRAY);
       } else if (reallySelected) {

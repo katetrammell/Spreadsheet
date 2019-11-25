@@ -82,6 +82,15 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     return null;
   }
 
+  @Override
+  public String getSaveBox() {
+    return null;
+  }
+
+  @Override
+  public void setSaveBox(String s) {
+
+  }
 
 
   /**

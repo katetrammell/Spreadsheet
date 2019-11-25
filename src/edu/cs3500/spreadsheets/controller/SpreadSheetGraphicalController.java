@@ -1,18 +1,20 @@
 package edu.cs3500.spreadsheets.controller;
 
-import edu.cs3500.spreadsheets.model.BasicStringCell;
-import edu.cs3500.spreadsheets.model.Cell;
-import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.Spreadsheet;
+import edu.cs3500.spreadsheets.model.*;
 import edu.cs3500.spreadsheets.sexp.CellMaker;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
+import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
 
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
- * Controller for graphical spreadsheet. TODO: ADD TO CONTROLLER DIRECTORY LATER
+ * Controller for graphical spreadsheet.
  */
 public class SpreadSheetGraphicalController implements SpreadsheetController,
     ActionListener, MouseListener, KeyListener {
@@ -20,6 +22,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   private SpreadSheetGraphicalView view;
   private Spreadsheet spread;
   private Coord lastSelectedCell;
+  private static int tempX = 1;
 
   public SpreadSheetGraphicalController(Spreadsheet spread, SpreadSheetGraphicalView view) {
     this.spread = spread;
@@ -32,6 +35,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   public void actionPerformed(ActionEvent e) {
     Coord coord;
     Cell c;
+    System.out.println(e.getActionCommand());
     switch (e.getActionCommand()) {
       case "X Button":
         coord = view.getSelectedCell();
@@ -51,6 +55,17 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         break;
       case "Add column":
         this.addCol();
+        break;
+      case "Save Test":
+        BasicSpreadsheetTextualView newView = new BasicSpreadsheetTextualView();
+        try {
+          PrintWriter writer = new PrintWriter(view.getSaveBox());
+          newView.render(spread, writer);
+          writer.close();
+        } catch (IOException eee) {
+          view.setSaveBox("Make sure to not use quotation marks " +
+              "or any characters invalid for file names");
+        }
         break;
     }
   }
@@ -150,11 +165,20 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         break;
       case KeyEvent.VK_RIGHT:
         if (lastSelectedCell.getX() < spread.getWidth()) {
-          lastSelectedCell = new Coord(
-              lastSelectedCell.getX() + 1, lastSelectedCell.getY());
+          if (tempX == 0) {
+            tempX += 1;
+            System.out.println("test2");
+          } else {
+            lastSelectedCell = new Coord(
+                lastSelectedCell.getX() + 1, lastSelectedCell.getY());
+          }
         }
         break;
       case KeyEvent.VK_LEFT:
+        if (lastSelectedCell.getX() == 1 && tempX == 1) {
+          tempX = 0;
+          System.out.println("tempx set");
+        }
         if (lastSelectedCell.getX() > 1) {
           lastSelectedCell = new Coord(
               lastSelectedCell.getX() - 1, lastSelectedCell.getY());

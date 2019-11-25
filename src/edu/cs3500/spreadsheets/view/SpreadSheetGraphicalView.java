@@ -46,4 +46,16 @@ public interface SpreadSheetGraphicalView extends SpreadsheetView {
    */
   Coord getSelectedCell();
 
+  /**
+   * Gets the text from the saveBox in the gui.
+   * @return the text from the saveBox.
+   */
+  String getSaveBox();
+
+  /**
+   * Set the text of save text field.
+   * @param s String to be changed to.
+   */
+  void setSaveBox(String s);
+
 }
