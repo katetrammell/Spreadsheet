@@ -109,4 +109,9 @@ public class BasicSpreadsheet implements Spreadsheet {
     }
     this.height = height;
   }
+
+  @Override
+  public void removeCell(Coord c) {
+    this.grid.remove(c);
+  }
 }

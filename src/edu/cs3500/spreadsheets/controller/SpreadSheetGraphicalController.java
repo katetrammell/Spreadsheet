@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.controller;
 
+import edu.cs3500.spreadsheets.model.BasicStringCell;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
@@ -149,15 +150,8 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         break;
       case KeyEvent.VK_RIGHT:
         if (lastSelectedCell.getX() < spread.getWidth()) {
-          if (lastSelectedCell.getX() == 0) {
-            System.out.print("test");
-            lastSelectedCell = new Coord(
-                1, lastSelectedCell.getY());
-          }
-          else {
-            lastSelectedCell = new Coord(
-                lastSelectedCell.getX() + 1, lastSelectedCell.getY());
-          }
+          lastSelectedCell = new Coord(
+              lastSelectedCell.getX() + 1, lastSelectedCell.getY());
         }
         break;
       case KeyEvent.VK_LEFT:
@@ -166,6 +160,16 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
               lastSelectedCell.getX() - 1, lastSelectedCell.getY());
         }
         break;
+      case KeyEvent.VK_DELETE:
+        spread.removeCell(lastSelectedCell);
+        view.updateCell(lastSelectedCell, new BasicStringCell(""));
+        System.out.println("Delete");
+    }
+    if (spread.getCellAt(lastSelectedCell) == null) {
+      view.setTextBox("");
+    }
+    else {
+      view.setTextBox(spread.getCellAt(lastSelectedCell).toString());
     }
     System.out.println("Last selected Cell: " + lastSelectedCell.toString());
   }

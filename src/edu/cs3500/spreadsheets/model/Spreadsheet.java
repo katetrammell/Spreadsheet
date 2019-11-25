@@ -65,4 +65,11 @@ public interface Spreadsheet {
    */
   void setHeight(int height);
 
+  /**
+   * Removes cell from the grid of cells. Will do nothing if
+   * the cell isn't already instantiated.
+   * @param c coordinate to be removed.
+   */
+  void removeCell(Coord c);
+
 }
