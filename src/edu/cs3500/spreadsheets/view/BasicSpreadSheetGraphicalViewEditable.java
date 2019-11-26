@@ -71,7 +71,6 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     for (int i = 0; i < model.getWidth() + 1; i++) {
       table.setDefaultRenderer(tableModel.getColumnClass(i),
           new CustomCellRenderer(this));
-      System.out.println(tableModel.getColumnClass(i).toString());
     }
     table.setBounds(30, 40, 200, 300);
     JScrollPane scroll = new JScrollPane(table,

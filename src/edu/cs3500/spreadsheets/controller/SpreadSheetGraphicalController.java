@@ -22,6 +22,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   private SpreadSheetGraphicalView view;
   private Spreadsheet spread;
   private Coord lastSelectedCell;
+  // needed to track when cursor goes off screen scrolling left
   private static int tempX = 1;
 
   public SpreadSheetGraphicalController(Spreadsheet spread, SpreadSheetGraphicalView view) {
@@ -35,7 +36,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   public void actionPerformed(ActionEvent e) {
     Coord coord;
     Cell c;
-    System.out.println(e.getActionCommand());
     switch (e.getActionCommand()) {
       case "X Button":
         coord = view.getSelectedCell();
@@ -85,7 +85,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       view.setTextBox("");
     }
     this.lastSelectedCell = c;
-    System.out.println("Last selected cell: " + c.toString());
   }
 
   @Override
@@ -167,7 +166,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         if (lastSelectedCell.getX() < spread.getWidth()) {
           if (tempX == 0) {
             tempX += 1;
-            System.out.println("test2");
           } else {
             lastSelectedCell = new Coord(
                 lastSelectedCell.getX() + 1, lastSelectedCell.getY());
@@ -177,7 +175,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       case KeyEvent.VK_LEFT:
         if (lastSelectedCell.getX() == 1 && tempX == 1) {
           tempX = 0;
-          System.out.println("tempx set");
         }
         if (lastSelectedCell.getX() > 1) {
           lastSelectedCell = new Coord(
@@ -187,7 +184,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       case KeyEvent.VK_DELETE:
         spread.removeCell(lastSelectedCell);
         view.updateCell(lastSelectedCell, new BasicStringCell(""));
-        System.out.println("Delete");
     }
     if (spread.getCellAt(lastSelectedCell) == null) {
       view.setTextBox("");
@@ -195,7 +191,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
     else {
       view.setTextBox(spread.getCellAt(lastSelectedCell).toString());
     }
-    System.out.println("Last selected Cell: " + lastSelectedCell.toString());
   }
 
   @Override

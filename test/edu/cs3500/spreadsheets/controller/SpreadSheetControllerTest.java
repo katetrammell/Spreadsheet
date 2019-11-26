@@ -5,7 +5,6 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
-import edu.cs3500.spreadsheets.view.SpreadsheetView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,5 +103,6 @@ public class SpreadSheetControllerTest {
     controller.changeCell(coord, "test");
     Assert.assertEquals("test", spread.getCellAt(coord).getValue());
   }
+
 
 }

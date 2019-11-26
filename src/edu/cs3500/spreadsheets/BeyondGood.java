@@ -57,10 +57,19 @@ public class BeyondGood {
       case "-gui":
         inGuiBlank();
         break;
-
+      case "-edit":
+        inEditBlank();
+        break;
       default:
         throw new IllegalArgumentException("invalid first keyword");
     }
+  }
+
+  private static void inEditBlank() {
+    BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);
+    BasicSpreadSheetGraphicalViewEditable view = new BasicSpreadSheetGraphicalViewEditable();
+    SpreadSheetGraphicalController controller =
+        new SpreadSheetGraphicalController(spread, view);
   }
 
   private static void inGui(String[] args) {
