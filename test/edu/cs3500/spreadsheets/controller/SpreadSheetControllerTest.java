@@ -92,15 +92,13 @@ public class SpreadSheetControllerTest {
     controller.changeCell(coord, "=(SUM A1 A7)");
     Assert.assertEquals("=(SUM A1 A7 )",
         spread.getCellAt(coord).getFormula().toString());
-    // TODO: Katethine - lmk if you know why this doesnt work
     Assert.assertEquals(30.0,
-        spread.getCellAt(coord).getValue());
+        spread.getCellAt(coord).getFormula().evaluate());
   }
 
-  // TODO: Katherine = lmk if you know why this doesn't work
   @Test
   public void changeCellString() {
-    controller.changeCell(coord, "test");
+    controller.changeCell(coord, "\"test\"");
     Assert.assertEquals("test", spread.getCellAt(coord).getValue());
   }
 
