@@ -1,3 +1,7 @@
+NOTE: If you're on a mac, un-comment line 186 in
+ /src/edu/cs3500/spreadsheets/controller/SpreadSheetGraphicalController
+ because the delete key on macs is actually the backspace key.
+
 Brief overview of our Controller design:
 
   Our controller interface contains three methods, addRow(), addCol(), and updateCell()

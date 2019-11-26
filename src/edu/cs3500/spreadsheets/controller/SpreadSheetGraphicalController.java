@@ -173,6 +173,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
           }
         }
         break;
+
       case KeyEvent.VK_LEFT:
         if (lastSelectedCell.getX() == 1 && tempX == 1) {
           tempX = 0;
@@ -182,6 +183,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
               lastSelectedCell.getX() - 1, lastSelectedCell.getY());
         }
         break;
+      //case KeyEvent.VK_BACK_SPACE:
       case KeyEvent.VK_DELETE:
         spread.removeCell(lastSelectedCell);
         view.updateCell(lastSelectedCell, new BasicStringCell(""));
