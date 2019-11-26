@@ -1,4 +1,5 @@
 /*
+
 package edu.cs3500.spreadsheets.model;
 
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
@@ -8,10 +9,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+
 */
 /**
  * Tests for the BasicSpreadsheet class.
  *//*
+
 
 
 public class BasicSpreadsheetTest {
@@ -21,8 +24,8 @@ public class BasicSpreadsheetTest {
   @Before
   public void setUp() {
     spread1 = new BasicSpreadsheet(3, 3);
-    */
-/*
+
+
     spread1.setCell(new BasicDoubleCell(5.0), 0, 0);
     spread1.setCell(new BasicStringCell("hi"), 0, 1);
     spread1.setCell(new BasicStringCell(" there"), 0, 2);
@@ -30,7 +33,6 @@ public class BasicSpreadsheetTest {
     spread1.setCell(new BasicDoubleCell(3.2), 1, 0);
     spread1.setCell(new BasicBooleanCell(true), 1, 1);
 
-     *//*
 
     spread1.setCell(new BasicDoubleCell(3.2), 1, 1);
     spread1.setCell(new BasicDoubleCell(3.5), 1,  2);
@@ -166,8 +168,7 @@ public class BasicSpreadsheetTest {
 
 
 
-*/
-/*
+
 //tests that sum of non numbers = 0
   @Test
   public void testSumNonNum() {
@@ -318,7 +319,7 @@ public class BasicSpreadsheetTest {
     Assert.assertEquals("hi there",
         spread1.concat(spread1.getCellAt(0, 1), spread1.getCellAt(0, 0),
             spread1.getCellAt(1, 0), spread1.getCellAt(0, 2)));
-  }*//*
+  }
 
 
   //tests get cell at and set cell
@@ -350,6 +351,7 @@ public class BasicSpreadsheetTest {
   }
 
 }
+
 
 
 

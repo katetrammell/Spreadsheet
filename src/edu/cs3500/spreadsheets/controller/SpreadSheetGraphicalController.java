@@ -4,6 +4,8 @@ import edu.cs3500.spreadsheets.model.*;
 import edu.cs3500.spreadsheets.sexp.CellMaker;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
+import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalView;
+import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
 
@@ -46,7 +48,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         break;
       case "Check Button":
         coord = lastSelectedCell;
-        //c = spread.getCellAt(coord);
         String contents = view.getTextBox();
         this.changeCell(coord, contents);
         break;

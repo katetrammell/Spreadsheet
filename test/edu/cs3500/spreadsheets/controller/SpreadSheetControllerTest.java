@@ -5,6 +5,9 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +19,8 @@ import org.junit.Test;
 public class SpreadSheetControllerTest {
 
   public Spreadsheet spread;
-  private SpreadSheetGraphicalView view;
-  private SpreadsheetController controller;
+  private BasicSpreadSheetGraphicalViewEditable view;
+  private SpreadSheetGraphicalController controller;
   private Coord coord;
 
 
@@ -101,6 +104,29 @@ public class SpreadSheetControllerTest {
     controller.changeCell(coord, "\"test\"");
     Assert.assertEquals("test", spread.getCellAt(coord).getValue());
   }
+
+  @Test
+  public void ActionPerformedAddCol() {
+    int prevWidth = spread.getWidth();
+    controller.actionPerformed(new ActionEvent(view, 1, "Add column"));
+    Assert.assertEquals(spread.getWidth(), prevWidth + 1);
+  }
+
+  @Test
+  public void ActionPerformedAddRow() {
+    int prevHeight = spread.getHeight();
+    controller.actionPerformed(new ActionEvent(view, 1, "Add Row"));
+    Assert.assertEquals(spread.getHeight(), prevHeight + 1);
+  }
+
+  @Test
+  public void ActionPerformedCheckButton() {
+    controller.mouseClicked(new MouseEvent(new JFrame(), 1,
+        18, 0, 12, 1, 1, false));
+
+  }
+
+
 
 
 }
