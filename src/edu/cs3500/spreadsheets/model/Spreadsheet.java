@@ -54,7 +54,7 @@ public interface Spreadsheet {
   int getHeight();
 
   /**
-   * Changes the width of spreadsheet
+   * Changes the width of spreadsheet.
    * @param width width to be changed to
    */
   void setWidth(int width);

@@ -1,6 +1,5 @@
 package edu.cs3500.spreadsheets.view;
 
-import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import org.junit.Test;
 
 /**

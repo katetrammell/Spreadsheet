@@ -39,5 +39,6 @@ Changes to view:
                   This is necessary to get the information as to what cell the user has selected
                   so that the controller can act accordingly.
 
-
+* Created a new View design that allows for adding editing
+ (/src/edu/cs3500/spreadsheets/view.BasicSpreadSheetGraphicalViewEditable)
 

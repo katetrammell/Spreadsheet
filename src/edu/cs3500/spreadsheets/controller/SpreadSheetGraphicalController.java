@@ -1,17 +1,20 @@
 package edu.cs3500.spreadsheets.controller;
 
-import edu.cs3500.spreadsheets.model.*;
+import edu.cs3500.spreadsheets.model.BasicStringCell;
+import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.sexp.CellMaker;
 import edu.cs3500.spreadsheets.sexp.Parser;
 import edu.cs3500.spreadsheets.sexp.Sexp;
-import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalView;
-import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
-
-import java.awt.event.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,6 +30,12 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   // needed to track when cursor goes off screen scrolling left
   private static int tempX = 1;
 
+  /**
+   * A constructor for the class.
+   *
+   * @param spread the spreadsheet to be controlled.
+   * @param view the view to be controlled.
+   */
   public SpreadSheetGraphicalController(Spreadsheet spread, SpreadSheetGraphicalView view) {
     this.spread = spread;
     this.view = view;
@@ -64,10 +73,11 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
           newView.render(spread, writer);
           writer.close();
         } catch (IOException eee) {
-          view.setSaveBox("Make sure to not use quotation marks " +
-              "or any characters invalid for file names");
+          view.setSaveBox("Make sure to not use quotation marks "
+              + "or any characters invalid for file names");
         }
         break;
+      default:
     }
   }
 
@@ -90,22 +100,22 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
 
   @Override
   public void mousePressed(MouseEvent e) {
-
+    // ignore /suppress this method
   }
 
   @Override
   public void mouseReleased(MouseEvent e) {
-
+    // ignore /suppress this method
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
-
+    // ignore /suppress this method
   }
 
   @Override
   public void mouseExited(MouseEvent e) {
-
+    // ignore /suppress this method
   }
 
 
@@ -145,12 +155,12 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
 
   @Override
   public void keyTyped(KeyEvent e) {
-
+    // ignore /suppress this method
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-    switch(e.getKeyCode()) {
+    switch (e.getKeyCode()) {
       case KeyEvent.VK_DOWN:
         if (lastSelectedCell.getY() < spread.getHeight()) {
           lastSelectedCell = new Coord(
@@ -187,17 +197,18 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       case KeyEvent.VK_DELETE:
         spread.removeCell(lastSelectedCell);
         view.updateCell(lastSelectedCell, new BasicStringCell(""));
+        break;
+      default:
     }
     if (spread.getCellAt(lastSelectedCell) == null) {
       view.setTextBox("");
-    }
-    else {
+    } else {
       view.setTextBox(spread.getCellAt(lastSelectedCell).toString());
     }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-
+    // ignore /suppress this method
   }
 }

@@ -3,17 +3,22 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
-
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-import java.util.Vector;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 
 /**
@@ -84,36 +89,42 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
+  /**
+   * Updates a cell in the view.
+   *
+   * @param c    coordinate of the cell to be updated.
+   * @param cell cell to replace the previous cell.
+   */
   @Override
   public void updateCell(Coord c, Cell cell) {
     // the + 1 at get x is to account for the labeled column
-      String str;
-      if (cell == null) {
-        str = "";
-      } else {
-        str = cell.toString();
-      }
-      tableModel.setValueAt(str, c.getX(), c.getY());
-      tableModel.fireTableCellUpdated(c.getX(), c.getY());
-      tableModel.fireTableDataChanged();
+    String str;
+    if (cell == null) {
+      str = "";
+    } else {
+      str = cell.toString();
+    }
+    tableModel.setValueAt(str, c.getX(), c.getY());
+    tableModel.fireTableCellUpdated(c.getX(), c.getY());
+    tableModel.fireTableDataChanged();
 
   }
 
   @Override
   public void addCol(int colNum) {
-    table.addColumn(new TableColumn(colNum,80,
+    table.addColumn(new TableColumn(colNum, 80,
         new CustomCellRenderer(this), new DefaultCellEditor(new JTextField())));
     tableModel.fireTableDataChanged();
   }
 
   @Override
   public String getTextBox() {
-      return textBox.getText();
+    return textBox.getText();
   }
 
   @Override
   public void setTextBox(String s) {
-      textBox.setText(s);
+    textBox.setText(s);
   }
 
   @Override
@@ -135,7 +146,7 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     if (table.getSelectedRow() >= 0 && table.getSelectedColumn() > 0) {
       return new Coord(table.getSelectedColumn(), table.getSelectedRow() + 1);
     } else {
-      return new Coord(1,1);
+      return new Coord(1, 1);
     }
   }
 
@@ -153,8 +164,14 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
    * A custom TableModel class to implement the graphical view.
    */
   private static class CellTableModel extends AbstractTableModel {
+
     private final Spreadsheet model;
 
+    /**
+     * A constructor for the class.
+     *
+     * @param model the spreadsheet to be rendered
+     */
     private CellTableModel(Spreadsheet model) {
       this.model = model;
     }
@@ -217,16 +234,20 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     }
 
 
-
-
   }
 
   /**
    * A custom TableCellRenderer class.
    */
   private static class CustomCellRenderer extends DefaultTableCellRenderer {
+
     BasicSpreadSheetGraphicalViewEditable view;
 
+    /**
+     * A constructor for the class.
+     *
+     * @param view the view to be rendered.
+     */
     CustomCellRenderer(BasicSpreadSheetGraphicalViewEditable view) {
       this.view = view;
     }

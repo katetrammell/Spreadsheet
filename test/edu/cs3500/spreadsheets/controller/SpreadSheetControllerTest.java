@@ -4,10 +4,7 @@ import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
-import edu.cs3500.spreadsheets.view.SpreadSheetGraphicalView;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +21,9 @@ public class SpreadSheetControllerTest {
   private Coord coord;
 
 
+  /**
+   * Sets up an MVC for testing purposes.
+   */
   @Before
   public void initialize() {
     spread = new BasicSpreadsheet(10, 10);
@@ -32,6 +32,9 @@ public class SpreadSheetControllerTest {
     coord = new Coord(2, 2);
   }
 
+  /**
+   * tests the addRow() method.
+   */
   @Test
   public void testAddRow() {
     Assert.assertEquals(10, spread.getHeight());
@@ -39,6 +42,9 @@ public class SpreadSheetControllerTest {
     Assert.assertEquals(11, spread.getHeight());
   }
 
+  /**
+   * tests the addRow() method, calling it 10 times.
+   */
   @Test
   public void testAddRowBulk() {
     Assert.assertEquals(10, spread.getHeight());
@@ -48,6 +54,9 @@ public class SpreadSheetControllerTest {
     Assert.assertEquals(110, spread.getHeight());
   }
 
+  /**
+   * tests the addCol() method.
+   */
   @Test
   public void testAddCol() {
     Assert.assertEquals(10, spread.getWidth());
@@ -55,6 +64,9 @@ public class SpreadSheetControllerTest {
     Assert.assertEquals(11, spread.getWidth());
   }
 
+  /**
+   * tests the addCol() method, calling it several times.
+   */
   @Test
   public void testAddColBulk() {
     Assert.assertEquals(10, spread.getWidth());
@@ -64,7 +76,9 @@ public class SpreadSheetControllerTest {
     Assert.assertEquals(110, spread.getWidth());
   }
 
-  // replaces empty cell
+  /**
+   * tests the changeCell() method on a blank cell.
+   */
   @Test
   public void testChangeCells() {
     Assert.assertEquals(null,
@@ -74,6 +88,9 @@ public class SpreadSheetControllerTest {
         spread.getCellAt(coord).getValue());
   }
 
+  /**
+   * tests the changeCell() method on an already existing cell.
+   */
   @Test
   public void changeCellsOverwrite() {
     Assert.assertEquals(null,
@@ -86,6 +103,9 @@ public class SpreadSheetControllerTest {
         spread.getCellAt(coord).getValue());
   }
 
+  /**
+   * tests the changeCell() method, using a formula.
+   */
   @Test
   public void changeCellFormula() {
     Assert.assertEquals(null,
@@ -99,12 +119,18 @@ public class SpreadSheetControllerTest {
         spread.getCellAt(coord).getFormula().evaluate());
   }
 
+  /**
+   * tests the changeCell() method, using a string.
+   */
   @Test
   public void changeCellString() {
     controller.changeCell(coord, "\"test\"");
     Assert.assertEquals("test", spread.getCellAt(coord).getValue());
   }
 
+  /**
+   * tests the ActionPerformed() method, with the add column button being pressed.
+   */
   @Test
   public void ActionPerformedAddCol() {
     int prevWidth = spread.getWidth();
@@ -112,21 +138,14 @@ public class SpreadSheetControllerTest {
     Assert.assertEquals(spread.getWidth(), prevWidth + 1);
   }
 
+  /**
+   * tests the ActionPerformed() method, with the add row button being pressed.
+   */
   @Test
   public void ActionPerformedAddRow() {
     int prevHeight = spread.getHeight();
     controller.actionPerformed(new ActionEvent(view, 1, "Add Row"));
     Assert.assertEquals(spread.getHeight(), prevHeight + 1);
   }
-
-  @Test
-  public void ActionPerformedCheckButton() {
-    controller.mouseClicked(new MouseEvent(new JFrame(), 1,
-        18, 0, 12, 1, 1, false));
-
-  }
-
-
-
 
 }

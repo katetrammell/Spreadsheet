@@ -3,6 +3,8 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -10,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.*;
 
 
 /**
@@ -49,17 +50,16 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     window.setVisible(true);
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    //scroll.getHorizontalScrollBar().addAdjustmentListener();
   }
 
   @Override
   public void addCol(int colNum) {
-
+    //Suppress this method
   }
 
   @Override
   public void updateCell(Coord c, Cell cell) {
-
+    //Suppress this method
   }
 
   @Override
@@ -69,12 +69,12 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
 
   @Override
   public void setTextBox(String s) {
-
+    //Suppress this method
   }
 
   @Override
   public void setListener(ActionListener listener) {
-
+    //Suppress this method
   }
 
   @Override
@@ -89,7 +89,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
 
   @Override
   public void setSaveBox(String s) {
-
+    //Suppress this method
   }
 
 

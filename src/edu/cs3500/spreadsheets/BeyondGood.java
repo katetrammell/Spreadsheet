@@ -65,6 +65,9 @@ public class BeyondGood {
     }
   }
 
+  /**
+   * Creates the MVC for an editable bank spreadsheet.
+   */
   private static void inEditBlank() {
     BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);
     BasicSpreadSheetGraphicalViewEditable view = new BasicSpreadSheetGraphicalViewEditable();
@@ -72,6 +75,10 @@ public class BeyondGood {
         new SpreadSheetGraphicalController(spread, view);
   }
 
+  /**
+   * Creates the MVC for a non-editable spreadsheet.
+   * @param args string array containing the filename
+   */
   private static void inGui(String[] args) {
     WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
     FileReader f;
@@ -86,6 +93,10 @@ public class BeyondGood {
         new SpreadSheetGraphicalController(spread, view);
   }
 
+  /**
+   * Creates the MVC for an editable bank spreadsheet.
+   * @param args string array that the user passed in.
+   */
   private static void inEdit(String[] args) {
     WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
     FileReader f;
@@ -100,7 +111,9 @@ public class BeyondGood {
         new SpreadSheetGraphicalController(spread, view);
   }
 
-
+  /**
+   * Creates a non-editable blank spreadsheet (MCV).
+   */
   private static void inGuiBlank() {
     BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);
     BasicSpreadSheetGraphicalView view = new BasicSpreadSheetGraphicalView();
@@ -165,6 +178,12 @@ public class BeyondGood {
     }
   }
 
+
+  /**
+   * Converts a string into a coordinate.
+   * @param s the string to be converted.
+   * @return a coordinate version of the given string
+   */
   private static Coord stringToCoord(String s) {
     Scanner scan = new Scanner(s);
     final Pattern cellRef = Pattern.compile("([A-Za-z]+)([1-9][0-9]*)");

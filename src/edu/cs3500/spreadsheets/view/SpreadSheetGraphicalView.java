@@ -2,11 +2,11 @@ package edu.cs3500.spreadsheets.view;
 
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
-
-import javax.swing.*;
 import java.awt.event.ActionListener;
-import javax.swing.table.TableModel;
 
+/**
+ * An interface for a graphical view of a spreadsheet.
+ */
 public interface SpreadSheetGraphicalView extends SpreadsheetView {
 
   /**

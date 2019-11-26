@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.controller;
 
 import edu.cs3500.spreadsheets.model.Coord;
 
+/**
+ * An interface for the controller of a spreadsheet.
+ */
 public interface SpreadsheetController  {
 
   /**
