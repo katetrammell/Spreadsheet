@@ -52,7 +52,7 @@ public class BeyondGood {
         }
         else {
           throw new IllegalArgumentException(
-              "-in but invalid second argument");
+              "-in but invalid third argument");
         }
       case "-gui":
         inGuiBlank();

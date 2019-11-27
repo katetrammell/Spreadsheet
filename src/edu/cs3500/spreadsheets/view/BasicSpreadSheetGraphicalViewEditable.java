@@ -3,8 +3,6 @@ package edu.cs3500.spreadsheets.view;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -13,8 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -24,7 +20,7 @@ import javax.swing.table.TableColumn;
 /**
  * A class for a graphical view of a table using JTable.
  */
-public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphicalView {
+public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraphicalView {
 
   private JFrame frame;
   private JTable table;
@@ -40,7 +36,6 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
   public BasicSpreadSheetGraphicalViewEditable() {
     frame = new JFrame();
   }
-
   /**
    * Renders the given model as a graphical view.
    *
@@ -51,6 +46,7 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     if (model == null) {
       throw new IllegalArgumentException();
     }
+
     textBox = new JTextField(50);
     frame.setLayout(new FlowLayout());
     frame.add(textBox);
@@ -71,7 +67,8 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
     frame.add(saveButton);
     saveText = new JTextField(50);
     frame.add(saveText);
-    tableModel = new CellTableModel(model);
+
+   tableModel = new CellTableModel(model);
     table = new JTable(tableModel);
     for (int i = 0; i < model.getWidth() + 1; i++) {
       table.setDefaultRenderer(tableModel.getColumnClass(i),
@@ -158,132 +155,6 @@ public class BasicSpreadSheetGraphicalViewEditable implements SpreadSheetGraphic
   @Override
   public void setSaveBox(String s) {
     saveText.setText(s);
-  }
-
-  /**
-   * A custom TableModel class to implement the graphical view.
-   */
-  private static class CellTableModel extends AbstractTableModel {
-
-    private final Spreadsheet model;
-
-    /**
-     * A constructor for the class.
-     *
-     * @param model the spreadsheet to be rendered
-     */
-    private CellTableModel(Spreadsheet model) {
-      this.model = model;
-    }
-
-    /**
-     * Gets the number of rows.
-     *
-     * @return an int representing the number of rows
-     */
-    @Override
-    public int getRowCount() {
-      return model.getHeight();
-    }
-
-    /**
-     * Gets the number of columns.
-     *
-     * @return an int representing the number of columns.
-     */
-    @Override
-    public String getColumnName(int i) {
-      if (i == 0) {
-        return "";
-      }
-      return Coord.colIndexToName(i);
-    }
-
-    @Override
-    public int getColumnCount() {
-      return model.getWidth() + 1;
-    }
-
-    /**
-     * gets the value at a given column and row.
-     *
-     * @param rowIndex    the row.
-     * @param columnIndex the column.
-     * @param columnIndex the column.
-     * @return the value in the model at the given row and col.
-     */
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-      String cell;
-      if (columnIndex == 0) {
-        cell = Integer.toString(rowIndex + 1);
-      } else if (model.getAllCells().containsKey(new Coord(columnIndex, rowIndex + 1))) {
-        Cell currentCell = model.getCellAt(rowIndex + 1, columnIndex);
-        if (currentCell.getFormula() == null) {
-          cell = currentCell.toString();
-        } else {
-          cell = currentCell.getFormula().evaluate().toString();
-        }
-      } else {
-        cell = "";
-      }
-      if (cell.length() > 7) {
-        cell = cell.substring(0, 7);
-      }
-      return cell;
-    }
-
-
-  }
-
-  /**
-   * A custom TableCellRenderer class.
-   */
-  private static class CustomCellRenderer extends DefaultTableCellRenderer {
-
-    BasicSpreadSheetGraphicalViewEditable view;
-
-    /**
-     * A constructor for the class.
-     *
-     * @param view the view to be rendered.
-     */
-    CustomCellRenderer(BasicSpreadSheetGraphicalViewEditable view) {
-      this.view = view;
-    }
-
-    /**
-     * renders the cell.
-     *
-     * @param table      the table to get the cell from
-     * @param value      the value to be rendered
-     * @param isSelected if the cell is currently selected.
-     * @param hasFocus   if the call has focus.
-     * @param row        the row of the cell.
-     * @param column     the column of the cell.
-     * @return a component of the cell
-     */
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-        boolean isSelected, boolean hasFocus, int row, int column) {
-      boolean reallySelected;
-      try {
-        reallySelected = (row == table.getSelectedRow()
-            && column == table.getSelectedColumn());
-      } catch (IllegalArgumentException e) {
-        reallySelected = false;
-      }
-      Component cell = super.getTableCellRendererComponent(table, value,
-          false, false, row, column);
-      if (column == 0) {
-        cell.setBackground(Color.LIGHT_GRAY);
-      } else if (reallySelected) {
-        cell.setBackground(Color.YELLOW);
-      } else {
-        cell.setBackground(Color.white);
-      }
-      return cell;
-    }
   }
 
 }

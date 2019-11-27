@@ -29,13 +29,13 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     if (model == null) {
       throw new IllegalArgumentException();
     }
-    JFrame window = new JFrame();
+    JFrame frame = new JFrame();
     JTable spread;
     CellTableModel table = new CellTableModel(model);
     spread = new JTable(table);
     for (int i = 0; i < model.getWidth() + 1; i++) {
       spread.setDefaultRenderer(table.getColumnClass(i),
-          new CustomCellRenderer());
+          new CustomCellRenderer(this));
     }
     spread.setBounds(30, 40, 200, 300);
     JScrollPane scroll = new JScrollPane(spread,
@@ -44,11 +44,11 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     spread.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     spread.setEditingColumn(0);
     spread.setBackground(Color.BLACK);
-    window.setTitle("test");
-    window.add(scroll);
-    window.setSize(500, 200);
-    window.setVisible(true);
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setTitle("spreadsheet");
+    frame.add(scroll);
+    frame.setSize(500, 200);
+    frame.setVisible(true);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
   }
 
@@ -96,11 +96,16 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   /**
    * A custom TableModel class to implement the graphical view.
    */
-  private static class CellTableModel extends AbstractTableModel {
+  protected static class CellTableModel extends AbstractTableModel {
 
     private final Spreadsheet model;
 
-    private CellTableModel(Spreadsheet model) {
+    /**
+     * A constructor for the class.
+     *
+     * @param model the spreadsheet to be rendered
+     */
+    protected CellTableModel(Spreadsheet model) {
       this.model = model;
     }
 
@@ -137,6 +142,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
      *
      * @param rowIndex    the row.
      * @param columnIndex the column.
+     * @param columnIndex the column.
      * @return the value in the model at the given row and col.
      */
     @Override
@@ -160,11 +166,21 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
       return cell;
     }
   }
-
   /**
    * A custom TableCellRenderer class.
    */
-  private static class CustomCellRenderer extends DefaultTableCellRenderer {
+  protected static class CustomCellRenderer extends DefaultTableCellRenderer {
+
+    SpreadSheetGraphicalView view;
+
+    /**
+     * A constructor for the class.
+     *
+     * @param view the view to be rendered.
+     */
+    protected CustomCellRenderer(SpreadSheetGraphicalView view) {
+      this.view = view;
+    }
 
     /**
      * renders the cell.
@@ -180,12 +196,23 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
         boolean isSelected, boolean hasFocus, int row, int column) {
-      if (column == 0) {
-        setBackground(Color.LIGHT_GRAY);
-      } else {
-        setBackground(Color.WHITE);
+      boolean reallySelected;
+      try {
+        reallySelected = (row == table.getSelectedRow()
+            && column == table.getSelectedColumn());
+      } catch (IllegalArgumentException e) {
+        reallySelected = false;
       }
-      return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+      Component cell = super.getTableCellRendererComponent(table, value,
+          false, false, row, column);
+      if (column == 0) {
+        cell.setBackground(Color.LIGHT_GRAY);
+      } else if (reallySelected) {
+        cell.setBackground(Color.YELLOW);
+      } else {
+        cell.setBackground(Color.white);
+      }
+      return cell;
     }
   }
 
