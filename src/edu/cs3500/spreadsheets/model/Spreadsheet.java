@@ -42,6 +42,16 @@ public interface Spreadsheet {
   void setCell(Cell c, int column, int row) throws IllegalArgumentException;
 
   /**
+   * Sets the cell at the given location to the given cell.
+   * If the cell position is beyond the scope of the board,
+   * the board will expand and fill with nulls for the new cells.
+   * @param c the cell to put in
+   * @param coord the location of the cell
+   * @throws IllegalArgumentException if the rows or col are negative.
+   */
+  void setCell(Cell c, Coord coord) throws IllegalArgumentException;
+
+  /**
    * Gets the current width of the spreadsheet.
    * @return the width of the spreadsheet
    */

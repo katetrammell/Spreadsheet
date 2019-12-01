@@ -1,18 +1,21 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.provider.model;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
- * A value type representing coordinates on a 2d plane.
+ * A value type representing coordinates in a worksheet
  */
 public class Coord {
+
   public final int row;
   public final int col;
 
   /**
-   * Constructor for Coord. Sets x and y.
-   * @param col the 'x' value.
-   * @param row the 'y' value.
+   * Constructor for Coord.
+   *
+   * @param col the column.
+   * @param row the row.
    */
   public Coord(int col, int row) {
     if (row < 1 || col < 1) {
@@ -21,6 +24,7 @@ public class Coord {
     this.row = row;
     this.col = col;
   }
+
   /**
    * Creates a {@code Coord} from the given string.
    *
@@ -29,6 +33,9 @@ public class Coord {
    * @throws IllegalArgumentException if s is not a valid string representation
    */
   public static Coord parseCoord(String s) {
+    if (!validCoord(s)) {
+      throw new IllegalArgumentException("Malformed reference");
+    }
 
     StringBuilder colBuilder = new StringBuilder();
     StringBuilder rowBuilder = new StringBuilder();
@@ -48,7 +55,19 @@ public class Coord {
   }
 
   /**
+   * Determines if the given String represents a {@code Coord}.
+   *
+   * @param s the String to parse
+   * @return true if s is a valid textual representation of a {@code Coord}
+   */
+  private static boolean validCoord(String s) {
+    Pattern p = Pattern.compile("^[A-Z]*\\d*$");
+    return p.matcher(s).matches();
+  }
+
+  /**
    * Converts from the A-Z column naming system to a 1-indexed numeric value.
+   *
    * @param name the column name
    * @return the corresponding column index
    */
@@ -64,6 +83,7 @@ public class Coord {
 
   /**
    * Converts a 1-based column index into the A-Z column naming system.
+   *
    * @param index the column index
    * @return the corresponding column name
    */
@@ -99,13 +119,4 @@ public class Coord {
   public int hashCode() {
     return Objects.hash(row, col);
   }
-
-  public int getX() {
-    return this.col;
-  }
-
-  public int getY() {
-    return this.row;
-  }
-
 }

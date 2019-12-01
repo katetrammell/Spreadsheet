@@ -83,6 +83,12 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.grid.put(new Coord(col, row), c);
   }
 
+  @Override
+  public void setCell(Cell c, Coord coord) throws IllegalArgumentException {
+    setCell(c, coord.getY(), coord.getX());
+
+  }
+
 
   @Override
   public int getWidth() {

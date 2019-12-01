@@ -7,6 +7,7 @@ import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
 import edu.cs3500.spreadsheets.model.WorksheetReader.WorksheetBuilder;
+import edu.cs3500.spreadsheets.provider.view.SimpleWorksheetWritableGuiView;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalView;
 import edu.cs3500.spreadsheets.view.BasicSpreadSheetGraphicalViewEditable;
 import edu.cs3500.spreadsheets.view.BasicSpreadsheetTextualView;
@@ -50,6 +51,10 @@ public class BeyondGood {
           inEdit(args);
           break;
         }
+        else if (args[2].equals("-provider")) {
+          inProvider(args);
+          break;
+        }
         else {
           throw new IllegalArgumentException(
               "-in but invalid third argument");
@@ -63,6 +68,13 @@ public class BeyondGood {
       default:
         throw new IllegalArgumentException("invalid first keyword");
     }
+  }
+
+  private static void inProvider(String[] args) {
+   /* BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);
+    SimpleWorksheetWritableGuiView view = new BasicSpreadSheetGraphicalViewEditable();
+    SpreadSheetGraphicalController controller =
+        new SpreadSheetGraphicalController(spread, view);*/
   }
 
   /**

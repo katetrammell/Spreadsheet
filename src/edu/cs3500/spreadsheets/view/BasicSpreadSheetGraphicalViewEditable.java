@@ -36,6 +36,7 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
   public BasicSpreadSheetGraphicalViewEditable() {
     frame = new JFrame();
   }
+
   /**
    * Renders the given model as a graphical view.
    *
@@ -68,7 +69,7 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
     saveText = new JTextField(50);
     frame.add(saveText);
 
-   tableModel = new CellTableModel(model);
+    tableModel = new CellTableModel(model);
     table = new JTable(tableModel);
     for (int i = 0; i < model.getWidth() + 1; i++) {
       table.setDefaultRenderer(tableModel.getColumnClass(i),

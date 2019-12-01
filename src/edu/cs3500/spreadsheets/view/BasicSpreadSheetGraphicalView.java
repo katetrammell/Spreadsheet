@@ -169,6 +169,7 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   /**
    * A custom TableCellRenderer class.
    */
+
   protected static class CustomCellRenderer extends DefaultTableCellRenderer {
 
     SpreadSheetGraphicalView view;

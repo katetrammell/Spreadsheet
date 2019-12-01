@@ -2,6 +2,12 @@ NOTE: If you're on a mac, un-comment line 186 in
  /src/edu/cs3500/spreadsheets/controller/SpreadSheetGraphicalController
  because the delete key on macs is actually the backspace key.
 
+EXTRA CREDIT:
+We implemented the following:
+1) a user can save their edited spreadsheet from within the UI. They need to input the name of the file that they want to save it as and then press the save button.
+2) The user can use arrow keys to move along the spreadsheet.
+3) The user can use the delete key to clear the contents of a cell.
+
 Brief overview of our Controller design:
 
   Our controller interface contains three methods, addRow(), addCol(), and updateCell()
@@ -12,33 +18,4 @@ Brief overview of our Controller design:
   The controller also uses the methods from the view and model interfaces to appropriately
   update them.
 
-
-
-Changes to view:
-* Added all of the necessary buttons to our view's render() method.
-* Added the following public methods to our GraphicalView interface :
-        - addCol()
-              this is necessary to add a column to the view of the spreadsheet.
-              Because of the way that JTable works, adding a column requires a method
-               call to TableColumn, which is only accessible through the view, so this could
-               not be done through explicitly through the controller like addRow() does
-        - updateCell()
-                Again, because of the way JTable works, to get the view to display the updated
-                version of the model, a method needs to be called on the table, so this method is
-                necessary.
-        - getTextBox()
-                  This is necessary to get the information from the view as to what
-                   is in the textbox.
-        - setTextBox()
-                  This is necessary to set the textbox to the equation for the formula of the
-                   selected cell
-        - setListener()
-                  This is necessary to link the buttons and mouse actions from the view to the
-                  controller so that the model can be updated accordingly
-        - getSelectedCell()
-                  This is necessary to get the information as to what cell the user has selected
-                  so that the controller can act accordingly.
-
-* Created a new View design that allows for adding editing
- (/src/edu/cs3500/spreadsheets/view.BasicSpreadSheetGraphicalViewEditable)
 

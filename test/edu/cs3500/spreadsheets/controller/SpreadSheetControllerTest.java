@@ -147,5 +147,4 @@ public class SpreadSheetControllerTest {
     controller.actionPerformed(new ActionEvent(view, 1, "Add Row"));
     Assert.assertEquals(spread.getHeight(), prevHeight + 1);
   }
-
 }
