@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.provider.cellvalue.CellValue;
 import java.util.List;
 
 /**
@@ -44,5 +45,7 @@ public interface Cell<T> {
    * @return the numeric value of the cell (defaults to given value)
    */
   Double getNumericValue(double base);
+
+  CellValue toProviderCell();
 
 }

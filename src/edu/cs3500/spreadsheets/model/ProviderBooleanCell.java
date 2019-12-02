@@ -3,17 +3,16 @@ package edu.cs3500.spreadsheets.model;
 import edu.cs3500.spreadsheets.provider.cellvalue.CellValue;
 import edu.cs3500.spreadsheets.provider.cellvalue.CellValueVisitor;
 
-public class OurCellValue implements CellValue {
-  private AbstractBasicCell ourCell;
+public class ProviderBooleanCell implements CellValue {
 
-  public OurCellValue(AbstractBasicCell c) {
-    ourCell = c;
+  private Boolean bool;
+
+  public ProviderBooleanCell(Boolean b) {
+    this.bool = b;
   }
 
   @Override
   public <R> R accept(CellValueVisitor<R> visitor) {
-    return null;
+    return visitor.visitBoolean(this.bool);
   }
-
-
 }

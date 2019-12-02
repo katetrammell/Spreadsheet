@@ -25,13 +25,25 @@ public class OurProviderModel implements Worksheet {
 
   @Override
   public CellValue getValue(Coord location) {
-    return null;
+    CellValue ans;
+    try {
+      ans = ourModel.getCellAt(edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()))
+          .toProviderCell();
+    } catch (Exception e) {
+      ans = new ProviderEmptyCell();
+    }
+    return ans;
   }
 
   @Override
   public String getRawContent(Coord location) {
-    return ourModel.getCellAt(edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()))
-        .toString();
+    if ( ourModel.getCellAt(edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()))
+        != null) {
+      return ourModel.getCellAt(edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()))
+          .toString();
+    } else {
+      return "";
+    }
   }
 
   @Override

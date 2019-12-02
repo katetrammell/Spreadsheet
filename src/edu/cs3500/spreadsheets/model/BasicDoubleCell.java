@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.provider.cellvalue.CellValue;
 import java.util.List;
 
 /**
@@ -36,6 +37,17 @@ public class BasicDoubleCell extends AbstractBasicCell<Double> {
       return this.getFormula().evaluate();
     } else {
       return this.getValue();
+    }
+  }
+
+  @Override
+  public CellValue toProviderCell() {
+    if (this.getFormula() == null) {
+      return new ProviderNumberCell(this.getValue());
+    } else if (this.getFormula().evaluate() != null){
+      return new ProviderNumberCell(this.getFormula().evaluate());
+    } else {
+      return new ProviderEmptyCell();
     }
   }
 

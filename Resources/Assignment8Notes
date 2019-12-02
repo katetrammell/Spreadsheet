@@ -7,9 +7,18 @@ How we made our model and controller work with their view
 				They all had a field that was our old cell representation (adapter pattern)
 
 Review of their code:
+* Visitor Pattern for Cell Values
+    This makes it easy to implement new methods for cells. However, it makes it difficult to
+    add new types of cells. I think there is a pretty strong argument for the likelihood of
+    creating new types of cells being larger than the likelihood of needing new methods for cells
 
+* Making an error a type of cell
+     This seems awkward and not really representative of what is going on. When an error occurs, a
+     cell shouldn't be created/changed at all
 
-
+* Making it visually clear that a cell is selected
+      This feature is for some reason not included in their view, but in their handler.
+      Seems like this should be a part of the method selectCell() in the view
 Reflection:
 
 

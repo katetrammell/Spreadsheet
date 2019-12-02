@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.provider.cellvalue.CellValue;
 import java.util.List;
 
 /**
@@ -32,6 +33,15 @@ public class BasicBooleanCell extends AbstractBasicCell<Boolean> {
   @Override
   public Double getNumericValue(double base) {
     return base;
+  }
+
+  @Override
+  public CellValue toProviderCell() {
+    if (this.getFormula() == null) {
+      return new ProviderBooleanCell(this.getValue());
+    } else {
+      return new ProviderBooleanCell(this.getFormula().evaluate());
+    }
   }
 
   @Override

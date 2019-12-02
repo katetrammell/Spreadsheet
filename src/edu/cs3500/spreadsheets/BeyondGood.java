@@ -1,8 +1,10 @@
 package edu.cs3500.spreadsheets;
 
 
+import edu.cs3500.spreadsheets.controller.OurProviderController;
 import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.OurProviderModel;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.model.WorksheetReader.OurBuilder;
@@ -71,10 +73,20 @@ public class BeyondGood {
   }
 
   private static void inProvider(String[] args) {
-   /* BasicSpreadsheet spread = new BasicSpreadsheet(10, 5);
-    SimpleWorksheetWritableGuiView view = new BasicSpreadSheetGraphicalViewEditable();
-    SpreadSheetGraphicalController controller =
-        new SpreadSheetGraphicalController(spread, view);*/
+    WorksheetBuilder<BasicSpreadsheet> b = new OurBuilder();
+    FileReader f;
+    try {
+      f = new FileReader(args[1]);
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File not found");
+    }
+    BasicSpreadsheet spread = WorksheetReader.read(b, f);
+    OurProviderModel model = new OurProviderModel(spread);
+    SimpleWorksheetWritableGuiView view = new SimpleWorksheetWritableGuiView(model);
+    OurProviderController controller =
+        new OurProviderController(view, spread);
+    controller.start();
+
   }
 
   /**
