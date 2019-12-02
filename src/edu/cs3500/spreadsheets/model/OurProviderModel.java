@@ -18,9 +18,17 @@ public class OurProviderModel implements Worksheet {
 
   @Override
   public void editCell(Coord location, String contents) {
-    Sexp sexp = sexp = Parser.parse(contents);
-    Cell c = sexp.accept(new CellMaker(ourModel));
-    ourModel.setCell(c, edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()));
+    try {
+      if (contents.substring(0, 1).equals("=")) {
+        contents = contents.substring(1);
+      }
+      Sexp sexp = Parser.parse(contents);
+      Cell c = sexp.accept(new CellMaker(ourModel));
+      ourModel.setCell(c, edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()));
+    } catch (Exception e) {
+      ourModel.setCell(new BasicStringCell("Error"),
+          edu.cs3500.spreadsheets.model.Coord.parseCoord(location.toString()));
+    }
   }
 
   @Override

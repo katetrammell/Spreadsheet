@@ -84,7 +84,7 @@ public class BeyondGood {
     OurProviderModel model = new OurProviderModel(spread);
     SimpleWorksheetWritableGuiView view = new SimpleWorksheetWritableGuiView(model);
     OurProviderController controller =
-        new OurProviderController(view, spread);
+        new OurProviderController(view, model);
     controller.start();
 
   }

@@ -1,0 +1,37 @@
+Review of their code:
+
+DESIGN CRITIQUE
+* Visitor Pattern for Cell Values
+    This makes it easy to implement new methods for cells. However, it makes it difficult to
+    add new types of cells. I think there is a pretty strong argument for the likelihood of
+    creating new types of cells being larger than the likelihood of needing new methods for cells
+
+* Flexibility of the interfaces
+    The interfaces they gave us are pretty flexible. We were able to implement them using the adapter
+    method and only making a few tweaks to our code here and there.
+    The features interface was a nice way of making it clear what functionality was expected from
+    the controller. This made implementing it fairly simple.
+
+* Reuse of their code
+    Their code was very reusable. We were able, using the adapter pattern, to reuse all of their
+    view code. Lose coupling made the code very reusable.
+
+IMPLEMENTATION CRITIQUE
+* Making an error a type of cell
+     This seems awkward and not really representative of what is going on. When an error occurs, a
+     cell shouldn't be created/changed at all
+
+* Capability of the views
+    The views given to us were very capable of doing everything. We didn't have to change any
+    of their code to implement all of the required functionality.
+
+DOCUMENTATION CRITIQUE
+* Documentation
+    Their code was very well documented. It was really clear what each method was doing. This made
+    it really simple to implement a lot of their interfaces and use their view methods.
+
+* Changes
+    We didn't need to ask for any changes to their code. Initially, they didn't give us the Visitor
+    interface, but we asked for it and they gave it to use in a timely fashion.
+
+

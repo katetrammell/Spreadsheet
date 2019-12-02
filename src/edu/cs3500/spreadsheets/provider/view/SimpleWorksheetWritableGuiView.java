@@ -57,7 +57,7 @@ public class SimpleWorksheetWritableGuiView extends SimpleWorksheetReadableGuiVi
 
     String formula = ws.getRawContent(cellCoord);
     if (!formula.isBlank()) {
-      this.inputPanel.updateTextBox("=" + ws.getRawContent(cellCoord));
+      this.inputPanel.updateTextBox(ws.getRawContent(cellCoord));
     } else {
       this.inputPanel.updateTextBox("");
     }
