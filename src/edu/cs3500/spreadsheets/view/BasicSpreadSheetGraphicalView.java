@@ -37,6 +37,9 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
       spread.setDefaultRenderer(table.getColumnClass(i),
           new CustomCellRenderer(this));
     }
+    for (int i = 0; i < model.getWidth() + 1; i ++) {
+      spread.getColumnModel().getColumn(i).setWidth(model.getColWidths().get(i));
+    }
     spread.setBounds(30, 40, 200, 300);
     JScrollPane scroll = new JScrollPane(spread,
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
@@ -90,6 +93,11 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
   @Override
   public void setSaveBox(String s) {
     //Suppress this method
+  }
+
+  @Override
+  public int getColWidth(int index) {
+    return 0;
   }
 
 

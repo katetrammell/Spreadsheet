@@ -21,6 +21,7 @@ public class Coord {
     this.row = row;
     this.col = col;
   }
+
   /**
    * Creates a {@code Coord} from the given string.
    *

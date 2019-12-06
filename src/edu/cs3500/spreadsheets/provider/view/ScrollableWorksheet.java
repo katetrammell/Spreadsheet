@@ -1,7 +1,5 @@
 package edu.cs3500.spreadsheets.provider.view;
 
-
-import edu.cs3500.spreadsheets.provider.model.Coord;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,13 +29,15 @@ final class ScrollableWorksheet extends JPanel {
     this.add(verticalScroll, BorderLayout.EAST);
 
     verticalScroll.addAdjustmentListener(l -> {
-      wp.topLeft = new edu.cs3500.spreadsheets.provider.model.Coord(wp.topLeft.col, l.getValue() + 1);
+      wp.topLeft = new edu.cs3500.spreadsheets.provider.model.Coord(wp.topLeft.col,
+          l.getValue() + 1);
       l.getAdjustable().setMaximum(wp.topLeft.row + STARTING_MAX);
       this.repaint();
     });
 
     horizontalScroll.addAdjustmentListener(l -> {
-      wp.topLeft = new edu.cs3500.spreadsheets.provider.model.Coord(l.getValue() + 1, wp.topLeft.row);
+      wp.topLeft = new edu.cs3500.spreadsheets.provider.model.Coord(l.getValue() + 1,
+          wp.topLeft.row);
       l.getAdjustable().setMaximum(wp.topLeft.col + STARTING_MAX);
       this.repaint();
     });

@@ -158,4 +158,9 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
     saveText.setText(s);
   }
 
+  @Override
+  public int getColWidth(int index) {
+    return this.table.getColumnModel().getColumn(index).getWidth();
+  }
+
 }

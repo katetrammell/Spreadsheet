@@ -58,4 +58,6 @@ public interface SpreadSheetGraphicalView extends SpreadsheetView {
    */
   void setSaveBox(String s);
 
+  int getColWidth(int index);
+
 }

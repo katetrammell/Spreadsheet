@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- * A value type representing coordinates in a worksheet
+ * A value type representing coordinates in a worksheet.
  */
 public class Coord {
 

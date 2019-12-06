@@ -69,6 +69,9 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       case "Save Test":
         BasicSpreadsheetTextualView newView = new BasicSpreadsheetTextualView();
         try {
+          for (int i = 0; i < spread.getWidth(); i++) {
+            spread.updateColWidths(i, view.getColWidth(i));
+          }
           PrintWriter writer = new PrintWriter(view.getSaveBox());
           newView.render(spread, writer);
           writer.close();
@@ -100,7 +103,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
 
   @Override
   public void mousePressed(MouseEvent e) {
-    // ignore /suppress this method
+    // ignore this method
   }
 
   @Override

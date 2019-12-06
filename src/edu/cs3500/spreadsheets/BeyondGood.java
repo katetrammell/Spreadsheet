@@ -67,9 +67,21 @@ public class BeyondGood {
       case "-edit":
         inEditBlank();
         break;
+      case "-provider":
+        inProviderBlank();
+        break;
       default:
         throw new IllegalArgumentException("invalid first keyword");
     }
+  }
+
+  private static void inProviderBlank() {
+    BasicSpreadsheet spread = new BasicSpreadsheet(20,20);
+    OurProviderModel model = new OurProviderModel(spread);
+    SimpleWorksheetWritableGuiView view = new SimpleWorksheetWritableGuiView(model);
+    OurProviderController controller =
+        new OurProviderController(view, model);
+    controller.start();
   }
 
   private static void inProvider(String[] args) {

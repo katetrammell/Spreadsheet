@@ -44,7 +44,7 @@ public class BasicDoubleCell extends AbstractBasicCell<Double> {
   public CellValue toProviderCell() {
     if (this.getFormula() == null) {
       return new ProviderNumberCell(this.getValue());
-    } else if (this.getFormula().evaluate() != null){
+    } else if (this.getFormula().evaluate() != null) {
       return new ProviderNumberCell(this.getFormula().evaluate());
     } else {
       return new ProviderEmptyCell();
