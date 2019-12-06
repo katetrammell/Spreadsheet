@@ -160,7 +160,10 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
 
   @Override
   public int getColWidth(int index) {
-    return this.table.getColumnModel().getColumn(index).getWidth();
+    int ans =this.table.getColumnModel().getColumn(index).getWidth();
+    System.out.print(ans);
+    return ans;
+
   }
 
 }

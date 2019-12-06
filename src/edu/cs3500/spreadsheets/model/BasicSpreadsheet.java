@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class BasicSpreadsheet implements Spreadsheet {
 
+  private static int DEFAULTCOLWIDTH;
   private final HashMap<Coord, Cell> grid;
   private int width;
   private int height;
@@ -28,12 +29,12 @@ public class BasicSpreadsheet implements Spreadsheet {
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
     colWidths = new ArrayList<Integer>();
     for (int i = 0; i < this.width; i++) {
-      colWidths.add( 10);
+      colWidths.add( DEFAULTCOLWIDTH);
     }
     colWidths.add(10);
     rowWidths = new ArrayList<Integer>();
     for (int i = 0; i < this.height; i++) {
-      rowWidths.add(10);
+      rowWidths.add(DEFAULTCOLWIDTH);
     }
   }
 
@@ -45,6 +46,9 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.width = 0;
     this.height = 0;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
+    colWidths = new ArrayList<Integer>();
+    rowWidths = new ArrayList<Integer>();
+
   }
 
   /**
@@ -81,10 +85,18 @@ public class BasicSpreadsheet implements Spreadsheet {
     }
 
     if (row > this.height) {
+      for (int i = this.height; i < row; i++) {
+        rowWidths.add( DEFAULTCOLWIDTH);
+      }
       this.height = row;
+
     }
     if (col > this.width) {
+      for (int i = this.width; i < col; i++) {
+        colWidths.add( DEFAULTCOLWIDTH);
+      }
       this.width = col;
+
     }
     if (c.getFormula() != null) {
       Formula<?> form = c.getFormula();
@@ -142,7 +154,7 @@ public class BasicSpreadsheet implements Spreadsheet {
 
   @Override
   public void updateColWidths(int colNum, int newWidth) {
-    this.colWidths.set(colNum, newWidth);
+    this.colWidths.set(colNum , newWidth);
 
   }
 

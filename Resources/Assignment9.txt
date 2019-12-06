@@ -1,0 +1,10 @@
+RESIZABLE COLUMNS
+2) add methods to model
+	getRowWidths()
+	updateRowWidth()
+	getColWidths()
+	updateColWidths()
+
+3) update controller to update model sizes when file is saved
+4) update textualView to store this data
+5) update our fileReader to make the model according to this data

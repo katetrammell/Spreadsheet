@@ -71,6 +71,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
         try {
           for (int i = 0; i < spread.getWidth(); i++) {
             spread.updateColWidths(i, view.getColWidth(i));
+            System.out.print("saving colWidth" + view.getColWidth(i));
           }
           PrintWriter writer = new PrintWriter(view.getSaveBox());
           newView.render(spread, writer);
