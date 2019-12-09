@@ -71,10 +71,13 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       case "Save Test":
         BasicSpreadsheetTextualView newView = new BasicSpreadsheetTextualView();
         try {
+          /*
           for (int i = 0; i < spread.getWidth(); i++) {
             spread.updateColWidths(i, view.getColWidth(i));
             System.out.print("saving colWidth" + view.getColWidth(i));
           }
+
+           */
           PrintWriter writer = new PrintWriter(view.getSaveBox());
           newView.render(spread, writer);
           writer.close();
@@ -242,15 +245,5 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
     }
   }
 
-  /*
-  private HashMap<Integer, Integer> makeRowHash() {
-    HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
-    for (int i = 0; i < spread.getHeight(); i++) {
-      if (spread.getRowHeight(i) != DEFAULT_ROW_SIZE) {
 
-      }
-    }
-  }
-
-   */
 }
