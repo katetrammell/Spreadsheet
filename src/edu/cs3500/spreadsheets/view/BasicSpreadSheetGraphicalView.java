@@ -1,11 +1,13 @@
 package edu.cs3500.spreadsheets.view;
 
+import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,7 +54,10 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     frame.setSize(500, 200);
     frame.setVisible(true);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    HashMap<Integer, Integer> rowHeights = makeRowHash(model);
+    for (Integer i: rowHeights.keySet()) {
+      spread.setRowHeight(i, rowHeights.get(i));
+    }
   }
 
   @Override
@@ -235,6 +240,20 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     }
   }
 
+  /**
+   * Makes a hashMap with all the nonstandard row and rowHeights combos.
+   * @param spread the spreadsheet model.
+   * @return row - rowHeights map.
+   */
+  protected HashMap<Integer, Integer> makeRowHash(Spreadsheet spread) {
+    HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
+    for (int i = 0; i < spread.getHeight(); i++) {
+      if (spread.getRowHeight(i) != BasicSpreadsheet.DEFAULT_ROW_HEIGHT) {
+        result.put(i, spread.getRowHeight(i));
+      }
+    }
+    return result;
+  }
 }
 
 

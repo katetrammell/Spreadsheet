@@ -74,7 +74,12 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
     return 0;
   }
 
-  private HashMap<Integer, Integer> makeRowHash(Spreadsheet spread) {
+  /**
+   * Makes a hashMap with all the nonstandard row and rowHeights combos.
+   * @param spread the spreadsheet model.
+   * @return row - rowHeights map.
+   */
+  protected HashMap<Integer, Integer> makeRowHash(Spreadsheet spread) {
     HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
     for (int i = 0; i < spread.getHeight(); i++) {
       if (spread.getRowHeight(i) != BasicSpreadsheet.DEFAULT_ROW_HEIGHT) {
