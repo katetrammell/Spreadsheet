@@ -14,4 +14,6 @@ public interface SpreadsheetView {
    */
   void render(Spreadsheet model) throws IllegalArgumentException;
 
+  int getColWidth(int index);
+
 }

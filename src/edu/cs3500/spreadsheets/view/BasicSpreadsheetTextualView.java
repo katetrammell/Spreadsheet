@@ -55,4 +55,9 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
     render(model, writer);
     System.out.print(writer.getBuffer());
   }
+
+  @Override
+  public int getColWidth(int index) {
+    return 0;
+  }
 }

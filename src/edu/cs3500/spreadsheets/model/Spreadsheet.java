@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X.
@@ -82,4 +83,45 @@ public interface Spreadsheet {
    */
   void removeCell(Coord c);
 
+  /**
+   * Get the desired row height. Will be a default value if not
+   * explictly set.
+   * @param row desired row.
+   * @return height of the desired row.
+   */
+  int getRowHeight(int row);
+
+  /**
+   * Set the height value of a desired row. Will be default if not
+   * explicitly set.
+   * @param rowN desired row.
+   * @param rowH desire row height.
+   */
+  void setRowHeight(int rowN, int rowH);
+
+  /**
+   * Gets the widths of the columns.
+   * @return the widths of the columns
+   */
+  List<Integer> getColWidths();
+
+  /**
+   * Updates the column width.
+   * @param colNum column number
+   * @param newWidth the width to be updated to
+   */
+  void updateColWidths(int colNum, int newWidth);
+
+  /**
+   * Gets the widths of the rows.
+   * @return the widths of the rows
+   */
+  List<Integer> getRowWidths();
+
+  /**
+   * Updates the row width.
+   * @param rowNum row number
+   * @param newWidth the width to be updated to
+   */
+  void updateRowWidths(int rowNum, int newWidth);
 }

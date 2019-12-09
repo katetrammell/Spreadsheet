@@ -173,7 +173,12 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
 
   @Override
   public void setRowHeight(int row, int height) {
-    table.setRowHeight(row, height);
+    if (height < 1) {
+      table.setRowHeight(row, 1);
+    }
+    else {
+      table.setRowHeight(row, height);
+    }
   }
 
   @Override

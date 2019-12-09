@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class to represent a spreadsheet. Enables creating and access of cells on a spreadsheet.
@@ -11,6 +12,10 @@ public class BasicSpreadsheet implements Spreadsheet {
   private int width;
   private int height;
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
+  private List<Integer> colWidths;
+  private List<Integer> rowWidths;
+  private HashMap<Integer, Integer> rowHeights;
+  private static int DEFAULT_ROW_HEIGHT = 15;
 
   /**
    * Constructor for the class. Sets the size of the gird to the given width and height. Sets all
@@ -21,6 +26,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.width = width;
     this.height = height;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
+    rowHeights = new HashMap<Integer, Integer>();
   }
 
   /**
@@ -119,5 +125,47 @@ public class BasicSpreadsheet implements Spreadsheet {
   @Override
   public void removeCell(Coord c) {
     this.grid.remove(c);
+  }
+
+  @Override
+  public int getRowHeight(int row) {
+    if (row > height) {
+      throw new IllegalArgumentException("Row not on spreadsheet");
+    }
+    else if (!rowHeights.containsKey(row)) {
+      return DEFAULT_ROW_HEIGHT;
+    }
+    return rowHeights.get(row);
+  }
+
+  @Override
+  public void setRowHeight(int rowN, int rowH) {
+    if (rowH < 1) {
+      rowHeights.put(rowN, 1);
+    }
+    else {
+      rowHeights.put(rowN, rowH);
+    }
+  }
+
+  @Override
+  public List<Integer> getColWidths() {
+    return this.colWidths;
+  }
+
+  @Override
+  public void updateColWidths(int colNum, int newWidth) {
+    this.colWidths.set(colNum , newWidth);
+
+  }
+
+  @Override
+  public List<Integer> getRowWidths() {
+    return rowWidths;
+  }
+
+  @Override
+  public void updateRowWidths(int rowNum, int newWidth) {
+    this.rowWidths.set(rowNum, newWidth);
   }
 }
