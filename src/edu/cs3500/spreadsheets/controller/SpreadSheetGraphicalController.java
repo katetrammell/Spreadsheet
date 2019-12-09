@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 /**
  * Controller for graphical spreadsheet.
@@ -29,7 +30,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   private Coord lastSelectedCell;
   // needed to track when cursor goes off screen scrolling left
   private static int tempX = 1;
-  private static int DEFAULT_ROW_SIZE = 30;
+  private static int DEFAULT_ROW_SIZE = 15;
 
   /**
    * A constructor for the class.
@@ -239,4 +240,16 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       view.setRowHeight(i, spread.getRowHeight(i));
     }
   }
+
+  /*
+  private HashMap<Integer, Integer> makeRowHash() {
+    HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
+    for (int i = 0; i < spread.getHeight(); i++) {
+      if (spread.getRowHeight(i) != DEFAULT_ROW_SIZE) {
+
+      }
+    }
+  }
+
+   */
 }
