@@ -1,0 +1,10 @@
+A1 10
+A7 13
+G4 "hi"
+D3 =(SUM A1 A7)
+H2 true
+B3 false
+B5 "blue"
+C6 =(< A1 A7)
+ROW 4 25
+ROW 6 45

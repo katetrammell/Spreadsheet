@@ -30,7 +30,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   private Coord lastSelectedCell;
   // needed to track when cursor goes off screen scrolling left
   private static int tempX = 1;
-  private static int DEFAULT_ROW_SIZE = 15;
 
   /**
    * A constructor for the class.
@@ -43,6 +42,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
     this.view = view;
     view.render(spread);
     view.setListener(this);
+    setAllRowHeights();
   }
 
   @Override

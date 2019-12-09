@@ -1,0 +1,11 @@
+B3 false
+A1 10.000000
+D3 =(SUM A1 A7 )
+G4 "hi"
+H2 true
+A7 13.000000
+B5 "blue"
+C6 =(< A1 A7 )
+ROW 4 25
+ROW 6 45
+ROW 7 55

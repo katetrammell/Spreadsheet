@@ -33,11 +33,12 @@ public class BasicSpreadsheet implements Spreadsheet {
 
   /**
    * Default constructor for BasicSpreadsheet. Sets fields to defaults.
+   * Default spreadsheet is 10 x 10.
    */
   public BasicSpreadsheet() {
     this.grid = new HashMap<>();
-    this.width = 0;
-    this.height = 0;
+    this.width = 10;
+    this.height = 10;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
     rowHeights = new HashMap<Integer, Integer>();
   }
