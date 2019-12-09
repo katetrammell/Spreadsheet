@@ -6,19 +6,25 @@ import edu.cs3500.spreadsheets.provider.model.Worksheet;
 import edu.cs3500.spreadsheets.provider.view.FeatureHandler;
 import edu.cs3500.spreadsheets.provider.view.SimpleWorksheetWritableGuiView;
 
+/**
+ * A class that implements our provider's controller interface.
+ */
 public class OurProviderController implements SimpleWorksheetController, FeatureHandler {
- private SimpleWorksheetWritableGuiView view;
+
+  private SimpleWorksheetWritableGuiView view;
   private Worksheet theirModel;
-  //private SpreadSheetGraphicalController ourController;
   private Coord lastSelectedCell;
 
+  /**
+   * A constructor for the class.
+   * @param v a GUI view
+   * @param m a model
+   */
   public OurProviderController(SimpleWorksheetWritableGuiView v,
       Worksheet m
-      //SpreadSheetGraphicalController c
-  ){
+  ) {
     this.view = v;
     this.theirModel = m;
-   // this.ourController = c;
   }
 
   @Override
@@ -37,7 +43,7 @@ public class OurProviderController implements SimpleWorksheetController, Feature
   }
 
   /**
-   * X button pressed
+   * X button pressed.
    */
   @Override
   public void cellDeselected() {
@@ -53,6 +59,7 @@ public class OurProviderController implements SimpleWorksheetController, Feature
 
   @Override
   public void deleteSelectedCell() {
+    // unnecessary for our model/controller.
 
   }
 }

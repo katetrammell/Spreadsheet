@@ -11,9 +11,6 @@ public class BasicSpreadsheet implements Spreadsheet {
   private int width;
   private int height;
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
-  // hashmap with the key being the row number, value row height
-  private HashMap<Integer, Integer> rowHeights;
-  private static int DEFAULT_ROW = 20;
 
   /**
    * Constructor for the class. Sets the size of the gird to the given width and height. Sets all
@@ -24,7 +21,6 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.width = width;
     this.height = height;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
-    rowHeights = new HashMap<Integer, Integer>();
   }
 
   /**
@@ -123,23 +119,5 @@ public class BasicSpreadsheet implements Spreadsheet {
   @Override
   public void removeCell(Coord c) {
     this.grid.remove(c);
-  }
-
-  @Override
-  public void setRowHeight(int row, int height) {
-    rowHeights.put(row, height);
-  }
-
-  @Override
-  public int getRowHeight(int row) {
-    // row not in spreadsheet
-    if (row > height) {
-      return -1;
-    }
-    // row is in spreadsheet, but at default height
-    else if (!rowHeights.containsKey(row)) {
-      return DEFAULT_ROW;
-    }
-    return rowHeights.get(row);
   }
 }

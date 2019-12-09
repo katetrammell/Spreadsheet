@@ -9,9 +9,17 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that implements our provider's model interface
+ * using the delegate pattern.
+ */
 public class OurProviderModel implements Worksheet {
   private BasicSpreadsheet ourModel;
 
+  /**
+   * A constructor for the class.
+   * @param spread an instance of our implementation of model
+   */
   public OurProviderModel(BasicSpreadsheet spread) {
     this.ourModel = spread;
   }
