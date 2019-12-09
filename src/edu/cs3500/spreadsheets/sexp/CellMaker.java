@@ -159,11 +159,18 @@ public class CellMaker implements SexpVisitor<Cell> {
             }
           }
         }
-        try {
+        try { //trying form A3
           Coord c = stringToCoord(l.get(i).toString());
           formula.addCoord(c);
         } catch (IllegalArgumentException e) {
-          break;
+          try { // trying form A
+            int col = Coord.colNameToIndex(currS.toString());
+            for (int r = 1; r <= this.spread.getHeight(); r++) {
+              formula.addCoord(new Coord(col, r));
+            }
+          } catch (Exception e4) {
+            break;
+          }
         }
       } else if (l.get(i).accept(new IsList())) {
         formula.addFormula(l.get(i).accept(new CellMaker(this.spread)).getFormula());
