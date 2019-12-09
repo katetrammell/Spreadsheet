@@ -36,6 +36,8 @@ public final class WorksheetReader {
      * @return the fully-filled-in worksheet
      */
     T createWorksheet();
+
+    void setRowHeight(int next, int next1);
   }
 
   /**
@@ -83,6 +85,11 @@ public final class WorksheetReader {
     public BasicSpreadsheet createWorksheet() {
       return this.basicSpread;
     }
+
+    @Override
+    public void setRowHeight(int row, int height) {
+      this.basicSpread.setRowHeight(row,height);
+    }
   }
 
   /**
@@ -119,19 +126,25 @@ public final class WorksheetReader {
       }
       String cell = scan.next();
       Matcher m = cellRef.matcher(cell);
-      if (m.matches()) {
-        col = Coord.colNameToIndex(m.group(1));
-        row = Integer.parseInt(m.group(2));
+      if (cell.equals("ROW")) {
+        int r = scan.nextInt();
+        int height = scan.nextInt();
+        builder.setRowHeight(r, height);
       } else {
-        throw new IllegalStateException("Expected cell ref");
-      }
-      scan.skip("\\s*");
-      while (scan.hasNext("#.*")) {
-        scan.nextLine();
+        if (m.matches()) {
+          col = Coord.colNameToIndex(m.group(1));
+          row = Integer.parseInt(m.group(2));
+        } else {
+          throw new IllegalStateException("Expected cell ref");
+        }
         scan.skip("\\s*");
+        while (scan.hasNext("#.*")) {
+          scan.nextLine();
+          scan.skip("\\s*");
+        }
+        String contents = scan.nextLine();
+        builder = builder.createCell(col, row, contents);
       }
-      String contents = scan.nextLine();
-      builder = builder.createCell(col, row, contents);
     }
 
     return builder.createWorksheet();
