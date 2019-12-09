@@ -111,17 +111,4 @@ public interface Spreadsheet {
    * @param newWidth the width to be updated to
    */
   void updateColWidths(int colNum, int newWidth);
-
-  /**
-   * Gets the widths of the rows.
-   * @return the widths of the rows
-   */
-  List<Integer> getRowWidths();
-
-  /**
-   * Updates the row width.
-   * @param rowNum row number
-   * @param newWidth the width to be updated to
-   */
-  void updateRowWidths(int rowNum, int newWidth);
 }

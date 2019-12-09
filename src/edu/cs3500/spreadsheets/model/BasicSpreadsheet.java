@@ -8,12 +8,12 @@ import java.util.List;
  */
 public class BasicSpreadsheet implements Spreadsheet {
 
+
   private final HashMap<Coord, Cell> grid;
   private int width;
   private int height;
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
   private List<Integer> colWidths;
-  private List<Integer> rowWidths;
   private HashMap<Integer, Integer> rowHeights;
   private static int DEFAULT_ROW_HEIGHT = 15;
 
@@ -37,6 +37,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.width = 0;
     this.height = 0;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
+    rowHeights = new HashMap<Integer, Integer>();
   }
 
   /**
@@ -159,13 +160,4 @@ public class BasicSpreadsheet implements Spreadsheet {
 
   }
 
-  @Override
-  public List<Integer> getRowWidths() {
-    return rowWidths;
-  }
-
-  @Override
-  public void updateRowWidths(int rowNum, int newWidth) {
-    this.rowWidths.set(rowNum, newWidth);
-  }
 }

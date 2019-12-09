@@ -138,7 +138,7 @@ public class CellMaker implements SexpVisitor<Cell> {
         SSymbol currS = (SSymbol) l.get(i);
         if (currS.toString().contains(":")) {
           String[] splitUp = currS.toString().split(":");
-          try {
+          try { // trying form - A3 : B12
             Coord topLeft = stringToCoord(splitUp[0]);
             Coord bottomRight = stringToCoord(splitUp[1]);
             for (int row = topLeft.getY(); row <= bottomRight.getY(); row++) {
@@ -147,7 +147,16 @@ public class CellMaker implements SexpVisitor<Cell> {
               }
             }
           } catch (Exception e) {
-            break;
+            try { // trying form A:C)
+              int col1 = Coord.colNameToIndex(currS.toString().substring(0,1));
+              int col2 = Coord.colNameToIndex(currS.toString().substring(2,3));
+              for (int r = 1; r <= this.spread.getHeight(); r++) {
+                formula.addCoord(new Coord(col1 , r));
+                formula.addCoord(new Coord(col2, r));
+              }
+            } catch (Exception exp) {
+              break;
+            }
           }
         }
         try {
