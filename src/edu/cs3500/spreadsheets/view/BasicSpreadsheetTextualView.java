@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.view;
 
+import edu.cs3500.spreadsheets.model.BasicSpreadsheet;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Spreadsheet;
@@ -38,6 +39,18 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
         return;
       }
     }
+    HashMap<Integer, Integer> rowHeights = makeRowHash(model);
+    for (Integer i: rowHeights.keySet()) {
+      try {
+        a.append("ROW ");
+        a.append(Integer.toString(i));
+        a.append(" ");
+        a.append(rowHeights.get(i).toString());
+        a.append("\n");
+      } catch (IOException e) {
+        System.out.println("Cannot append");
+      }
+    }
   }
 
   /**
@@ -59,5 +72,15 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
   @Override
   public int getColWidth(int index) {
     return 0;
+  }
+
+  private HashMap<Integer, Integer> makeRowHash(Spreadsheet spread) {
+    HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
+    for (int i = 0; i < spread.getHeight(); i++) {
+      if (spread.getRowHeight(i) != BasicSpreadsheet.DEFAULT_ROW_HEIGHT) {
+        result.put(i, spread.getRowHeight(i));
+      }
+    }
+    return result;
   }
 }

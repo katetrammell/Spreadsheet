@@ -15,7 +15,9 @@ public class BasicSpreadsheet implements Spreadsheet {
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
   private List<Integer> colWidths;
   private HashMap<Integer, Integer> rowHeights;
-  private static int DEFAULT_ROW_HEIGHT = 15;
+  // Public so that other classes have a reference for default size,
+  // prevents tight coupling
+  public static int DEFAULT_ROW_HEIGHT = 15;
 
   /**
    * Constructor for the class. Sets the size of the gird to the given width and height. Sets all
