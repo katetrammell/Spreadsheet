@@ -39,6 +39,7 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
         return;
       }
     }
+    // handles non standard rows
     HashMap<Integer, Integer> rowHeights = makeRowHash(model);
     for (Integer i: rowHeights.keySet()) {
       try {
@@ -48,6 +49,18 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
         a.append(rowHeights.get(i).toString());
         a.append("\n");
       } catch (IOException e) {
+        System.out.println("Cannot append");
+      }
+    }
+    HashMap<Integer, Integer> colWidths = makeColHash(model);
+    for (Integer p: colWidths.keySet()) {
+      try {
+        a.append("COL ");
+        a.append(Integer.toString(p));
+        a.append(" ");
+        a.append(colWidths.get(p).toString());
+        a.append("\n");
+      } catch (IOException ee) {
         System.out.println("Cannot append");
       }
     }
@@ -84,6 +97,16 @@ public class BasicSpreadsheetTextualView implements SpreadsheetTextualView {
     for (int i = 0; i < spread.getHeight(); i++) {
       if (spread.getRowHeight(i) != BasicSpreadsheet.DEFAULT_ROW_HEIGHT) {
         result.put(i, spread.getRowHeight(i));
+      }
+    }
+    return result;
+  }
+
+  protected HashMap<Integer, Integer> makeColHash(Spreadsheet spread) {
+    HashMap<Integer, Integer> result = new HashMap<Integer, Integer>();
+    for (int i = 0; i < spread.getWidth(); i++) {
+      if (spread.getColWidth(i) != BasicSpreadsheet.DEFAULT_COL_WIDTH) {
+        result.put(i, spread.getColWidth(i));
       }
     }
     return result;

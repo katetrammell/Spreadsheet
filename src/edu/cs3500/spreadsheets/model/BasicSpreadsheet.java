@@ -1,5 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,11 +14,12 @@ public class BasicSpreadsheet implements Spreadsheet {
   private int width;
   private int height;
   private HashMap<Coord, HashMap<Coord, Integer>> listOfDep;
-  private List<Integer> colWidths;
   private HashMap<Integer, Integer> rowHeights;
+  private HashMap<Integer, Integer> colWidths;
   // Public so that other classes have a reference for default size,
   // prevents tight coupling
   public static int DEFAULT_ROW_HEIGHT = 15;
+  public static int DEFAULT_COL_WIDTH = 75;
 
   /**
    * Constructor for the class. Sets the size of the gird to the given width and height. Sets all
@@ -28,6 +30,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.width = width;
     this.height = height;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
+    colWidths = new HashMap<Integer, Integer>();
     rowHeights = new HashMap<Integer, Integer>();
   }
 
@@ -41,6 +44,7 @@ public class BasicSpreadsheet implements Spreadsheet {
     this.height = 10;
     listOfDep = new HashMap<Coord, HashMap<Coord, Integer>>();
     rowHeights = new HashMap<Integer, Integer>();
+    colWidths = new HashMap<Integer, Integer>();
   }
 
   /**
@@ -153,14 +157,24 @@ public class BasicSpreadsheet implements Spreadsheet {
   }
 
   @Override
-  public List<Integer> getColWidths() {
-    return this.colWidths;
+  public int getColWidth(int col) {
+    if (col > width) {
+      throw new IllegalArgumentException("Column not in spreadsheet");
+    }
+    else if (colWidths == null)  {
+      return DEFAULT_COL_WIDTH;
+    }
+    else if (!colWidths.containsKey(col)) {
+      return DEFAULT_COL_WIDTH;
+    }
+    else {
+      return colWidths.get(col);
+    }
   }
 
   @Override
-  public void updateColWidths(int colNum, int newWidth) {
-    this.colWidths.set(colNum , newWidth);
-
+  public void setColWidth(int colNum, int newWidth) {
+    this.colWidths.put(colNum , newWidth);
   }
 
 }

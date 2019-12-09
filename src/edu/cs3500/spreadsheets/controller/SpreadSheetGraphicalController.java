@@ -43,6 +43,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
     view.render(spread);
     view.setListener(this);
     setAllRowHeights();
+    setAllColWidths();
   }
 
   @Override
@@ -71,13 +72,11 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       case "Save Test":
         BasicSpreadsheetTextualView newView = new BasicSpreadsheetTextualView();
         try {
-          /*
           for (int i = 0; i < spread.getWidth(); i++) {
-            spread.updateColWidths(i, view.getColWidth(i));
+            spread.setColWidth(i, view.getColWidth(i));
             System.out.print("saving colWidth" + view.getColWidth(i));
           }
 
-           */
           PrintWriter writer = new PrintWriter(view.getSaveBox());
           newView.render(spread, writer);
           writer.close();
@@ -241,6 +240,16 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   private void setAllRowHeights() {
     for (int i = 0; i < spread.getHeight(); i++) {
       view.setRowHeight(i, spread.getRowHeight(i));
+    }
+  }
+
+  /**
+   * Updates all the col widths to the desired level using data
+   * from the model.
+   */
+  private void setAllColWidths() {
+    for (int i = 0; i < spread.getWidth(); i++) {
+      view.setColWidth(i, spread.getColWidth(i));
     }
   }
 

@@ -103,12 +103,12 @@ public interface Spreadsheet {
    * Gets the widths of the columns.
    * @return the widths of the columns
    */
-  List<Integer> getColWidths();
+  int getColWidth(int col);
 
   /**
    * Updates the column width.
    * @param colNum column number
    * @param newWidth the width to be updated to
    */
-  void updateColWidths(int colNum, int newWidth);
+  void setColWidth(int colNum, int newWidth);
 }

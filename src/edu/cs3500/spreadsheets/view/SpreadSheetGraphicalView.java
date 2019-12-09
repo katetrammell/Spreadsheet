@@ -72,4 +72,19 @@ public interface SpreadSheetGraphicalView extends SpreadsheetView {
    */
   int getRowHeight(int row);
 
+  /**
+   * Sets the width a specific column. Columns will be a default size
+   * if not explicitly set.
+   * @param col desired column index number.
+   * @param width desired width for the column.
+   */
+  void setColWidth(int col, int width);
+
+  /**
+   * Get the width of a specific column.
+   * @param col desired column.
+   * @return width of desired column.
+   */
+  int getColWidth(int col);
+
 }
