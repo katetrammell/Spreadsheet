@@ -170,7 +170,6 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       view.updateCell(coord, cell);
 
     } catch (Exception ee) {
-      ee.printStackTrace();
       view.setTextBox("Error. Invalid input");
     }
 
