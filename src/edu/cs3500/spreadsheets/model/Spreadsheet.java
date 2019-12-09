@@ -82,4 +82,23 @@ public interface Spreadsheet {
    */
   void removeCell(Coord c);
 
+  /**
+   * Set the height of a row of a cell in the spreadsheet.
+   * Allows for saving of row heights. If a row isn't set specifically,
+   * the row will be set to a default size.
+   * @param row number to bet set.
+   * @param height of the row.
+   */
+  void setRowHeight(int row, int height);
+
+  /**
+   * Gets the height of a row.
+   * @param row desired row.
+   * @return height of the desired row. If the row is not
+   * in the hashmap, but is in the spreadsheet it will return 0.
+   * If the row is not in the hashmap, but also not in the spreadsheet,
+   * it will return -1.
+   */
+  int getRowHeight(int row);
+
 }

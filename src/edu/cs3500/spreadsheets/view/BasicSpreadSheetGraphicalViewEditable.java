@@ -32,6 +32,8 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
   private JButton addColumnButton;
   private JButton saveButton;
   private JTextField saveText;
+  private JButton increaseRowButton;
+  private JButton decreaseRowButton;
 
   public BasicSpreadSheetGraphicalViewEditable() {
     frame = new JFrame();
@@ -68,9 +70,17 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
     frame.add(saveButton);
     saveText = new JTextField(50);
     frame.add(saveText);
+    increaseRowButton = new JButton("+ Selected Row Height");
+    increaseRowButton.setActionCommand("Increase Row Height");
+    frame.add(increaseRowButton);
+    decreaseRowButton = new JButton("- Selected Row Height");
+    decreaseRowButton.setActionCommand("Decrease Row Height");
+    frame.add(decreaseRowButton);
+
 
     tableModel = new CellTableModel(model);
     table = new JTable(tableModel);
+    table.getTableHeader().setResizingAllowed(true);
     for (int i = 0; i < model.getWidth() + 1; i++) {
       table.setDefaultRenderer(tableModel.getColumnClass(i),
           new CustomCellRenderer(this));
@@ -136,6 +146,9 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
     table.addMouseListener((MouseListener) listener);
     table.addKeyListener((KeyListener) listener);
     saveButton.addActionListener(listener);
+    increaseRowButton.addActionListener(listener);
+    decreaseRowButton.addActionListener(listener);
+
   }
 
   @Override
@@ -156,6 +169,16 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
   @Override
   public void setSaveBox(String s) {
     saveText.setText(s);
+  }
+
+  @Override
+  public void setRowHeight(int row, int height) {
+    table.setRowHeight(row, height);
+  }
+
+  @Override
+  public int getRowHeight(int row) {
+    return table.getRowHeight(row);
   }
 
 }

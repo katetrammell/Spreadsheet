@@ -58,4 +58,18 @@ public interface SpreadSheetGraphicalView extends SpreadsheetView {
    */
   void setSaveBox(String s);
 
+  /**
+   * Changes the height of a row of cell in the spreadsheet.
+   * @param row the number of the desired row to be edited.
+   * @param height the new height to be set.
+   */
+  void setRowHeight(int row, int height);
+
+  /**
+   * Get the height of a desired row.
+   * @param row row to get the height of.
+   * @return height of the desired row.
+   */
+  int getRowHeight(int row);
+
 }

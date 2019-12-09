@@ -29,6 +29,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   private Coord lastSelectedCell;
   // needed to track when cursor goes off screen scrolling left
   private static int tempX = 1;
+  private static int DEFAULT_ROW_SIZE = 30;
 
   /**
    * A constructor for the class.
@@ -77,8 +78,21 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
               + "or any characters invalid for file names");
         }
         break;
+      case "Increase Row Height":
+        view.setRowHeight(lastSelectedCell.getY() - 1,
+            view.getRowHeight(lastSelectedCell.getY() - 1) + 5);
+        spread.setRowHeight(lastSelectedCell.getY() - 1,
+            view.getRowHeight(lastSelectedCell.getY() - 1) + 5);
+        break;
+      case "Decrease Row Height" :
+        view.setRowHeight(lastSelectedCell.getY() - 1,
+            view.getRowHeight(lastSelectedCell.getY() - 1) - 5);
+        spread.setRowHeight(lastSelectedCell.getY() - 1,
+            view.getRowHeight(lastSelectedCell.getY() - 1) - 5);
+        break;
       default:
     }
+    setAllRowHeights();
   }
 
   @Override
@@ -105,7 +119,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    // ignore /suppress this method
+    // supress
   }
 
   @Override
@@ -210,5 +224,15 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
   @Override
   public void keyReleased(KeyEvent e) {
     // ignore /suppress this method
+  }
+
+  /**
+   * Sets all row heights to a desired level using data from
+   * the model.
+   */
+  private void setAllRowHeights() {
+    for (int i = 0; i < spread.getHeight(); i++) {
+      view.setRowHeight(i, spread.getRowHeight(i));
+    }
   }
 }

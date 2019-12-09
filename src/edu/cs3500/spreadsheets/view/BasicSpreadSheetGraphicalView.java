@@ -92,6 +92,16 @@ public class BasicSpreadSheetGraphicalView implements SpreadSheetGraphicalView {
     //Suppress this method
   }
 
+  @Override
+  public void setRowHeight(int row, int height) {
+    // Suppress
+  }
+
+  @Override
+  public int getRowHeight(int row) {
+    return 0;
+  }
+
 
   /**
    * A custom TableModel class to implement the graphical view.
