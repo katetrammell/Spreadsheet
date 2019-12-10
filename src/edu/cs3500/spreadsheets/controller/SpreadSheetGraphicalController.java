@@ -17,7 +17,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 
 /**
  * Controller for graphical spreadsheet.
@@ -169,6 +168,7 @@ public class SpreadSheetGraphicalController implements SpreadsheetController,
       view.updateCell(coord, cell);
 
     } catch (Exception ee) {
+      ee.printStackTrace();
       view.setTextBox("Error. Invalid input");
     }
 

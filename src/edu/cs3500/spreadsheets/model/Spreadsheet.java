@@ -1,7 +1,6 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Model for a spreadsheet that can sum, multiply, evaluate greater than, and X.

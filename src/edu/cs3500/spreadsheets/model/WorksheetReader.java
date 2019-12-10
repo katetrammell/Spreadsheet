@@ -138,7 +138,7 @@ public final class WorksheetReader {
         int r = scan.nextInt();
         int height = scan.nextInt();
         builder.setRowHeight(r, height);
-      } else if(cell.equals("COL")) {
+      } else if (cell.equals("COL")) {
         int c = scan.nextInt();
         int width = scan.nextInt();
         builder.setColWidth(c, width);

@@ -148,28 +148,24 @@ public class CellMaker implements SexpVisitor<Cell> {
             }
           } catch (Exception e) {
             try { // trying form A:C)
-              int col1 = Coord.colNameToIndex(currS.toString().substring(0,1));
-              int col2 = Coord.colNameToIndex(currS.toString().substring(2,3));
-              for (int r = 1; r <= this.spread.getHeight(); r++) {
-                formula.addCoord(new Coord(col1 , r));
-                formula.addCoord(new Coord(col2, r));
+              String[] splitUpByColon = currS.toString().split(":");
+              int col1 = Coord.colNameToIndex(splitUpByColon[0]);
+              int col2 = Coord.colNameToIndex(splitUpByColon[1]);
+              for (int currCol = col1; currCol <= col2; currCol++) {
+                for (int r = 1; r <= this.spread.getHeight(); r++) {
+                  formula.addCoord(new Coord(currCol, r));
+                }
               }
             } catch (Exception exp) {
-              break;
+              throw new IllegalArgumentException("Poorly constructed Sexp");
             }
           }
-        }
-        try { //trying form A3
-          Coord c = stringToCoord(l.get(i).toString());
-          formula.addCoord(c);
-        } catch (IllegalArgumentException e) {
-          try { // trying form A
-            int col = Coord.colNameToIndex(currS.toString());
-            for (int r = 1; r <= this.spread.getHeight(); r++) {
-              formula.addCoord(new Coord(col, r));
-            }
+        } else {
+          try { //trying form A3
+            Coord c = stringToCoord(l.get(i).toString());
+            formula.addCoord(c);
           } catch (Exception e4) {
-            break;
+            throw new IllegalArgumentException("Poorly formated Sexp");
           }
         }
       } else if (l.get(i).accept(new IsList())) {

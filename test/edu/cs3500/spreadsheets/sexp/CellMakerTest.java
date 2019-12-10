@@ -148,9 +148,9 @@ public class CellMakerTest {
   }
 
   /**
-   * Tests a single column reference
+   * Tests a single column reference exception.
    */
-  @Test
+  @Test (expected = IllegalArgumentException.class)
   public void testColRefSingle() {
     ArrayList<Sexp> newList = new ArrayList<Sexp>();
     newList.add(new SSymbol("SUM"));
@@ -164,7 +164,7 @@ public class CellMakerTest {
 
 
   /**
-   * Tests a multiple column reference
+   * Tests a multiple column reference.
    */
   @Test
   public void testColRefMultiple() {
@@ -180,20 +180,18 @@ public class CellMakerTest {
 
 
   /**
-   * Tests a empty column reference
+   * Tests a single column reference.
    */
   @Test
   public void testColRefEmpty() {
     ArrayList<Sexp> newList = new ArrayList<Sexp>();
     newList.add(new SSymbol("SUM"));
-    newList.add(new SSymbol("B"));
+    newList.add(new SSymbol("B:B"));
 
     SList sList1 = new SList(newList);
 
     Cell c1 = sList1.accept(new CellMaker(spread));
     Assert.assertEquals((Double)c1.getFormula().evaluate(), 0.0, .00001);
   }
-
-
 
 }
