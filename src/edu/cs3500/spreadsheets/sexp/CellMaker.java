@@ -147,9 +147,10 @@ public class CellMaker implements SexpVisitor<Cell> {
               }
             }
           } catch (Exception e) {
-            try { // trying form A:C)
-              int col1 = Coord.colNameToIndex(currS.toString().substring(0,1));
-              int col2 = Coord.colNameToIndex(currS.toString().substring(2,3));
+            try { // trying form A:C
+              String[] splitByColon = currS.toString().split(":");
+              int col1 = Coord.colNameToIndex(splitByColon[0]);
+              int col2 = Coord.colNameToIndex(splitByColon[1]);
               for (int r = 1; r <= this.spread.getHeight(); r++) {
                 formula.addCoord(new Coord(col1 , r));
                 formula.addCoord(new Coord(col2, r));
