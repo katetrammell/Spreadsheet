@@ -21,6 +21,8 @@ public class CellMakerTest {
   @Before
   public void setUp() {
     spread = new BasicSpreadsheet();
+    spread.setCell(new BasicDoubleCell(1.1), 1, 1);
+    spread.setCell(new BasicDoubleCell(4.0), 3, 3);
   }
 
   /**
@@ -144,4 +146,54 @@ public class CellMakerTest {
     SSymbol sym = new SSymbol("?");
     Cell c1 = sym.accept(new CellMaker(spread));
   }
+
+  /**
+   * Tests a single column reference
+   */
+  @Test
+  public void testColRefSingle() {
+    ArrayList<Sexp> newList = new ArrayList<Sexp>();
+    newList.add(new SSymbol("SUM"));
+    newList.add(new SSymbol("A"));
+
+    SList sList1 = new SList(newList);
+
+    Cell c1 = sList1.accept(new CellMaker(spread));
+    Assert.assertEquals((Double)c1.getFormula().evaluate(), 1.1, .00001);
+  }
+
+
+  /**
+   * Tests a multiple column reference
+   */
+  @Test
+  public void testColRefMultiple() {
+    ArrayList<Sexp> newList = new ArrayList<Sexp>();
+    newList.add(new SSymbol("SUM"));
+    newList.add(new SSymbol("A:C"));
+
+    SList sList1 = new SList(newList);
+
+    Cell c1 = sList1.accept(new CellMaker(spread));
+    Assert.assertEquals((Double)c1.getFormula().evaluate(), 5.1, .00001);
+  }
+
+
+  /**
+   * Tests a empty column reference
+   */
+  @Test
+  public void testColRefEmpty() {
+    ArrayList<Sexp> newList = new ArrayList<Sexp>();
+    newList.add(new SSymbol("SUM"));
+    newList.add(new SSymbol("B"));
+
+    SList sList1 = new SList(newList);
+
+    Cell c1 = sList1.accept(new CellMaker(spread));
+    Assert.assertEquals((Double)c1.getFormula().evaluate(), 0.0, .00001);
+  }
+
+
+
 }
