@@ -21,6 +21,7 @@ public class AbstractCellTest {
   BasicBooleanCell b1;
   LessThanFormula lform;
   BasicBooleanCell b2;
+  BasicSpreadsheet spread2;
 
   @Before
   public void setUp() {
@@ -44,6 +45,7 @@ public class AbstractCellTest {
     b1 = new BasicBooleanCell(true);
     lform = new LessThanFormula(13.0, 19.23, spread);
     b2 = new BasicBooleanCell(lform);
+    spread2 = new BasicSpreadsheet(10, 10);
   }
 
   /**
@@ -94,6 +96,31 @@ public class AbstractCellTest {
     Assert.assertEquals(s1.toString(), "hi");
     Assert.assertEquals(b1.toString(), "true");
     Assert.assertEquals(b2.toString(), "(Less than : 13.0 19.23 )");
+  }
+
+  @Test
+  public void testGetRows() {
+    // default
+    Assert.assertEquals(15, spread2.getRowHeight(5));
+    spread2.setRowHeight(5, 100);
+    Assert.assertEquals(100, spread2.getRowHeight(5));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetRowsF() {
+    spread2.getRowHeight(20);
+  }
+
+  @Test
+  public void testGetHeight() {
+    Assert.assertEquals(75, spread2.getColWidth(5));
+    spread2.setRowHeight(5, 100);
+    Assert.assertEquals(100, spread2.getColWidth(5));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetHeightF() {
+    spread2.getRowHeight(15);
   }
 
 
