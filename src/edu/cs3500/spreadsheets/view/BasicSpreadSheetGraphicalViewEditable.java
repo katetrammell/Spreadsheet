@@ -80,12 +80,17 @@ public class BasicSpreadSheetGraphicalViewEditable extends BasicSpreadSheetGraph
 
     tableModel = new CellTableModel(model);
     table = new JTable(tableModel);
+
     table.getTableHeader().setResizingAllowed(true);
     for (int i = 0; i < model.getWidth() + 1; i++) {
       table.setDefaultRenderer(tableModel.getColumnClass(i),
           new CustomCellRenderer(this));
     }
     table.setBounds(30, 40, 200, 300);
+    for (int i = 0; i < model.getWidth() + 1; i ++) {
+      setColWidth(i, getColWidth(i));
+      table.getColumnModel().getColumn(i).setPreferredWidth(model.getColWidth(i));
+    }
     JScrollPane scroll = new JScrollPane(table,
         ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);

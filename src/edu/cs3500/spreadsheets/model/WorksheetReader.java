@@ -38,6 +38,8 @@ public final class WorksheetReader {
     T createWorksheet();
 
     void setRowHeight(int next, int next1);
+
+    void setColWidth(int c, int width);
   }
 
   /**
@@ -90,6 +92,12 @@ public final class WorksheetReader {
     public void setRowHeight(int row, int height) {
       this.basicSpread.setRowHeight(row,height);
     }
+
+    @Override
+    public void setColWidth(int c, int width) {
+      this.basicSpread.setColWidth(c, width);
+
+    }
   }
 
   /**
@@ -130,6 +138,10 @@ public final class WorksheetReader {
         int r = scan.nextInt();
         int height = scan.nextInt();
         builder.setRowHeight(r, height);
+      } else if(cell.equals("COL")) {
+        int c = scan.nextInt();
+        int width = scan.nextInt();
+        builder.setColWidth(c, width);
       } else {
         if (m.matches()) {
           col = Coord.colNameToIndex(m.group(1));
